@@ -5,7 +5,8 @@
 class MyMenuItem : public cocos2d::Node
 {
 public:
-	MyMenuItem(std::string text, std::string font, float fontSize);
+	static MyMenuItem* createMenuItem(std::string, std::string, float);
+	CREATE_FUNC(MyMenuItem);
 	void update(float delta);
 	void select();
 	void deselect();

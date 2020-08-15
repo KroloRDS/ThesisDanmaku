@@ -39,7 +39,7 @@ void MyMenu::addMenuOption(std::string text, std::string font, float fontSize, f
 {
 	auto pos = origin;
 	pos.y -= (menuOptions.size()) * margin;
-	menuOptions.push_back(new MyMenuItem(text, font, fontSize));
+	menuOptions.push_back(MyMenuItem::createMenuItem(text, font, fontSize));
 	menuOptions.back()->setPosition(pos);
 	this->addChild(menuOptions.back());
 }
@@ -86,6 +86,11 @@ void MyMenu::selectBack()
 }
 
 void MyMenu::update(float delta)
+{
+	updateMenu(delta);
+}
+
+void MyMenu::updateMenu(float delta)
 {
 	for (MyMenuItem* option : menuOptions)
 	{

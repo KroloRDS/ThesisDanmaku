@@ -16,6 +16,7 @@ protected:
 	int prevSelected;
 	cocos2d::Vec2 origin;
 
+	void updateMenu(float delta);
 	bool initMenu(cocos2d::Vec2);
 	void addMenuOption(std::string, std::string, float, float);
 	void addMenuOptions(std::vector<std::string> options, std::string font, float fontSize, float margin);

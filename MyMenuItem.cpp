@@ -1,22 +1,24 @@
 #include "MyMenuItem.h"
 
-MyMenuItem::MyMenuItem(std::string text, std::string font, float fontSize)
+MyMenuItem* MyMenuItem::createMenuItem(std::string text, std::string font, float fontSize)
 {
-	selectColor = cocos2d::Color3B(255, 255, 255);
-	deselectColor = cocos2d::Color3B(153, 153, 153);
-	selectOutlineColor = cocos2d::Color3B(153, 202, 224);
-	deselectOutlineColor = cocos2d::Color3B(153, 202, 224);
+	MyMenuItem* ret = MyMenuItem::create();
+	ret->selectColor = cocos2d::Color3B(255, 255, 255);
+	ret->deselectColor = cocos2d::Color3B(153, 153, 153);
+	ret->selectOutlineColor = cocos2d::Color3B(153, 202, 224);
+	ret->deselectOutlineColor = cocos2d::Color3B(153, 202, 224);
 
-	selected = false;
-	doneAnimating = true;
-	animationProgress = 0.0;
-	animationTime = 0.2;
-	outlineSize = fontSize / 15;
+	ret->selected = false;
+	ret->doneAnimating = true;
+	ret->animationProgress = 0.0;
+	ret->animationTime = 0.2;
+	ret->outlineSize = fontSize / 15;
 
-	label = cocos2d::Label::createWithTTF(text, font, fontSize);
-	label->setColor(deselectColor);
-	label->enableOutline(to4B(deselectOutlineColor), outlineSize);
-	this->addChild(label);
+	ret->label = cocos2d::Label::createWithTTF(text, font, fontSize);
+	ret->label->setColor(ret->deselectColor);
+	ret->label->enableOutline(ret->to4B(ret->deselectOutlineColor), ret->outlineSize);
+	ret->addChild(ret->label);
+	return ret;
 }
 
 void MyMenuItem::select()
