@@ -1,0 +1,30 @@
+#include "KeyboardManager.h"
+
+bool KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode keyCode)
+{
+	if (keyPressedTime.find(keyCode) != keyPressedTime.end())
+	{
+		return true;
+	}
+	return false;
+}
+
+void KeyboardManager::pressKey(cocos2d::EventKeyboard::KeyCode keyCode)
+{
+	keyPressedTime[keyCode] = std::chrono::high_resolution_clock::now();
+}
+
+void KeyboardManager::releaseKey(cocos2d::EventKeyboard::KeyCode keyCode)
+{
+	keyPressedTime.erase(keyCode);
+}
+
+float KeyboardManager::getPressTime(cocos2d::EventKeyboard::KeyCode keyCode)
+{
+	if (keyPressedTime.find(keyCode) != keyPressedTime.end())
+	{
+		return std::chrono::duration_cast<std::chrono::seconds>
+			(std::chrono::high_resolution_clock::now() - keyPressedTime[keyCode]).count();
+	}
+	return 0.0;
+}

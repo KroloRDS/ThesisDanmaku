@@ -2,7 +2,7 @@
 #include "MainMenu.h"
 
 enum options { RESOLUTION = 0, MUSIC_VOLUME, EFFECT_VOLUME, CONTROLS, BACK };
-enum resolutions { r640x480 = 0, r960x720, r1280x960 };
+enum resolutions { R640x480 = 0, R960x720, R1280x960 };
 
 cocos2d::Scene* OptionsMenu::createScene()
 {
@@ -20,16 +20,28 @@ bool OptionsMenu::init()
 	}
 
 	float fontSize = 45.0;
+	float marginSize = 80.0;
+
+	//left menu column
 	std::string fontName = "fonts/arial.ttf";
 	std::vector<std::string> optionsStrings = { "Resolution", "Music Volume", "Effect Volume", "Controls", "Back" };
-	addMenuOptions(optionsStrings, fontName, fontSize, 80.0);
+	addMenuOptions(optionsStrings, fontName, fontSize, marginSize);
 	menuOptions.at(selectedItem)->select();
 
-	selectedResolution = 2;
+	//right menu column
+	musicVolume = 100;
+	soundVolume = 100;
+	selectedResolution = R1280x960;
 	resolutionOptionStrings = { "640x480", "960x720", "1280x960" };
-	resolutionOption = MyMenuItem::createMenuItem(resolutionOptionStrings.at(selectedResolution), fontName, fontSize);
-	resolutionOption->setPosition(700, 680);
-	this->addChild(resolutionOption);
+	std::vector<std::string> initialOptionValues = { resolutionOptionStrings.at(selectedResolution), std::to_string(musicVolume), std::to_string(soundVolume) };
+	
+	for (std::string initVal : initialOptionValues)
+	{
+		auto yOffset = origin.y - menuLeftColumn.size() * marginSize;
+		menuLeftColumn.pushBack(MyMenuItem::createMenuItem(initVal, fontName, fontSize));
+		menuLeftColumn.back()->setPosition(700, yOffset);
+		this->addChild(menuLeftColumn.back());
+	}
 
 	this->scheduleUpdate();
 	return true;
@@ -55,35 +67,18 @@ void OptionsMenu::select()
 void OptionsMenu::update(float delta)
 {
 	updateMenu(delta);
-	resolutionOption->update(delta);
-
-	switch (selectedItem)
+	for (MyMenuItem* option : menuLeftColumn)
 	{
-	case RESOLUTION:
-		resolutionOption->select();
-		break;
-	case MUSIC_VOLUME:
-		break;
-	case EFFECT_VOLUME:
-		break;
-	case CONTROLS:
-		break;
-	case BACK:
-		break;
+		option->update(delta);
 	}
 
-	switch (prevSelected)
+	if (prevSelected < menuLeftColumn.size())
 	{
-	case RESOLUTION:
-		resolutionOption->deselect();
-		break;
-	case MUSIC_VOLUME:
-		break;
-	case EFFECT_VOLUME:
-		break;
-	case CONTROLS:
-		break;
-	case BACK:
-		break;
+		menuLeftColumn.at(prevSelected)->deselect();
+	}
+
+	if (selectedItem < menuLeftColumn.size())
+	{
+		menuLeftColumn.at(selectedItem)->select();
 	}
 }

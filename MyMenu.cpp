@@ -11,10 +11,14 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 	selectedItem = 0;
 	prevSelected = 0;
 
+	keyboardManager = new KeyboardManager();
+
 	auto eventListener = cocos2d::EventListenerKeyboard::create();
 	eventListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 	{
-		switch (keyCode) {
+		keyboardManager->pressKey(keyCode);
+		switch (keyCode)
+		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
 			changeSelection(-1);
 			break;
@@ -32,15 +36,19 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 			break;
 		}
 	};
+	eventListener->onKeyReleased = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+	{
+		keyboardManager->releaseKey(keyCode);
+	};
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
+	return true;
 }
 
 void MyMenu::addMenuOption(std::string text, std::string font, float fontSize, float margin)
 {
-	auto pos = origin;
-	pos.y -= (menuOptions.size()) * margin;
-	menuOptions.push_back(MyMenuItem::createMenuItem(text, font, fontSize));
-	menuOptions.back()->setPosition(pos);
+	auto yOffest = origin.y - menuOptions.size() * margin;
+	menuOptions.pushBack(MyMenuItem::createMenuItem(text, font, fontSize));
+	menuOptions.back()->setPosition(origin.x, yOffest);
 	this->addChild(menuOptions.back());
 }
 
@@ -95,5 +103,15 @@ void MyMenu::updateMenu(float delta)
 	for (MyMenuItem* option : menuOptions)
 	{
 		option->update(delta);
+	}
+
+	if (keyboardManager->getPressTime(cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW) > 0.3)
+	{
+		changeSelection(-1);
+	}
+
+	if (keyboardManager->getPressTime(cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW) > 0.3)
+	{
+		changeSelection(1);
 	}
 }

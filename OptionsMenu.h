@@ -12,6 +12,9 @@ public:
 	CREATE_FUNC(OptionsMenu);
 private:
 	int selectedResolution;
+	int musicVolume;
+	int soundVolume;
+	
 	std::vector<std::string> resolutionOptionStrings;
-	MyMenuItem* resolutionOption;
+	cocos2d::Vector<MyMenuItem*> menuLeftColumn;
 };

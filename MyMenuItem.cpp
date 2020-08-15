@@ -3,6 +3,12 @@
 MyMenuItem* MyMenuItem::createMenuItem(std::string text, std::string font, float fontSize)
 {
 	MyMenuItem* ret = MyMenuItem::create();
+	if (!ret)
+	{
+		CC_SAFE_DELETE(ret);
+		return NULL;
+	}
+	ret->autorelease();
 	ret->selectColor = cocos2d::Color3B(255, 255, 255);
 	ret->deselectColor = cocos2d::Color3B(153, 153, 153);
 	ret->selectOutlineColor = cocos2d::Color3B(153, 202, 224);
