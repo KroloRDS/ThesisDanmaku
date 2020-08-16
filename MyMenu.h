@@ -19,8 +19,11 @@ protected:
 
 	KeyboardManager* keyboardManager = nullptr;
 	float nextMenuScroll;
-	const float menuScrollInterval = 0.15;
-	const float menuScrollCutoff = 0.5;
+	
+	const float SLOW_MENU_SCROLL_SPEED = 0.35;
+	const float DEFAULT_MENU_SCROLL_SPEED = 0.15;
+	const float FAST_MENU_SCROLL_SPEED = 0.05;
+	const float MENU_SCROLL_CUTOFF = 0.5;
 	const std::vector<cocos2d::EventKeyboard::KeyCode> arrowKeys =
 	{
 		cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW,
@@ -30,7 +33,7 @@ protected:
 	};
 
 	void updateMenu(float);
-	bool scrollMenu(float, cocos2d::EventKeyboard::KeyCode);
+	bool scrollMenu(float, float, cocos2d::EventKeyboard::KeyCode);
 	int meunuWarpAround(int, int, int);
 	bool initMenu(cocos2d::Vec2);
 	void addMenuOption(std::string, std::string, float, float);

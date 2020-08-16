@@ -10,7 +10,7 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 	origin = pos;
 	selectedItem = 0;
 	prevSelected = 0;
-	nextMenuScroll = menuScrollInterval;
+	nextMenuScroll = 0.0;
 
 	keyboardManager = new KeyboardManager();
 
@@ -109,21 +109,21 @@ void MyMenu::updateMenu(float delta)
 		option->update(delta);
 	}
 
-	if (scrollMenu(delta, cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW))
+	if (scrollMenu(delta, DEFAULT_MENU_SCROLL_SPEED, cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW))
 	{
 		changeSelection(meunuWarpAround(selectedItem, -1, menuOptions.size() - 1));
 		return;
 	}
 
-	if (scrollMenu(delta, cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW))
+	if (scrollMenu(delta, DEFAULT_MENU_SCROLL_SPEED, cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW))
 	{
 		changeSelection(meunuWarpAround(selectedItem, 1, menuOptions.size() - 1));
 	}
 }
 
-bool MyMenu::scrollMenu(float delta, cocos2d::EventKeyboard::KeyCode directionKey)
+bool MyMenu::scrollMenu(float delta, float scrollSpeed, cocos2d::EventKeyboard::KeyCode directionKey)
 {
-	if (keyboardManager->getPressTime(directionKey) < menuScrollCutoff)
+	if (keyboardManager->getPressTime(directionKey) < MENU_SCROLL_CUTOFF)
 	{
 		return false;
 	}
@@ -132,15 +132,15 @@ bool MyMenu::scrollMenu(float delta, cocos2d::EventKeyboard::KeyCode directionKe
 	{
 		if (key != directionKey && keyboardManager->isPressed(key))
 		{
-			nextMenuScroll = menuScrollCutoff + menuScrollInterval;
+			nextMenuScroll = MENU_SCROLL_CUTOFF;
 			return false;
 		}
 	}
 
 	nextMenuScroll -= delta;
-	if (nextMenuScroll < menuScrollInterval)
+	if (nextMenuScroll < 0.0)
 	{
-		nextMenuScroll += menuScrollInterval;
+		nextMenuScroll += scrollSpeed;
 		return true;
 	}
 	return false;

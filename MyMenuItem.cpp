@@ -69,9 +69,9 @@ void MyMenuItem::setAnimationTime(float time)
 	animationTime = time;
 }
 
-std::string MyMenuItem::getName()
+void MyMenuItem::setText(std::string string)
 {
-	return label->getString();
+	label->setString(string);
 }
 
 void MyMenuItem::update(float delta)

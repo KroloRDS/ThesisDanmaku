@@ -13,9 +13,14 @@ public:
 private:
 	int selectedResolution;
 	int musicVolume;
-	int soundVolume;
-	const int maxVolume = 100;
+	int effectVolume;
 	
 	std::vector<std::string> resolutionOptionStrings;
 	cocos2d::Vector<MyMenuItem*> menuLeftColumn;
+	std::string optionValueStrings[3];
+	int optionValues[3];
+	const int MAX_OPTION_VALUES[3] = { 2, 100, 100 };
+
+	void updateOptionValueStrings();
+	void scrollMenuHorizontally(float delta);
 };

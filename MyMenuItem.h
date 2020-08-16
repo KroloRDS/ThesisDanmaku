@@ -16,7 +16,7 @@ public:
 	void setSelectOutlineColor(cocos2d::Color3B);
 	void setDeselectOutlineColor(cocos2d::Color3B);
 	void setAnimationTime(float);
-	std::string getName();
+	void setText(std::string);
 private:
 	bool selected;
 	bool doneAnimating;
