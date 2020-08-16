@@ -51,12 +51,6 @@ void OptionsMenu::select()
 {
 	switch (selectedItem)
 	{
-	case RESOLUTION:
-		break;
-	case MUSIC_VOLUME:
-		break;
-	case EFFECT_VOLUME:
-		break;
 	case CONTROLS:
 		break;
 	case BACK:
@@ -80,5 +74,29 @@ void OptionsMenu::update(float delta)
 	if (selectedItem < menuLeftColumn.size())
 	{
 		menuLeftColumn.at(selectedItem)->select();
+	}
+
+	if (scrollMenu(delta, cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW))
+	{
+		switch (selectedItem)
+		{
+		case RESOLUTION:
+			selectedResolution--;
+			if (selectedResolution == -1)
+			{
+				selectedResolution = resolutionOptionStrings.size() - 1;
+			}
+			break;
+		case MUSIC_VOLUME:
+			break;
+		case EFFECT_VOLUME:
+			break;
+		}
+		return;
+	}
+
+	if (scrollMenu(delta, cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
+	{
+		changeSelection(1);
 	}
 }

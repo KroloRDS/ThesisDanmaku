@@ -14,6 +14,7 @@ private:
 	int selectedResolution;
 	int musicVolume;
 	int soundVolume;
+	const int maxVolume = 100;
 	
 	std::vector<std::string> resolutionOptionStrings;
 	cocos2d::Vector<MyMenuItem*> menuLeftColumn;

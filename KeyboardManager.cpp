@@ -23,8 +23,8 @@ float KeyboardManager::getPressTime(cocos2d::EventKeyboard::KeyCode keyCode)
 {
 	if (keyPressedTime.find(keyCode) != keyPressedTime.end())
 	{
-		return std::chrono::duration_cast<std::chrono::seconds>
-			(std::chrono::high_resolution_clock::now() - keyPressedTime[keyCode]).count();
+		return std::chrono::duration_cast<std::chrono::milliseconds>
+			(std::chrono::high_resolution_clock::now() - keyPressedTime[keyCode]).count() / 1000.0;
 	}
 	return 0.0;
 }

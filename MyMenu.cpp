@@ -10,6 +10,7 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 	origin = pos;
 	selectedItem = 0;
 	prevSelected = 0;
+	nextMenuScroll = menuScrollInterval;
 
 	keyboardManager = new KeyboardManager();
 
@@ -20,10 +21,10 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 		switch (keyCode)
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
-			changeSelection(-1);
+			changeSelection(meunuWarpAround(selectedItem, -1, menuOptions.size() - 1));
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			changeSelection(1);
+			changeSelection(meunuWarpAround(selectedItem, 1, menuOptions.size() - 1));
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_ENTER:
 		case cocos2d::EventKeyboard::KeyCode::KEY_Z:
@@ -60,21 +61,24 @@ void MyMenu::addMenuOptions(std::vector<std::string> options, std::string font, 
 	}
 }
 
-void MyMenu::changeSelection(int increase)
+int MyMenu::meunuWarpAround(int current, int increase, int max)
+{
+	current += increase;
+	if (current > max)
+	{
+		return 0;
+	}
+	if (current == -1)
+	{
+		return max;
+	}
+	return current;
+}
+
+void MyMenu::changeSelection(int newSelected)
 {
 	prevSelected = selectedItem;
-	selectedItem += increase;
-	
-	if (selectedItem < 0)
-	{
-		selectedItem = menuOptions.size() - 1;
-	}
-
-	if (selectedItem >= menuOptions.size())
-	{
-		selectedItem = 0;
-	}
-
+	selectedItem = newSelected;
 	menuOptions.at(prevSelected)->deselect();
 	menuOptions.at(selectedItem)->select();
 }
@@ -105,13 +109,39 @@ void MyMenu::updateMenu(float delta)
 		option->update(delta);
 	}
 
-	if (keyboardManager->getPressTime(cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW) > 0.3)
+	if (scrollMenu(delta, cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW))
 	{
-		changeSelection(-1);
+		changeSelection(meunuWarpAround(selectedItem, -1, menuOptions.size() - 1));
+		return;
 	}
 
-	if (keyboardManager->getPressTime(cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW) > 0.3)
+	if (scrollMenu(delta, cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW))
 	{
-		changeSelection(1);
+		changeSelection(meunuWarpAround(selectedItem, 1, menuOptions.size() - 1));
 	}
+}
+
+bool MyMenu::scrollMenu(float delta, cocos2d::EventKeyboard::KeyCode directionKey)
+{
+	if (keyboardManager->getPressTime(directionKey) < menuScrollCutoff)
+	{
+		return false;
+	}
+
+	for (cocos2d::EventKeyboard::KeyCode key : arrowKeys)
+	{
+		if (key != directionKey && keyboardManager->isPressed(key))
+		{
+			nextMenuScroll = menuScrollCutoff + menuScrollInterval;
+			return false;
+		}
+	}
+
+	nextMenuScroll -= delta;
+	if (nextMenuScroll < menuScrollInterval)
+	{
+		nextMenuScroll += menuScrollInterval;
+		return true;
+	}
+	return false;
 }
