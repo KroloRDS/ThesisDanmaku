@@ -12,12 +12,10 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 	prevSelected = 0;
 	nextMenuScroll = 0.0;
 
-	keyboardManager = new KeyboardManager();
-
 	auto eventListener = cocos2d::EventListenerKeyboard::create();
 	eventListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 	{
-		keyboardManager->pressKey(keyCode);
+		KeyboardManager::pressKey(keyCode);
 		switch (keyCode)
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
@@ -39,7 +37,7 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 	};
 	eventListener->onKeyReleased = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 	{
-		keyboardManager->releaseKey(keyCode);
+		KeyboardManager::releaseKey(keyCode);
 	};
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 
@@ -126,14 +124,14 @@ void MyMenu::updateMenu(float delta)
 
 bool MyMenu::scrollMenu(float delta, float scrollSpeed, cocos2d::EventKeyboard::KeyCode directionKey)
 {
-	if (keyboardManager->getPressTime(directionKey) < MENU_SCROLL_CUTOFF)
+	if (KeyboardManager::getPressTime(directionKey) < MENU_SCROLL_CUTOFF)
 	{
 		return false;
 	}
 
 	for (cocos2d::EventKeyboard::KeyCode key : arrowKeys)
 	{
-		if (key != directionKey && keyboardManager->isPressed(key))
+		if (key != directionKey && KeyboardManager::isPressed(key))
 		{
 			nextMenuScroll = MENU_SCROLL_CUTOFF;
 			return false;

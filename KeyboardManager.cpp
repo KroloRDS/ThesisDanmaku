@@ -1,5 +1,10 @@
 #include "KeyboardManager.h"
 
+std::unordered_map<
+	cocos2d::EventKeyboard::KeyCode,
+	std::chrono::high_resolution_clock::time_point
+> KeyboardManager::keyPressedTime = {};
+
 bool KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode keyCode)
 {
 	if (keyPressedTime.find(keyCode) != keyPressedTime.end())

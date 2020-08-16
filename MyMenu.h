@@ -17,7 +17,6 @@ protected:
 	int prevSelected;
 	cocos2d::Vec2 origin;
 
-	KeyboardManager* keyboardManager = nullptr;
 	float nextMenuScroll;
 	
 	const float SLOW_MENU_SCROLL_SPEED = 0.35;
