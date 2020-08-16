@@ -1,8 +1,8 @@
 #include "MainMenu.h"
 #include "SpellPracticeMenu.h"
-#include "OptionsMenu.h"
+#include "SettingsMenu.h"
 
-enum options { START = 0, SPELL_PRACTICE, OPTIONS, EXIT };
+enum options { START = 0, SPELL_PRACTICE, SETTINGS, EXIT };
 
 cocos2d::Scene* MainMenu::createScene()
 {
@@ -14,12 +14,12 @@ cocos2d::Scene* MainMenu::createScene()
 
 bool MainMenu::init()
 {
-	if (!initMenu(cocos2d::Vec2(640, 680)))
+	if (!initMenu(cocos2d::Vec2(640, 720)))
 	{
 		return false;
 	}
 
-	std::vector<std::string> optionsStrings = { "Start", "Spell Practice", "Options", "Exit" };
+	std::vector<std::string> optionsStrings = { "Start", "Spell Practice", "Settings", "Exit" };
 	addMenuOptions(optionsStrings, "fonts/arial.ttf", 100.0, 160.0);
 	menuOptions.at(selectedItem)->select();
 
@@ -36,8 +36,8 @@ void MainMenu::select()
 	case SPELL_PRACTICE:
 		cocos2d::Director::getInstance()->replaceScene(SpellPracticeMenu::createScene());
 		break;
-	case OPTIONS:
-		cocos2d::Director::getInstance()->replaceScene(OptionsMenu::createScene());
+	case SETTINGS:
+		cocos2d::Director::getInstance()->replaceScene(SettingsMenu::createScene());
 		break;
 	case EXIT:
 		cocos2d::Director::getInstance()->end();

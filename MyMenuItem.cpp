@@ -8,7 +8,10 @@ MyMenuItem* MyMenuItem::createMenuItem(std::string text, std::string font, float
 		CC_SAFE_DELETE(ret);
 		return NULL;
 	}
+	
 	ret->autorelease();
+	ret->setScale(Settings::getScale());
+
 	ret->selectColor = cocos2d::Color3B(255, 255, 255);
 	ret->deselectColor = cocos2d::Color3B(153, 153, 153);
 	ret->selectOutlineColor = cocos2d::Color3B(153, 202, 224);
@@ -72,6 +75,17 @@ void MyMenuItem::setAnimationTime(float time)
 void MyMenuItem::setText(std::string string)
 {
 	label->setString(string);
+}
+
+void MyMenuItem::setPos(cocos2d::Vec2 pos)
+{
+	absolutePos = pos;
+	this->setPosition(pos * Settings::getScale());
+}
+
+cocos2d::Vec2 MyMenuItem::getPos()
+{
+	return absolutePos;
 }
 
 void MyMenuItem::update(float delta)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "Settings.h"
 
 class MyMenuItem : public cocos2d::Node
 {
@@ -17,12 +18,15 @@ public:
 	void setDeselectOutlineColor(cocos2d::Color3B);
 	void setAnimationTime(float);
 	void setText(std::string);
+	void setPos(cocos2d::Vec2);
+	cocos2d::Vec2 getPos();
 private:
 	bool selected;
 	bool doneAnimating;
 	float animationProgress;
 	float animationTime;
 	int outlineSize;
+	cocos2d::Vec2 absolutePos;
 	cocos2d::Label* label;
 	cocos2d::Color3B selectColor;
 	cocos2d::Color3B deselectColor;

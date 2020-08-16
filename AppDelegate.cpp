@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "MainMenu.h"
+#include "Settings.h"
 
 AppDelegate::AppDelegate()
 {
@@ -16,8 +17,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 	if (!glview)
 	{
 		glview = cocos2d::GLViewImpl::create("ThesisDanmaku alpha 1.0");
-		glview->setFrameSize(1280, 960);
-		glview->setDesignResolutionSize(1280, 960, ResolutionPolicy::EXACT_FIT);
+		glview->setFrameSize(Settings::getWindowSizeX(), Settings::getWindowSizeY());
+		glview->setDesignResolutionSize(Settings::getWindowSizeX(), Settings::getWindowSizeY(), ResolutionPolicy::EXACT_FIT);
 		director->setOpenGLView(glview);
 	}
 

@@ -1,4 +1,5 @@
 #include "MyMenu.h"
+#include "Settings.h"
 
 bool MyMenu::initMenu(cocos2d::Vec2 pos)
 {
@@ -7,7 +8,6 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 		return false;
 	}
 
-	origin = pos;
 	selectedItem = 0;
 	prevSelected = 0;
 	nextMenuScroll = 0.0;
@@ -42,15 +42,18 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 		keyboardManager->releaseKey(keyCode);
 	};
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
+
+	origin = pos;
+
 	return true;
 }
 
 void MyMenu::addMenuOption(std::string text, std::string font, float fontSize, float margin)
 {
-	auto yOffest = origin.y - menuOptions.size() * margin;
 	menuOptions.pushBack(MyMenuItem::createMenuItem(text, font, fontSize));
-	menuOptions.back()->setPosition(origin.x, yOffest);
 	this->addChild(menuOptions.back());
+	int yOffset = origin.y - (menuOptions.size() - 1) * margin;
+	menuOptions.back()->setPos(cocos2d::Vec2(origin.x, yOffset));
 }
 
 void MyMenu::addMenuOptions(std::vector<std::string> options, std::string font, float fontSize, float margin)

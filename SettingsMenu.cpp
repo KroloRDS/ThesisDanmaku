@@ -1,18 +1,18 @@
-#include "OptionsMenu.h"
+#include "Settings.h"
+#include "SettingsMenu.h"
 #include "MainMenu.h"
 
 enum options { RESOLUTION = 0, MUSIC_VOLUME, EFFECT_VOLUME, CONTROLS, BACK };
-enum resolutions { R640x480 = 0, R960x720, R1280x960 };
 
-cocos2d::Scene* OptionsMenu::createScene()
+cocos2d::Scene* SettingsMenu::createScene()
 {
 	auto scene = cocos2d::Scene::create();
-	auto layer = OptionsMenu::create();
+	auto layer = SettingsMenu::create();
 	scene->addChild(layer);
 	return scene;
 }
 
-bool OptionsMenu::init()
+bool SettingsMenu::init()
 {
 	if (!initMenu(cocos2d::Vec2(340, 680)))
 	{
@@ -22,26 +22,24 @@ bool OptionsMenu::init()
 	float fontSize = 45.0;
 	float marginSize = 80.0;
 
-	//left menu column
 	std::string fontName = "fonts/arial.ttf";
 	std::vector<std::string> optionsStrings = { "Resolution", "Music Volume", "Effect Volume", "Controls", "Back" };
 	addMenuOptions(optionsStrings, fontName, fontSize, marginSize);
 	menuOptions.at(selectedItem)->select();
 
-	//right menu column
-	optionValues[RESOLUTION] = R1280x960;
-	optionValues[MUSIC_VOLUME] = MAX_OPTION_VALUES[MUSIC_VOLUME];
-	optionValues[EFFECT_VOLUME] = MAX_OPTION_VALUES[EFFECT_VOLUME];
+	optionValues[RESOLUTION] = Settings::getResolution();
+	optionValues[MUSIC_VOLUME] = Settings::getMusicVolume();
+	optionValues[EFFECT_VOLUME] = Settings::getEffectVolume();
 	resolutionOptionStrings = { "640x480", "960x720", "1280x960" };
-	updateOptionValueStrings();
 	
 	for (int i = 0; i < 3; i++)
 	{
-		auto yOffset = origin.y - menuLeftColumn.size() * marginSize;
-		menuLeftColumn.pushBack(MyMenuItem::createMenuItem(optionValueStrings[i], fontName, fontSize));
-		menuLeftColumn.back()->setPosition(700, yOffset);
+		int yOffset = origin.y - menuLeftColumn.size() * marginSize;
+		menuLeftColumn.pushBack(MyMenuItem::createMenuItem("", fontName, fontSize));
+		menuLeftColumn.back()->setPos(cocos2d::Vec2(700, yOffset));
 		this->addChild(menuLeftColumn.back());
 	}
+	updateOptionValueStrings();
 
 	auto eventListener = cocos2d::EventListenerKeyboard::create();
 	eventListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
@@ -50,11 +48,11 @@ bool OptionsMenu::init()
 		{
 		case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
 			optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], -1, MAX_OPTION_VALUES[selectedItem]);
-			updateOptionValueStrings();
+			updateSettings();
 			break;
 		case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
 			optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], 1, MAX_OPTION_VALUES[selectedItem]);
-			updateOptionValueStrings();
+			updateSettings();
 			break;
 		}
 	};
@@ -64,18 +62,47 @@ bool OptionsMenu::init()
 	return true;
 }
 
-void OptionsMenu::updateOptionValueStrings()
+void SettingsMenu::updateOptionValueStrings()
 {
-	optionValueStrings[RESOLUTION] = resolutionOptionStrings.at(optionValues[RESOLUTION]);
-	optionValueStrings[MUSIC_VOLUME] = std::to_string(optionValues[MUSIC_VOLUME]);
-	optionValueStrings[EFFECT_VOLUME] = std::to_string(optionValues[EFFECT_VOLUME]);
-	for (int i = 0; i < menuLeftColumn.size(); i++)
+	menuLeftColumn.at(RESOLUTION)->setText(resolutionOptionStrings.at(optionValues[RESOLUTION]));
+	menuLeftColumn.at(MUSIC_VOLUME)->setText(std::to_string(optionValues[MUSIC_VOLUME]));
+	menuLeftColumn.at(EFFECT_VOLUME)->setText(std::to_string(optionValues[EFFECT_VOLUME]));
+}
+
+void SettingsMenu::updateSettings()
+{
+	switch (selectedItem)
 	{
-		menuLeftColumn.at(i)->setText(optionValueStrings[i]);
+	case RESOLUTION:
+		setResolution();
+		break;
+	case MUSIC_VOLUME:
+		Settings::setMusicVolume(optionValues[MUSIC_VOLUME]);
+		break;
+	case EFFECT_VOLUME:
+		Settings::setEffectVolume(optionValues[EFFECT_VOLUME]);
+		break;
+	}
+
+	updateOptionValueStrings();
+}
+
+void SettingsMenu::setResolution()
+{
+	Settings::setResolution(optionValues[RESOLUTION]);
+	for (MyMenuItem* menuItem : menuOptions)
+	{
+		menuItem->setScale(Settings::getScale());
+		menuItem->setPos(menuItem->getPos());
+	}
+	for (MyMenuItem* menuItem : menuLeftColumn)
+	{
+		menuItem->setScale(Settings::getScale());
+		menuItem->setPos(menuItem->getPos());
 	}
 }
 
-void OptionsMenu::select()
+void SettingsMenu::select()
 {
 	switch (selectedItem)
 	{
@@ -86,7 +113,7 @@ void OptionsMenu::select()
 	}
 }
 
-void OptionsMenu::update(float delta)
+void SettingsMenu::update(float delta)
 {
 	updateMenu(delta);
 	for (MyMenuItem* option : menuLeftColumn)
@@ -107,7 +134,7 @@ void OptionsMenu::update(float delta)
 	scrollMenuHorizontally(delta);
 }
 
-void OptionsMenu::scrollMenuHorizontally(float delta)
+void SettingsMenu::scrollMenuHorizontally(float delta)
 {
 	float scrollSpeed = FAST_MENU_SCROLL_SPEED;
 	if (selectedItem == RESOLUTION)
@@ -118,14 +145,14 @@ void OptionsMenu::scrollMenuHorizontally(float delta)
 	if (scrollMenu(delta, scrollSpeed, cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW))
 	{
 		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], -1, MAX_OPTION_VALUES[selectedItem]);
-		updateOptionValueStrings();
+		updateSettings();
 		return;
 	}
 
 	if (scrollMenu(delta, scrollSpeed, cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
 	{
 		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], 1, MAX_OPTION_VALUES[selectedItem]);
-		updateOptionValueStrings();
+		updateSettings();
 		return;
 	}
 }
