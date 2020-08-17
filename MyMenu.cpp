@@ -1,5 +1,4 @@
 #include "MyMenu.h"
-#include "Settings.h"
 
 bool MyMenu::initMenu(cocos2d::Vec2 pos)
 {
@@ -69,7 +68,7 @@ int MyMenu::meunuWarpAround(int current, int increase, int max)
 	{
 		return 0;
 	}
-	if (current == -1)
+	else if (current == -1)
 	{
 		return max;
 	}
@@ -110,39 +109,49 @@ void MyMenu::updateMenu(float delta)
 		option->update(delta);
 	}
 
-	if (scrollMenu(delta, DEFAULT_MENU_SCROLL_SPEED, cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW))
+	int scroll = scrollMenu(delta, DEFAULT_MENU_SCROLL_SPEED, false);
+	if (scroll != 0)
 	{
-		changeSelection(meunuWarpAround(selectedItem, -1, menuOptions.size() - 1));
-		return;
-	}
-
-	if (scrollMenu(delta, DEFAULT_MENU_SCROLL_SPEED, cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW))
-	{
-		changeSelection(meunuWarpAround(selectedItem, 1, menuOptions.size() - 1));
+		int newSelected = meunuWarpAround(selectedItem, scroll, menuOptions.size() - 1);
+		changeSelection(newSelected);
 	}
 }
 
-bool MyMenu::scrollMenu(float delta, float scrollSpeed, cocos2d::EventKeyboard::KeyCode directionKey)
+int MyMenu::scrollMenu(float delta, float scrollSpeed, bool horizontal)
 {
-	if (KeyboardManager::getPressTime(directionKey) < MENU_SCROLL_CUTOFF)
+	std::vector<cocos2d::EventKeyboard::KeyCode> pressedList = KeyboardManager::getPressedArrows();
+
+	if (pressedList.empty())
 	{
-		return false;
+		return 0;
+	}
+	if (pressedList.size() > 1)
+	{
+		nextMenuScroll = scrollSpeed;
+		return 0;
 	}
 
-	for (cocos2d::EventKeyboard::KeyCode key : arrowKeys)
+	cocos2d::EventKeyboard::KeyCode pressed = pressedList.at(0);	
+	if (horizontal != (pressed == cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW || pressed == cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
 	{
-		if (key != directionKey && KeyboardManager::isPressed(key))
-		{
-			nextMenuScroll = MENU_SCROLL_CUTOFF;
-			return false;
-		}
+		return 0;
+	}
+	if (KeyboardManager::getPressTime(pressed) < MENU_SCROLL_CUTOFF)
+	{
+		return 0;
+	}
+
+	int change = 1;
+	if (pressed == cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW || pressed == cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW)
+	{
+		change = -1;
 	}
 
 	nextMenuScroll -= delta;
 	if (nextMenuScroll < 0.0)
 	{
 		nextMenuScroll += scrollSpeed;
-		return true;
+		return change;
 	}
-	return false;
+	return 0;
 }

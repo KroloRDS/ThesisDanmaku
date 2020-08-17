@@ -1,6 +1,4 @@
-#include "Settings.h"
 #include "SettingsMenu.h"
-#include "MainMenu.h"
 
 enum options { RESOLUTION = 0, MUSIC_VOLUME, EFFECT_VOLUME, CONTROLS, BACK };
 
@@ -142,17 +140,10 @@ void SettingsMenu::scrollMenuHorizontally(float delta)
 		scrollSpeed = SLOW_MENU_SCROLL_SPEED;
 	}
 
-	if (scrollMenu(delta, scrollSpeed, cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW))
+	int scroll = scrollMenu(delta, scrollSpeed, true);
+	if (scroll != 0)
 	{
-		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], -1, MAX_OPTION_VALUES[selectedItem]);
+		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], scroll, MAX_OPTION_VALUES[selectedItem]);
 		updateSettings();
-		return;
-	}
-
-	if (scrollMenu(delta, scrollSpeed, cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
-	{
-		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], 1, MAX_OPTION_VALUES[selectedItem]);
-		updateSettings();
-		return;
 	}
 }

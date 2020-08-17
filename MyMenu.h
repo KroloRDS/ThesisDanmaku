@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "MyMenuItem.h"
 #include "KeyboardManager.h"
+#include "Settings.h"
 
 class MyMenu : public cocos2d::Layer
 {
@@ -23,16 +24,9 @@ protected:
 	const float DEFAULT_MENU_SCROLL_SPEED = 0.15;
 	const float FAST_MENU_SCROLL_SPEED = 0.05;
 	const float MENU_SCROLL_CUTOFF = 0.5;
-	const std::vector<cocos2d::EventKeyboard::KeyCode> arrowKeys =
-	{
-		cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW,
-		cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW,
-		cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW,
-		cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW
-	};
 
 	void updateMenu(float);
-	bool scrollMenu(float, float, cocos2d::EventKeyboard::KeyCode);
+	int scrollMenu(float, float, bool);
 	int meunuWarpAround(int, int, int);
 	bool initMenu(cocos2d::Vec2);
 	void addMenuOption(std::string, std::string, float, float);

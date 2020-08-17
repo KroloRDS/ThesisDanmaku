@@ -1,5 +1,4 @@
 #include "SpellPracticeMenu.h"
-#include "MainMenu.h"
 
 enum options { SPELL_0 = 0, SPELL_1, SPELL_2, BACK };
 

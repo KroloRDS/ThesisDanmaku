@@ -1,6 +1,4 @@
 #include "AppDelegate.h"
-#include "MainMenu.h"
-#include "Settings.h"
 
 AppDelegate::AppDelegate()
 {
