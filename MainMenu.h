@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MyMenu.h"
+#include "GameScene.h"
 #include "SpellPracticeMenu.h"
 #include "SettingsMenu.h"
 
@@ -11,6 +12,4 @@ public:
 	virtual bool init() override;
 	void select();
 	CREATE_FUNC(MainMenu);
-private:
-	
 };

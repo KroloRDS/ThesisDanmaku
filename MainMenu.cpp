@@ -30,6 +30,7 @@ void MainMenu::select()
 	switch (selectedItem)
 	{
 	case START:
+		cocos2d::Director::getInstance()->replaceScene(GameScene::createScene());
 		break;
 	case SPELL_PRACTICE:
 		cocos2d::Director::getInstance()->replaceScene(SpellPracticeMenu::createScene());
