@@ -7,10 +7,6 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 		return false;
 	}
 
-	selectedItem = 0;
-	prevSelected = 0;
-	nextMenuScroll = 0.0;
-
 	auto eventListener = cocos2d::EventListenerKeyboard::create();
 	eventListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 	{

@@ -15,6 +15,6 @@ public:
 	static const cocos2d::Vec2 GAME_OUTER_BOUNDS[4];
 
 private:
-	cocos2d::Vector<GameObject*> gameObjects;
-	Player* player;
+	cocos2d::Vector<GameObject*> gameObjects = {};
+	Player* player = nullptr;
 };

@@ -12,15 +12,6 @@ MyMenuItem* MyMenuItem::createMenuItem(std::string text, std::string font, float
 	ret->autorelease();
 	ret->setScale(Settings::getScale());
 
-	ret->selectColor = cocos2d::Color3B(255, 255, 255);
-	ret->deselectColor = cocos2d::Color3B(153, 153, 153);
-	ret->selectOutlineColor = cocos2d::Color3B(153, 202, 224);
-	ret->deselectOutlineColor = cocos2d::Color3B(153, 202, 224);
-
-	ret->selected = false;
-	ret->doneAnimating = true;
-	ret->animationProgress = 0.0;
-	ret->animationTime = 0.2;
 	ret->outlineSize = fontSize / 15;
 
 	ret->label = cocos2d::Label::createWithTTF(text, font, fontSize);

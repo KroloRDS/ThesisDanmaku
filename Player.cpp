@@ -16,8 +16,6 @@ Player* Player::createPlayer(std::string str, cocos2d::Vec2 pos)
 	}
 
 	ret->initGameObj(str, pos);
-	ret->focused = false;
-	ret->nextBulletInterval = 0.0;
 	ret->hitbox = cocos2d::DrawNode::create();
 	cocos2d::Color4F cyan(0, 1, 1, 1);
 	ret->hitbox->drawDot(cocos2d::Vec2(0, 0), HITBOX_RADIUS * Settings::getScale(), cyan);

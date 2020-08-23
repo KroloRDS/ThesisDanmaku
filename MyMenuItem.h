@@ -21,17 +21,20 @@ public:
 	void setPos(cocos2d::Vec2);
 	cocos2d::Vec2 getPos();
 private:
-	bool selected;
-	bool doneAnimating;
-	float animationProgress;
-	float animationTime;
-	int outlineSize;
-	cocos2d::Vec2 absolutePos;
-	cocos2d::Label* label;
-	cocos2d::Color3B selectColor;
-	cocos2d::Color3B deselectColor;
-	cocos2d::Color3B selectOutlineColor;
-	cocos2d::Color3B deselectOutlineColor;
+	bool selected = false;
+	bool doneAnimating = true;
+	float animationProgress = 0.0;
+	float animationTime = 0.2;
+	
+	int outlineSize = 0;
+	cocos2d::Vec2 absolutePos = cocos2d::Vec2(0, 0);
+	
+	cocos2d::Label* label = nullptr;
+	cocos2d::Color3B selectColor = cocos2d::Color3B(255, 255, 255);
+	cocos2d::Color3B deselectColor = cocos2d::Color3B(153, 153, 153);
+	cocos2d::Color3B selectOutlineColor = cocos2d::Color3B(153, 202, 224);
+	cocos2d::Color3B deselectOutlineColor = cocos2d::Color3B(153, 202, 224);
+	
 	cocos2d::Color4B to4B(cocos2d::Color3B);
 	cocos2d::Color3B changeColor(float, cocos2d::Color3B, cocos2d::Color3B);
 };

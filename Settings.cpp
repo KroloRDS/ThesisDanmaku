@@ -6,8 +6,8 @@ int Settings::resolution = DEFAULT_RESOLUTION;
 int Settings::musicVolume = DEFAULT_MUSIC_VOLUME;
 int Settings::effectVolume = DEFAULT_EFFECT_VOLUME;
 
-const int Settings::SIZES_X[3] = {640,960,1280};
-const int Settings::SIZES_Y[3] = {480,720,960};
+const float Settings::SIZES_X[3] = { 640.0, 960.0, 1280.0 };
+const float Settings::SIZES_Y[3] = { 480.0, 720.0, 960.0 };
 
 float Settings::getScale()
 {

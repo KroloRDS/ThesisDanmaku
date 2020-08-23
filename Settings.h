@@ -26,6 +26,6 @@ private:
 	static const int DEFAULT_RESOLUTION = RESOLUTIONS::R1280x960;
 	static const int DEFAULT_MUSIC_VOLUME = 100;
 	static const int DEFAULT_EFFECT_VOLUME = 100;
-	static const int SIZES_X[3];
-	static const int SIZES_Y[3];
+	static const float SIZES_X[3];
+	static const float SIZES_Y[3];
 };

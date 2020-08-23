@@ -43,6 +43,7 @@ bool GameScene::init()
 	auto rectNode = cocos2d::DrawNode::create();
 	cocos2d::Color4F white(1, 1, 1, 1);
 	rectNode->drawPolygon(GAME_INNER_BOUNDS, 4, white, 1, white);
+	rectNode->setScale(Settings::getScale());
 	addChild(rectNode);
 
 	player = Player::createPlayer("reimu.png", cocos2d::Vec2(500, 500));

@@ -13,12 +13,12 @@ public:
 	void selectBack();
 	virtual void select() = 0;
 protected:
-	cocos2d::Vector<MyMenuItem*> menuOptions;
-	int selectedItem;
-	int prevSelected;
-	cocos2d::Vec2 origin;
+	cocos2d::Vector<MyMenuItem*> menuOptions = {};
+	int selectedItem = 0;
+	int prevSelected = 0;
+	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
 
-	float nextMenuScroll;
+	float nextMenuScroll = 0.0;
 	
 	const float SLOW_MENU_SCROLL_SPEED = 0.35;
 	const float DEFAULT_MENU_SCROLL_SPEED = 0.15;

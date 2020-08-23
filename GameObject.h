@@ -15,7 +15,7 @@ public:
     void update(float);
     bool isSafeToDelete();
 protected:
-    cocos2d::Sprite* sprite;
-    cocos2d::Vec2 absolutePos;
-    bool safeToDelete;
+    cocos2d::Sprite* sprite = nullptr;
+    cocos2d::Vec2 absolutePos = cocos2d::Vec2(0, 0);;
+    bool safeToDelete = false;
 };

@@ -28,7 +28,6 @@ bool SettingsMenu::init()
 	optionValues[RESOLUTION] = Settings::getResolution();
 	optionValues[MUSIC_VOLUME] = Settings::getMusicVolume();
 	optionValues[EFFECT_VOLUME] = Settings::getEffectVolume();
-	resolutionOptionStrings = { "640x480", "960x720", "1280x960" };
 	
 	for (int i = 0; i < 3; i++)
 	{

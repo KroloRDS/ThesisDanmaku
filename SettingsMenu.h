@@ -13,14 +13,10 @@ public:
 	void select();
 	CREATE_FUNC(SettingsMenu);
 private:
-	int selectedResolution;
-	int musicVolume;
-	int effectVolume;
-	
-	std::vector<std::string> resolutionOptionStrings;
-	cocos2d::Vector<MyMenuItem*> menuLeftColumn;
-	int optionValues[3];
+	cocos2d::Vector<MyMenuItem*> menuLeftColumn = {};
+	int optionValues[3] = { 2, 100, 100 };
 	const int MAX_OPTION_VALUES[3] = { 2, 100, 100 };
+	const std::vector<std::string> resolutionOptionStrings = { "640x480", "960x720", "1280x960" };
 
 	void updateOptionValueStrings();
 	void updateSettings();

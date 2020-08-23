@@ -14,10 +14,10 @@ public:
 	void setPos(cocos2d::Vec2);
 	cocos2d::DrawNode* getHitbox();
 private:
-	bool focused;
-	float nextBulletInterval;
-	cocos2d::DrawNode* hitbox;
-	cocos2d::Vector<PlayerBullet*> playerBullets;
+	bool focused = false;
+	float nextBulletInterval = 0.0;
+	cocos2d::DrawNode* hitbox = nullptr;
+	cocos2d::Vector<PlayerBullet*> playerBullets = {};
 
 	void move(float);
 	void fire(float);
