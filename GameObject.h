@@ -6,12 +6,16 @@
 class GameObject : public cocos2d::Node
 {
 public:
-    GameObject(std::string, cocos2d::Vec2);
+    static GameObject* createGameObject(std::string, cocos2d::Vec2);
+    CREATE_FUNC(GameObject);
+    void initGameObj(std::string, cocos2d::Vec2);
     cocos2d::Sprite* getSprite();
     void setPos(cocos2d::Vec2);
     cocos2d::Vec2 getPos();
-    virtual void update(float) abstract;
+    void update(float);
+    bool isSafeToDelete();
 protected:
     cocos2d::Sprite* sprite;
     cocos2d::Vec2 absolutePos;
+    bool safeToDelete;
 };

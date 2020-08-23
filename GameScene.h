@@ -11,9 +11,10 @@ public:
 	CREATE_FUNC(GameScene);
 	void update(float) override;
 
-	static const cocos2d::Vec2 GAME_BOUNDS[4];
+	static const cocos2d::Vec2 GAME_INNER_BOUNDS[4];
+	static const cocos2d::Vec2 GAME_OUTER_BOUNDS[4];
 
 private:
-	std::vector<GameObject*> gameObjects;
+	cocos2d::Vector<GameObject*> gameObjects;
 	Player* player;
 };

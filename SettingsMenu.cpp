@@ -35,7 +35,7 @@ bool SettingsMenu::init()
 		int yOffset = origin.y - menuLeftColumn.size() * marginSize;
 		menuLeftColumn.pushBack(MyMenuItem::createMenuItem("", fontName, fontSize));
 		menuLeftColumn.back()->setPos(cocos2d::Vec2(700, yOffset));
-		this->addChild(menuLeftColumn.back());
+		addChild(menuLeftColumn.back());
 	}
 	updateOptionValueStrings();
 

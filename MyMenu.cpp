@@ -48,7 +48,7 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 void MyMenu::addMenuOption(std::string text, std::string font, float fontSize, float margin)
 {
 	menuOptions.pushBack(MyMenuItem::createMenuItem(text, font, fontSize));
-	this->addChild(menuOptions.back());
+	addChild(menuOptions.back());
 	int yOffset = origin.y - (menuOptions.size() - 1) * margin;
 	menuOptions.back()->setPos(cocos2d::Vec2(origin.x, yOffset));
 }

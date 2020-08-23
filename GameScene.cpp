@@ -1,10 +1,17 @@
 #include "GameScene.h"
 
-const cocos2d::Vec2 GameScene::GAME_BOUNDS[4] = {
-	cocos2d::Vec2(60,32),
-	cocos2d::Vec2(60,928),
-	cocos2d::Vec2(820,928),
-	cocos2d::Vec2(820,32)
+const cocos2d::Vec2 GameScene::GAME_INNER_BOUNDS[4] = {
+	cocos2d::Vec2(60, 32),
+	cocos2d::Vec2(60, 928),
+	cocos2d::Vec2(820, 928),
+	cocos2d::Vec2(820, 32)
+};
+
+const cocos2d::Vec2 GameScene::GAME_OUTER_BOUNDS[4] = {
+	cocos2d::Vec2(-140, -168),
+	cocos2d::Vec2(-140, 1128),
+	cocos2d::Vec2(1020, 1128),
+	cocos2d::Vec2(1020, -168)
 };
 
 cocos2d::Scene* GameScene::createScene()
@@ -35,12 +42,12 @@ bool GameScene::init()
 
 	auto rectNode = cocos2d::DrawNode::create();
 	cocos2d::Color4F white(1, 1, 1, 1);
-	rectNode->drawPolygon(GAME_BOUNDS, 4, white, 1, white);
-	this->addChild(rectNode);
+	rectNode->drawPolygon(GAME_INNER_BOUNDS, 4, white, 1, white);
+	addChild(rectNode);
 
-	player = new Player("reimu.png", cocos2d::Vec2(500, 500));
-	gameObjects.push_back(player);
-	this->addChild(player);
+	player = Player::createPlayer("reimu.png", cocos2d::Vec2(500, 500));
+	gameObjects.pushBack(player);
+	addChild(player);
 
 	this->scheduleUpdate();
 	return true;
@@ -48,6 +55,7 @@ bool GameScene::init()
 
 void GameScene::update(float delta)
 {
+	gameObjects.erase(std::remove_if(gameObjects.begin(), gameObjects.end(), [&](GameObject* i) {return i->isSafeToDelete(); }), gameObjects.end());
 	for (GameObject* gameObject : gameObjects)
 	{
 		gameObject->update(delta);
