@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "GameScene.h"
 
 GameObject* GameObject::createGameObject(std::string str, cocos2d::Vec2 pos)
 {
@@ -21,10 +22,6 @@ void GameObject::initGameObj(std::string str, cocos2d::Vec2 pos)
 	setPos(pos);
 }
 
-void GameObject::update(float)
-{
-}
-
 cocos2d::Sprite* GameObject::getSprite()
 {
 	return sprite;
@@ -41,7 +38,10 @@ cocos2d::Vec2 GameObject::getPos()
 	return absolutePos;
 }
 
-bool GameObject::isSafeToDelete()
+bool GameObject::isOutOfBounds()
 {
-	return safeToDelete;
+	return (absolutePos.x < GameScene::GAME_OUTER_BOUNDS[0].x ||
+		absolutePos.y < GameScene::GAME_OUTER_BOUNDS[0].y ||
+		absolutePos.x > GameScene::GAME_OUTER_BOUNDS[2].x ||
+		absolutePos.y > GameScene::GAME_OUTER_BOUNDS[2].y);
 }

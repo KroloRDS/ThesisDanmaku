@@ -67,39 +67,49 @@ void Player::move(float delta)
 
 void Player::fire(float delta)
 {
-	if (KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_Z))
+	if (!KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_Z))
 	{
-		if (nextBulletInterval > 0.0)
-		{
-			nextBulletInterval -= delta;
-		}
-		else
-		{
-			auto radius = HITBOX_RADIUS * Settings::getScale();
-			auto leftPos = absolutePos;
-			auto rightPos = absolutePos;
-			leftPos.x -= radius * 2;
-			rightPos.x += radius * 2;
-			leftPos.y += radius * 7;
-			rightPos.y += radius * 7;
-			auto leftBullet = PlayerBullet::createPlayerBullet("bullet.png", leftPos);
-			auto rightBullet = PlayerBullet::createPlayerBullet("bullet.png", rightPos);
-			playerBullets.pushBack(leftBullet);
-			playerBullets.pushBack(rightBullet);
-			addChild(leftBullet);
-			addChild(rightBullet);
-			nextBulletInterval = BULLET_INTERVAL;
-		}
+		return;
 	}
+
+	if (nextBulletInterval > 0.0)
+	{
+		nextBulletInterval -= delta;
+		return;
+	}
+	
+	auto radius = HITBOX_RADIUS * Settings::getScale();
+	auto leftPos = absolutePos;
+	auto rightPos = absolutePos;
+	leftPos.x -= radius * 2;
+	rightPos.x += radius * 2;
+	leftPos.y += radius * 7;
+	rightPos.y += radius * 7;
+	auto leftBullet = PlayerBullet::createPlayerBullet("player_bullet.png", leftPos);
+	auto rightBullet = PlayerBullet::createPlayerBullet("player_bullet.png", rightPos);
+	playerBullets.pushBack(leftBullet);
+	playerBullets.pushBack(rightBullet);
+	addChild(leftBullet);
+	addChild(rightBullet);
+	nextBulletInterval += BULLET_INTERVAL;
 }
 
 void Player::updateBullets(float delta)
 {
-	//playerBullets.erase(std::remove_if(playerBullets.begin(), playerBullets.end(), [&](PlayerBullet* i) {return i->isSafeToDelete(); }), playerBullets.end());
-	for (PlayerBullet* playerBullet : playerBullets)
+	cocos2d::Vector<PlayerBullet*> bulletsToKeep = {};
+	for (PlayerBullet* bullet : playerBullets)
 	{
-		playerBullet->update(delta);
+		if (bullet->isOutOfBounds())
+		{
+			bullet->removeFromParent();
+		}
+		else
+		{
+			bulletsToKeep.pushBack(bullet);
+			bullet->update(delta);
+		}
 	}
+	playerBullets = bulletsToKeep;
 }
 
 cocos2d::DrawNode* Player::getHitbox()

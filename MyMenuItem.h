@@ -8,7 +8,7 @@ class MyMenuItem : public cocos2d::Node
 public:
 	static MyMenuItem* createMenuItem(std::string, std::string, float);
 	CREATE_FUNC(MyMenuItem);
-	void update(float delta);
+	void update(float);
 	void select();
 	void deselect();
 	bool isSelected();

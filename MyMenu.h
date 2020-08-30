@@ -8,7 +8,7 @@
 class MyMenu : public cocos2d::Layer
 {
 public:
-	void update(float) override;
+	void update(float);
 	void changeSelection(int);
 	void selectBack();
 	virtual void select() = 0;

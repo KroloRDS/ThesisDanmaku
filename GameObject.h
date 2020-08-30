@@ -12,10 +12,9 @@ public:
     cocos2d::Sprite* getSprite();
     void setPos(cocos2d::Vec2);
     cocos2d::Vec2 getPos();
-    void update(float);
-    bool isSafeToDelete();
+    bool isOutOfBounds();
 protected:
     cocos2d::Sprite* sprite = nullptr;
-    cocos2d::Vec2 absolutePos = cocos2d::Vec2(0, 0);;
+    cocos2d::Vec2 absolutePos = cocos2d::Vec2(0, 0);
     bool safeToDelete = false;
 };
