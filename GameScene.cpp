@@ -60,4 +60,37 @@ void GameScene::update(float delta)
 {
 	pattern->update(delta);
 	player->update(delta);
+	removeUnusedObjects(player->getBullets());
+	removeUnusedObjects(pattern->getBullets());
+}
+
+template <class T>
+void GameScene::removeUnusedObjects(cocos2d::Vector<T*>& vec)
+{
+	auto iteratorBegin = vec.begin();
+	auto iteratorEnd = vec.rbegin();
+
+	while (iteratorBegin != iteratorEnd.base())
+	{
+		while (iteratorEnd.base() != vec.begin() && (*iteratorEnd)->isOutOfBounds())
+		{
+			iteratorEnd++;
+		}
+		while (iteratorBegin != vec.rbegin().base() && !(*iteratorBegin)->isOutOfBounds())
+		{
+			iteratorBegin++;
+		}
+
+		if (iteratorBegin != iteratorEnd.base())
+		{
+			std::iter_swap(iteratorBegin, iteratorEnd);
+		}
+	}
+
+	int numerOfElementsToPop = vec.size() - std::distance(vec.begin(), iteratorBegin);
+	for (int i = 0; i < numerOfElementsToPop; i++)
+	{
+		vec.back()->removeFromParent();
+		vec.popBack();
+	}
 }

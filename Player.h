@@ -13,6 +13,7 @@ public:
 	void update(float);
 	void setPos(cocos2d::Vec2);
 	cocos2d::DrawNode* getHitbox();
+	cocos2d::Vector<PlayerBullet*>& getBullets();
 private:
 	bool focused = false;
 	float nextBulletInterval = 0.0;

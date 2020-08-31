@@ -96,25 +96,20 @@ void Player::fire(float delta)
 
 void Player::updateBullets(float delta)
 {
-	cocos2d::Vector<PlayerBullet*> bulletsToKeep = {};
 	for (PlayerBullet* bullet : playerBullets)
 	{
-		if (bullet->isOutOfBounds())
-		{
-			bullet->removeFromParent();
-		}
-		else
-		{
-			bulletsToKeep.pushBack(bullet);
-			bullet->update(delta);
-		}
+		bullet->update(delta);
 	}
-	playerBullets = bulletsToKeep;
 }
 
 cocos2d::DrawNode* Player::getHitbox()
 {
 	return hitbox;
+}
+
+cocos2d::Vector<PlayerBullet*>& Player::getBullets()
+{
+	return playerBullets;
 }
 
 void Player::setPos(cocos2d::Vec2 newPosition)

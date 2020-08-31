@@ -19,4 +19,7 @@ private:
 	cocos2d::Vector<Bullet*> bullets = {};
 	Player* player = nullptr;
 	BulletPattern00* pattern = nullptr;
+
+	template <class T>
+	void removeUnusedObjects(cocos2d::Vector<T*>&);
 };

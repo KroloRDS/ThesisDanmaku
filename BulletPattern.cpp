@@ -1,19 +1,14 @@
 #include "BulletPattern.h"
 
+cocos2d::Vector<Bullet*>& BulletPattern::getBullets()
+{
+	return bullets;
+}
+
 void BulletPattern::updateBullets(float delta)
 {
-	cocos2d::Vector<Bullet*> bulletsToKeep = {};
 	for (Bullet* bullet : bullets)
 	{
-		if (bullet->isOutOfBounds())
-		{
-			bullet->removeFromParent();
-		}
-		else
-		{
-			bulletsToKeep.pushBack(bullet);
-			bullet->update(delta);
-		}
+		bullet->update(delta);
 	}
-	bullets = bulletsToKeep;
 }
