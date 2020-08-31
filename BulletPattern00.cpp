@@ -1,8 +1,8 @@
 #include "BulletPattern00.h"
 
-const float BulletPattern00::BULLET_INTERVAL = 0.06;
-const float BulletPattern00::BULLET_SPEED = 500.0;
-const float BulletPattern00::MAX_ROTATION_SPEED = 5.0;
+const float BulletPattern00::BULLET_INTERVAL = 0.06f;
+const float BulletPattern00::BULLET_SPEED = 500.0f;
+const float BulletPattern00::MAX_ROTATION_SPEED = 5.0f;
 
 BulletPattern00* BulletPattern00::createBulletPattern00()
 {
@@ -20,19 +20,19 @@ void BulletPattern00::update(float delta)
 	spawnNewBullets(delta);
 	updateBullets(delta);
 
-	rotationSpeed += acceleration;
+	rotationSpeed += acceleration * delta * 60.0f;
 	rotation += rotationSpeed;
-	rotation = fmod(rotation, 360.0);
+	rotation = fmod(rotation, 360.0f);
 
 	if (abs(rotationSpeed) > MAX_ROTATION_SPEED)
 	{
-		acceleration *= -1;
+		acceleration *= -1.0f;
 	}
 }
 
 void BulletPattern00::spawnNewBullets(float delta)
 {
-	if (nextBulletInterval > 0.0)
+	if (nextBulletInterval > 0.0f)
 	{
 		nextBulletInterval -= delta;
 	}
@@ -42,7 +42,7 @@ void BulletPattern00::spawnNewBullets(float delta)
 		{
 			bullets.pushBack(Bullet::createBullet("bullet.png", cocos2d::Vec2(440, 600)));
 			bullets.back()->setSpeed(BULLET_SPEED);
-			bullets.back()->setRot(rotation + i * 360.0 / ARMS_COUNT);
+			bullets.back()->setRot(rotation + i * 360.0f / ARMS_COUNT);
 			addChild(bullets.back());
 		}
 		nextBulletInterval += BULLET_INTERVAL;

@@ -45,7 +45,7 @@ void MyMenu::addMenuOption(std::string text, std::string font, float fontSize, f
 {
 	menuOptions.pushBack(MyMenuItem::createMenuItem(text, font, fontSize));
 	addChild(menuOptions.back());
-	int yOffset = origin.y - (menuOptions.size() - 1) * margin;
+	float yOffset = origin.y - (menuOptions.size() - 1) * margin;
 	menuOptions.back()->setPos(cocos2d::Vec2(origin.x, yOffset));
 }
 
@@ -144,7 +144,7 @@ int MyMenu::scrollMenu(float delta, float scrollSpeed, bool horizontal)
 	}
 
 	nextMenuScroll -= delta;
-	if (nextMenuScroll < 0.0)
+	if (nextMenuScroll < 0.0f)
 	{
 		nextMenuScroll += scrollSpeed;
 		return change;

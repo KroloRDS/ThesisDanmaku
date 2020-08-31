@@ -12,7 +12,7 @@ MyMenuItem* MyMenuItem::createMenuItem(std::string text, std::string font, float
 	ret->autorelease();
 	ret->setScale(Settings::getScale());
 
-	ret->outlineSize = fontSize / 15;
+	ret->outlineSize = (int)std::round(fontSize / OUTLINE_SIZE_SCALE);
 
 	ret->label = cocos2d::Label::createWithTTF(text, font, fontSize);
 	ret->label->setColor(ret->deselectColor);
@@ -95,9 +95,9 @@ void MyMenuItem::update(float delta)
 		animationProgress -= delta;
 	}
 
-	if (animationProgress < 0.0)
+	if (animationProgress < 0.0f)
 	{
-		animationProgress = 0.0;
+		animationProgress = 0.0f;
 		label->setColor(deselectColor);
 		label->enableOutline(to4B(deselectOutlineColor), outlineSize);
 		doneAnimating = true;
@@ -126,8 +126,8 @@ cocos2d::Color4B MyMenuItem::to4B(cocos2d::Color3B color)
 
 cocos2d::Color3B MyMenuItem::changeColor(float progress, cocos2d::Color3B color1, cocos2d::Color3B color2)
 {
-	int r = (color1.r - color2.r) * progress + color2.r;
-	int g = (color1.g - color2.g) * progress + color2.g;
-	int b = (color1.b - color2.b) * progress + color2.b;
+	int r = (int)std::round((color1.r - color2.r) * progress + color2.r);
+	int g = (int)std::round((color1.g - color2.g) * progress + color2.g);
+	int b = (int)std::round((color1.b - color2.b) * progress + color2.b);
 	return cocos2d::Color3B(r, g, b);
 }

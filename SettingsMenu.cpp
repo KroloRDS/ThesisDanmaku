@@ -17,8 +17,8 @@ bool SettingsMenu::init()
 		return false;
 	}
 
-	float fontSize = 45.0;
-	float marginSize = 80.0;
+	float fontSize = 45.0f;
+	float marginSize = 80.0f;
 
 	std::string fontName = "fonts/arial.ttf";
 	std::vector<std::string> optionsStrings = { "Resolution", "Music Volume", "Effect Volume", "Controls", "Back" };
@@ -31,7 +31,7 @@ bool SettingsMenu::init()
 	
 	for (int i = 0; i < 3; i++)
 	{
-		int yOffset = origin.y - menuLeftColumn.size() * marginSize;
+		float yOffset = origin.y - menuLeftColumn.size() * marginSize;
 		menuLeftColumn.pushBack(MyMenuItem::createMenuItem("", fontName, fontSize));
 		menuLeftColumn.back()->setPos(cocos2d::Vec2(700, yOffset));
 		addChild(menuLeftColumn.back());

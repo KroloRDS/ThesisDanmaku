@@ -1,13 +1,13 @@
 #include "Settings.h"
 
-const float Settings::DEFAULT_SCALE = 1.0;
+const float Settings::DEFAULT_SCALE = 1.0f;
 float Settings::scale = DEFAULT_SCALE;
 int Settings::resolution = DEFAULT_RESOLUTION;
 int Settings::musicVolume = DEFAULT_MUSIC_VOLUME;
 int Settings::effectVolume = DEFAULT_EFFECT_VOLUME;
 
-const float Settings::SIZES_X[3] = { 640.0, 960.0, 1280.0 };
-const float Settings::SIZES_Y[3] = { 480.0, 720.0, 960.0 };
+const float Settings::SIZES_X[3] = { 640.0f, 960.0f, 1280.0f };
+const float Settings::SIZES_Y[3] = { 480.0f, 720.0f, 960.0f };
 
 float Settings::getScale()
 {
@@ -51,12 +51,12 @@ int Settings::getEffectVolume()
 	return effectVolume;
 }
 
-int Settings::getWindowSizeX()
+float Settings::getWindowSizeX()
 {
 	return SIZES_X[resolution];
 }
 
-int Settings::getWindowSizeY()
+float Settings::getWindowSizeY()
 {
 	return SIZES_Y[resolution];
 }

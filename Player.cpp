@@ -1,10 +1,10 @@
 #include "Player.h"
 #include "GameScene.h"
 
-const float Player::FOCUSED_SPEED = 150.0;
-const float Player::UNFOCUSED_SPEED = 300.0;
-const float Player::HITBOX_RADIUS = 6.0;
-const float Player::BULLET_INTERVAL = 0.06;
+const float Player::FOCUSED_SPEED = 150.0f;
+const float Player::UNFOCUSED_SPEED = 300.0f;
+const float Player::HITBOX_RADIUS = 6.0f;
+const float Player::BULLET_INTERVAL = 0.06f;
 
 Player* Player::createPlayer(std::string str, cocos2d::Vec2 pos)
 {

@@ -16,29 +16,28 @@ Bullet* Bullet::createBullet(std::string str, cocos2d::Vec2 pos)
 
 void Bullet::update(float delta)
 {
-	double ddelta = delta;
 	auto newPosition = absolutePos;
-	newPosition.x += ddelta * speed * sin(rotation / 180.0 * M_PI);
-	newPosition.y += ddelta * speed * cos(rotation / 180.0 * M_PI);
+	newPosition.x += delta * speed * (float)sin(rotation / 180.0f * M_PI);
+	newPosition.y += delta * speed * (float)cos(rotation / 180.0f * M_PI);
 	setPos(newPosition);
 }
 
-double Bullet::getSpeed()
+float Bullet::getSpeed()
 {
 	return speed;
 }
 
-void Bullet::setSpeed(double newSpeed)
+void Bullet::setSpeed(float newSpeed)
 {
 	speed = newSpeed;
 }
 
-double Bullet::getRot()
+float Bullet::getRot()
 {
 	return rotation;
 }
 
-void Bullet::setRot(double newRotation)
+void Bullet::setRot(float newRotation)
 {
 	rotation = newRotation;
 	sprite->setRotation(newRotation);

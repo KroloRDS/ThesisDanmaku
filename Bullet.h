@@ -9,11 +9,11 @@ public:
 	static Bullet* createBullet(std::string, cocos2d::Vec2);
 	CREATE_FUNC(Bullet);
 	void update(float);
-	double getSpeed();
-	void setSpeed(double);
-	double getRot();
-	void setRot(double);
+	float getSpeed();
+	void setSpeed(float);
+	float getRot();
+	void setRot(float);
 private:
-	double speed = 0.0;
-	double rotation = 0.0;
+	float speed = 0.0f;
+	float rotation = 0.0f;
 };

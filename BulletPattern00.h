@@ -17,8 +17,8 @@ private:
 	static const float BULLET_SPEED;
 	static const float MAX_ROTATION_SPEED;
 
-	float nextBulletInterval = 0.0;
-	float rotation = 0.0;
-	float rotationSpeed = 0.0;
-	float acceleration = 0.02;
+	float nextBulletInterval = 0.0f;
+	float rotation = 0.0f;
+	float rotationSpeed = 0.0f;
+	float acceleration = 0.02f;
 };

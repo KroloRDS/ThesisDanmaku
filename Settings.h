@@ -14,8 +14,8 @@ public:
 	static int getMusicVolume();
 	static void setEffectVolume(int);
 	static int getEffectVolume();
-	static int getWindowSizeX();
-	static int getWindowSizeY();
+	static float getWindowSizeX();
+	static float getWindowSizeY();
 private:
 	static float scale;
 	static int resolution;

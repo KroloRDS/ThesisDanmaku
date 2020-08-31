@@ -16,7 +16,7 @@ public:
 	cocos2d::Vector<PlayerBullet*>& getBullets();
 private:
 	bool focused = false;
-	float nextBulletInterval = 0.0;
+	float nextBulletInterval = 0.0f;
 	cocos2d::DrawNode* hitbox = nullptr;
 	cocos2d::Vector<PlayerBullet*> playerBullets = {};
 

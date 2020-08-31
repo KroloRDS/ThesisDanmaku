@@ -23,11 +23,13 @@ public:
 private:
 	bool selected = false;
 	bool doneAnimating = true;
-	float animationProgress = 0.0;
-	float animationTime = 0.2;
+	float animationProgress = 0.0f;
+	float animationTime = 0.2f;
 	
 	int outlineSize = 0;
 	cocos2d::Vec2 absolutePos = cocos2d::Vec2(0, 0);
+
+	static const int OUTLINE_SIZE_SCALE = 15;
 	
 	cocos2d::Label* label = nullptr;
 	cocos2d::Color3B selectColor = cocos2d::Color3B(255, 255, 255);
