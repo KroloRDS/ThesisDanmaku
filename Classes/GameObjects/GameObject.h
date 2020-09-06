@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "Settings.h"
+#include "HelperClasses/Settings.h"
 
 class GameObject : public cocos2d::Node
 {

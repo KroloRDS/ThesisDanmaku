@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MyMenu.h"
+#include "Menu/MyMenu.h"
 #include "GameScene.h"
 #include "SpellPracticeMenu.h"
 #include "SettingsMenu.h"

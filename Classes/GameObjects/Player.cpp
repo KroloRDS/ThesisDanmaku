@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "GameScene.h"
+#include "Scenes/GameScene.h"
 
 const float Player::FOCUSED_SPEED = 150.0f;
 const float Player::UNFOCUSED_SPEED = 300.0f;

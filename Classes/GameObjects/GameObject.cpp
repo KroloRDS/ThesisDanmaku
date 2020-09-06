@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "GameScene.h"
+#include "Scenes/GameScene.h"
 
 GameObject* GameObject::createGameObject(std::string str, cocos2d::Vec2 pos)
 {

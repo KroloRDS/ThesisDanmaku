@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 #include "GameObject.h"
 #include "PlayerBullet.h"
-#include "KeyboardManager.h"
+#include "HelperClasses/KeyboardManager.h"
 
 class Player : public GameObject
 {

@@ -2,8 +2,8 @@
 
 #include "cocos2d.h"
 #include "MyMenuItem.h"
-#include "KeyboardManager.h"
-#include "Settings.h"
+#include "HelperClasses/KeyboardManager.h"
+#include "HelperClasses/Settings.h"
 
 class MyMenu : public cocos2d::Layer
 {
