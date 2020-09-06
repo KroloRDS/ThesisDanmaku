@@ -40,7 +40,7 @@ void BulletPattern00::spawnNewBullets(float delta)
 	{
 		for (int i = 0; i < ARMS_COUNT; i++)
 		{
-			bullets.pushBack(Bullet::createBullet("bullet.png", cocos2d::Vec2(440, 600)));
+			bullets.push_back(Bullet::createBullet("bullet.png", cocos2d::Vec2(440, 600)));
 			bullets.back()->setSpeed(BULLET_SPEED);
 			bullets.back()->setRot(rotation + i * 360.0f / ARMS_COUNT);
 			addChild(bullets.back());

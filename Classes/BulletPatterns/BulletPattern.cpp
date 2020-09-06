@@ -1,6 +1,6 @@
 #include "BulletPattern.h"
 
-cocos2d::Vector<Bullet*>& BulletPattern::getBullets()
+std::vector<Bullet*>& BulletPattern::getBullets()
 {
 	return bullets;
 }

@@ -13,12 +13,12 @@ public:
 	void update(float);
 	void setPos(cocos2d::Vec2);
 	cocos2d::DrawNode* getHitbox();
-	cocos2d::Vector<PlayerBullet*>& getBullets();
+	std::vector<PlayerBullet*>& getBullets();
 private:
 	bool focused = false;
 	float nextBulletInterval = 0.0f;
 	cocos2d::DrawNode* hitbox = nullptr;
-	cocos2d::Vector<PlayerBullet*> playerBullets = {};
+	std::vector<PlayerBullet*> playerBullets = {};
 
 	void move(float);
 	void fire(float);

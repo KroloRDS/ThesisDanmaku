@@ -16,10 +16,9 @@ public:
 	static const cocos2d::Vec2 GAME_OUTER_BOUNDS[4];
 
 private:
-	cocos2d::Vector<Bullet*> bullets = {};
 	Player* player = nullptr;
 	BulletPattern00* pattern = nullptr;
 
 	template <class T>
-	void removeUnusedObjects(cocos2d::Vector<T*>&);
+	void removeUnusedObjects(std::vector<T*>&);
 };

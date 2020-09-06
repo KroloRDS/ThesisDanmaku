@@ -65,7 +65,7 @@ void GameScene::update(float delta)
 }
 
 template <class T>
-void GameScene::removeUnusedObjects(cocos2d::Vector<T*>& vec)
+void GameScene::removeUnusedObjects(std::vector<T*>& vec)
 {
 	auto iteratorBegin = vec.begin();
 	auto iteratorEnd = vec.rbegin();
@@ -74,6 +74,7 @@ void GameScene::removeUnusedObjects(cocos2d::Vector<T*>& vec)
 	{
 		while (iteratorEnd.base() != vec.begin() && (*iteratorEnd)->isOutOfBounds())
 		{
+			(*iteratorEnd)->removeFromParent();
 			iteratorEnd++;
 		}
 		while (iteratorBegin != vec.rbegin().base() && !(*iteratorBegin)->isOutOfBounds())
@@ -87,10 +88,5 @@ void GameScene::removeUnusedObjects(cocos2d::Vector<T*>& vec)
 		}
 	}
 
-	int numerOfElementsToPop = vec.size() - std::distance(vec.begin(), iteratorBegin);
-	for (int i = 0; i < numerOfElementsToPop; i++)
-	{
-		vec.back()->removeFromParent();
-		vec.popBack();
-	}
+	vec.resize(std::distance(vec.begin(), iteratorBegin));
 }

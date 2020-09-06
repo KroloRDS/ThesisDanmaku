@@ -87,8 +87,8 @@ void Player::fire(float delta)
 	rightPos.y += radius * 7;
 	auto leftBullet = PlayerBullet::createPlayerBullet("player_bullet.png", leftPos);
 	auto rightBullet = PlayerBullet::createPlayerBullet("player_bullet.png", rightPos);
-	playerBullets.pushBack(leftBullet);
-	playerBullets.pushBack(rightBullet);
+	playerBullets.push_back(leftBullet);
+	playerBullets.push_back(rightBullet);
 	addChild(leftBullet);
 	addChild(rightBullet);
 	nextBulletInterval += BULLET_INTERVAL;
@@ -107,7 +107,7 @@ cocos2d::DrawNode* Player::getHitbox()
 	return hitbox;
 }
 
-cocos2d::Vector<PlayerBullet*>& Player::getBullets()
+std::vector<PlayerBullet*>& Player::getBullets()
 {
 	return playerBullets;
 }
