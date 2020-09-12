@@ -16,11 +16,18 @@ Player* Player::createPlayer(std::string str, cocos2d::Vec2 pos)
 	}
 
 	ret->initGameObj(str, pos);
-	ret->hitbox = cocos2d::DrawNode::create();
-	cocos2d::Color4F cyan(0, 1, 1, 1);
-	ret->hitbox->drawDot(cocos2d::Vec2(0, 0), HITBOX_RADIUS * Settings::getScale(), cyan);
-	ret->addChild(ret->hitbox);
+	ret->sprite->setPhysicsBody(createBody());
+
 	return ret;
+}
+
+cocos2d::PhysicsBody* Player::createBody()
+{
+	auto body = cocos2d::PhysicsBody::createCircle(HITBOX_RADIUS * Settings::getScale());
+	body->setDynamic(false);
+	body->setCategoryBitmask(0x1);
+	body->setContactTestBitmask(0x2);
+	return body;
 }
 
 void Player::update(float delta)
@@ -102,11 +109,6 @@ void Player::updateBullets(float delta)
 	}
 }
 
-cocos2d::DrawNode* Player::getHitbox()
-{
-	return hitbox;
-}
-
 std::vector<PlayerBullet*>& Player::getBullets()
 {
 	return playerBullets;
@@ -116,5 +118,4 @@ void Player::setPos(cocos2d::Vec2 newPosition)
 {
 	absolutePos = newPosition;
 	sprite->setPosition(newPosition * Settings::getScale());
-	hitbox->setPosition(newPosition * Settings::getScale());
 }

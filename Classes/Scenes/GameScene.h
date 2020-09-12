@@ -18,6 +18,9 @@ public:
 private:
 	Player* player = nullptr;
 	BulletPattern00* pattern = nullptr;
+	bool showHitboxes = false;
+
+	bool onContactBegin(cocos2d::PhysicsContact&);
 
 	template <class T>
 	void removeUnusedObjects(std::vector<T*>&);

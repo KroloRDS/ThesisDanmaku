@@ -16,7 +16,7 @@ const cocos2d::Vec2 GameScene::GAME_OUTER_BOUNDS[4] = {
 
 cocos2d::Scene* GameScene::createScene()
 {
-	auto scene = cocos2d::Scene::create();
+	auto scene = cocos2d::Scene::createWithPhysics();
 	auto layer = GameScene::create();
 	scene->addChild(layer);
 	return scene;
@@ -29,16 +29,24 @@ bool GameScene::init()
 		return false;
 	}
 
-	auto eventListener = cocos2d::EventListenerKeyboard::create();
-	eventListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+	auto keyboardListener = cocos2d::EventListenerKeyboard::create();
+	keyboardListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 	{
 		KeyboardManager::pressKey(keyCode);
 	};
-	eventListener->onKeyReleased = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
+	keyboardListener->onKeyReleased = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 	{
 		KeyboardManager::releaseKey(keyCode);
+		if (keyCode == cocos2d::EventKeyboard::KeyCode::KEY_H)
+		{
+			showHitboxes = !showHitboxes;
+		}
 	};
-	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
+
+	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	auto rectNode = cocos2d::DrawNode::create();
 	cocos2d::Color4F white(1, 1, 1, 1);
@@ -56,12 +64,34 @@ bool GameScene::init()
 	return true;
 }
 
+bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
+{
+	auto nodeA = contact.getShapeA()->getBody()->getNode();
+	auto nodeB = contact.getShapeB()->getBody()->getNode();
+
+	if (nodeA && nodeB)
+	{
+		CCLOG("COLLISION!");
+	}
+
+	return true;
+}
+
 void GameScene::update(float delta)
 {
 	pattern->update(delta);
 	player->update(delta);
 	removeUnusedObjects(player->getBullets());
 	removeUnusedObjects(pattern->getBullets());
+
+	if (showHitboxes)
+	{
+		getScene()->getPhysicsWorld()->setDebugDrawMask(cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
+	}
+	else
+	{
+		getScene()->getPhysicsWorld()->setDebugDrawMask(cocos2d::PhysicsWorld::DEBUGDRAW_NONE);
+	}
 }
 
 template <class T>

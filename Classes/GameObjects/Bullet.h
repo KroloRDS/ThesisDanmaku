@@ -16,4 +16,6 @@ public:
 private:
 	float speed = 0.0f;
 	float rotation = 0.0f;
+
+	static cocos2d::PhysicsBody* createBody();
 };

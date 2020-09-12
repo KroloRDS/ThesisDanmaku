@@ -12,14 +12,13 @@ public:
 	CREATE_FUNC(Player);
 	void update(float);
 	void setPos(cocos2d::Vec2);
-	cocos2d::DrawNode* getHitbox();
 	std::vector<PlayerBullet*>& getBullets();
 private:
 	bool focused = false;
 	float nextBulletInterval = 0.0f;
-	cocos2d::DrawNode* hitbox = nullptr;
 	std::vector<PlayerBullet*> playerBullets = {};
 
+	static cocos2d::PhysicsBody* createBody();
 	void move(float);
 	void fire(float);
 	void updateBullets(float);
