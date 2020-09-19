@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "GameOver.h"
 #include "GameObjects/Player.h"
 #include "BulletPatterns/BulletPattern00.h"
 

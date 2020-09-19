@@ -60,7 +60,7 @@ bool GameScene::init()
 	pattern = BulletPattern00::createBulletPattern00();
 	addChild(pattern);
 
-	this->scheduleUpdate();
+	scheduleUpdate();
 	return true;
 }
 
@@ -71,7 +71,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 
 	if (nodeA && nodeB)
 	{
-		CCLOG("COLLISION!");
+		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene());
 	}
 
 	return true;

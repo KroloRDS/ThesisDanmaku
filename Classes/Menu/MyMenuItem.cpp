@@ -9,7 +9,6 @@ MyMenuItem* MyMenuItem::createMenuItem(std::string text, std::string font, float
 		return NULL;
 	}
 	
-	ret->autorelease();
 	ret->setScale(Settings::getScale());
 
 	ret->outlineSize = (int)std::round(fontSize / OUTLINE_SIZE_SCALE);
