@@ -24,5 +24,5 @@ private:
 	bool onContactBegin(cocos2d::PhysicsContact&);
 
 	template <class T>
-	void removeUnusedObjects(std::vector<T*>&);
+	void removeOutOfBoundsBullets(std::vector<T*>&);
 };

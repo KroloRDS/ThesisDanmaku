@@ -21,7 +21,6 @@ private:
 	static cocos2d::PhysicsBody* createBody();
 	void move(float);
 	void fire(float);
-	void updateBullets(float);
 
 	static const float FOCUSED_SPEED;
 	static const float UNFOCUSED_SPEED;

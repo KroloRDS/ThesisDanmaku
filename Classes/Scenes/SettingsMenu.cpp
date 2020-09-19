@@ -113,10 +113,7 @@ void SettingsMenu::select()
 void SettingsMenu::update(float delta)
 {
 	updateMenu(delta);
-	for (MyMenuItem* option : menuLeftColumn)
-	{
-		option->update(delta);
-	}
+	scrollMenuHorizontally(delta);
 
 	if (prevSelected < menuLeftColumn.size())
 	{
@@ -127,8 +124,6 @@ void SettingsMenu::update(float delta)
 	{
 		menuLeftColumn.at(selectedItem)->select();
 	}
-
-	scrollMenuHorizontally(delta);
 }
 
 void SettingsMenu::scrollMenuHorizontally(float delta)

@@ -35,7 +35,11 @@ void Player::update(float delta)
 	focused = KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_LEFT_SHIFT);
 	move(delta);
 	fire(delta);
-	updateBullets(delta);
+	
+	for (Node* child : getChildren())
+	{
+		child->update(delta);
+	}
 }
 
 void Player::move(float delta)
@@ -99,14 +103,6 @@ void Player::fire(float delta)
 	addChild(leftBullet);
 	addChild(rightBullet);
 	nextBulletInterval += BULLET_INTERVAL;
-}
-
-void Player::updateBullets(float delta)
-{
-	for (PlayerBullet* bullet : playerBullets)
-	{
-		bullet->update(delta);
-	}
 }
 
 std::vector<PlayerBullet*>& Player::getBullets()

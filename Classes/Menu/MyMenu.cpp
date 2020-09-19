@@ -100,9 +100,9 @@ void MyMenu::update(float delta)
 
 void MyMenu::updateMenu(float delta)
 {
-	for (MyMenuItem* option : menuOptions)
+	for (Node* child : getChildren())
 	{
-		option->update(delta);
+		child->update(delta);
 	}
 
 	int scroll = scrollMenu(delta, DEFAULT_MENU_SCROLL_SPEED, false);

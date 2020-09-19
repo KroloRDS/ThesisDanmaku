@@ -79,10 +79,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 
 void GameScene::update(float delta)
 {
-	pattern->update(delta);
-	player->update(delta);
-	removeUnusedObjects(player->getBullets());
-	removeUnusedObjects(pattern->getBullets());
+	removeOutOfBoundsBullets(player->getBullets());
+	removeOutOfBoundsBullets(pattern->getBullets());
+
+	for (Node* child : getChildren())
+	{
+		child->update(delta);
+	}
 
 	if (showHitboxes)
 	{
@@ -95,7 +98,7 @@ void GameScene::update(float delta)
 }
 
 template <class T>
-void GameScene::removeUnusedObjects(std::vector<T*>& vec)
+void GameScene::removeOutOfBoundsBullets(std::vector<T*>& vec)
 {
 	auto iteratorBegin = vec.begin();
 	auto iteratorEnd = vec.rbegin();
