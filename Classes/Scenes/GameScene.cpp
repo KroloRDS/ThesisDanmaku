@@ -17,6 +17,7 @@ const cocos2d::Vec2 GameScene::GAME_OUTER_BOUNDS[4] = {
 cocos2d::Scene* GameScene::createScene()
 {
 	auto scene = cocos2d::Scene::createWithPhysics();
+	scene->getPhysicsWorld()->setDebugDrawMask(Settings::getHitboxOption());
 	auto layer = GameScene::create();
 	scene->addChild(layer);
 	return scene;
@@ -37,10 +38,6 @@ bool GameScene::init()
 	keyboardListener->onKeyReleased = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 	{
 		KeyboardManager::releaseKey(keyCode);
-		if (keyCode == cocos2d::EventKeyboard::KeyCode::KEY_H)
-		{
-			showHitboxes = !showHitboxes;
-		}
 	};
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 
@@ -85,15 +82,6 @@ void GameScene::update(float delta)
 	for (Node* child : getChildren())
 	{
 		child->update(delta);
-	}
-
-	if (showHitboxes)
-	{
-		getScene()->getPhysicsWorld()->setDebugDrawMask(cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
-	}
-	else
-	{
-		getScene()->getPhysicsWorld()->setDebugDrawMask(cocos2d::PhysicsWorld::DEBUGDRAW_NONE);
 	}
 }
 

@@ -14,9 +14,10 @@ public:
 	CREATE_FUNC(SettingsMenu);
 private:
 	cocos2d::Vector<MyMenuItem*> menuLeftColumn = {};
-	int optionValues[3] = { 2, 100, 100 };
-	const int MAX_OPTION_VALUES[3] = { 2, 100, 100 };
+	int optionValues[4] = { 2, 100, 100, 1 };
+	const int MAX_OPTION_VALUES[4] = { 2, 100, 100, 1 };
 	const std::vector<std::string> resolutionOptionStrings = { "640x480", "960x720", "1280x960" };
+	const std::vector<std::string> hitboxOptionStrings = { "None", "All" };
 
 	void updateOptionValueStrings();
 	void updateSettings();

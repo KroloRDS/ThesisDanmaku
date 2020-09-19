@@ -1,6 +1,6 @@
 #include "SettingsMenu.h"
 
-enum options { RESOLUTION = 0, MUSIC_VOLUME, EFFECT_VOLUME, CONTROLS, BACK };
+enum options { RESOLUTION = 0, MUSIC_VOLUME, EFFECT_VOLUME, SHOW_HITBOXES, CONTROLS, BACK };
 
 cocos2d::Scene* SettingsMenu::createScene()
 {
@@ -21,15 +21,16 @@ bool SettingsMenu::init()
 	float marginSize = 80.0f;
 
 	std::string fontName = "fonts/arial.ttf";
-	std::vector<std::string> optionsStrings = { "Resolution", "Music Volume", "Effect Volume", "Controls", "Back" };
+	std::vector<std::string> optionsStrings = { "Resolution", "Music Volume", "Effect Volume", "Show Hitboxes", "Controls", "Back" };
 	addMenuOptions(optionsStrings, fontName, fontSize, marginSize);
 	menuOptions.at(selectedItem)->select();
 
 	optionValues[RESOLUTION] = Settings::getResolution();
 	optionValues[MUSIC_VOLUME] = Settings::getMusicVolume();
 	optionValues[EFFECT_VOLUME] = Settings::getEffectVolume();
+	optionValues[SHOW_HITBOXES] = (int)(Settings::getHitboxOption() == cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
 	
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		float yOffset = origin.y - menuLeftColumn.size() * marginSize;
 		menuLeftColumn.pushBack(MyMenuItem::createMenuItem("", fontName, fontSize));
@@ -64,6 +65,7 @@ void SettingsMenu::updateOptionValueStrings()
 	menuLeftColumn.at(RESOLUTION)->setText(resolutionOptionStrings.at(optionValues[RESOLUTION]));
 	menuLeftColumn.at(MUSIC_VOLUME)->setText(std::to_string(optionValues[MUSIC_VOLUME]));
 	menuLeftColumn.at(EFFECT_VOLUME)->setText(std::to_string(optionValues[EFFECT_VOLUME]));
+	menuLeftColumn.at(SHOW_HITBOXES)->setText(hitboxOptionStrings.at(optionValues[SHOW_HITBOXES]));
 }
 
 void SettingsMenu::updateSettings()
@@ -78,6 +80,9 @@ void SettingsMenu::updateSettings()
 		break;
 	case EFFECT_VOLUME:
 		Settings::setEffectVolume(optionValues[EFFECT_VOLUME]);
+		break;
+	case SHOW_HITBOXES:
+		Settings::setHitboxOption(optionValues[SHOW_HITBOXES] != 0);
 		break;
 	}
 
@@ -129,7 +134,7 @@ void SettingsMenu::update(float delta)
 void SettingsMenu::scrollMenuHorizontally(float delta)
 {
 	float scrollSpeed = FAST_MENU_SCROLL_SPEED;
-	if (selectedItem == RESOLUTION)
+	if (selectedItem == RESOLUTION || selectedItem == SHOW_HITBOXES)
 	{
 		scrollSpeed = SLOW_MENU_SCROLL_SPEED;
 	}

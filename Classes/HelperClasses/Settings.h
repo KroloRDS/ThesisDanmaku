@@ -16,11 +16,14 @@ public:
 	static int getEffectVolume();
 	static float getWindowSizeX();
 	static float getWindowSizeY();
+	static int getHitboxOption();
+	static void setHitboxOption(bool);
 private:
 	static float scale;
 	static int resolution;
 	static int musicVolume;
 	static int effectVolume;
+	static int showHitboxes;
 
 	static const float DEFAULT_SCALE;
 	static const int DEFAULT_RESOLUTION = RESOLUTIONS::R1280x960;
@@ -28,4 +31,5 @@ private:
 	static const int DEFAULT_EFFECT_VOLUME = 100;
 	static const float SIZES_X[3];
 	static const float SIZES_Y[3];
+	static const int DEFAULT_HITBOXES;
 };
