@@ -45,11 +45,11 @@ bool GameScene::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	auto rectNode = cocos2d::DrawNode::create();
-	cocos2d::Color4F white(1, 1, 1, 1);
-	rectNode->drawPolygon(GAME_INNER_BOUNDS, 4, white, 1, white);
-	rectNode->setScale(Settings::getScale());
-	addChild(rectNode);
+	auto overlay = cocos2d::Sprite::create("overlay.png");
+	overlay->setScale(Settings::getScale());
+	overlay->setPosition(cocos2d::Vec2(Settings::getWindowSizeX() * 0.5f, Settings::getWindowSizeY() * 0.5f));
+	overlay->setGlobalZOrder(1.0f);
+	addChild(overlay);
 
 	player = Player::createPlayer("reimu.png", cocos2d::Vec2(440, 300));
 	addChild(player);
