@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 #include "GameOver.h"
 #include "GameObjects/Player.h"
-#include "BulletPatterns/BulletPattern00.h"
+#include "GameObjects/Enemy.h"
 
 class GameScene : public cocos2d::Layer
 {
@@ -18,9 +18,22 @@ public:
 
 private:
 	Player* player = nullptr;
-	BulletPattern00* pattern = nullptr;
+	Enemy* enemy = nullptr;
+	cocos2d::DrawNode* enemyHpBar = nullptr;
 
+	static const cocos2d::Color4F COLOR_WHITE;
+	static const cocos2d::Vec2 PLAYER_INIT_POS;
+	static const cocos2d::Vec2 ENEMY_INIT_POS;
+	static const cocos2d::Vec2 ENEMY_HP_BAR_POS;
+	static const int ENEMY_HP_BAR_MAX_WIDTH = 660;
+	static const int ENEMY_HP_BAR_HEIGHT = 6;
+
+	void addListeners();
+	void addOverlay();
+	void updateEnemyHpBar();
 	bool onContactBegin(cocos2d::PhysicsContact&);
+
+	void hitEnemy(std::vector<PlayerBullet*>&);
 
 	template <class T>
 	void removeOutOfBoundsBullets(std::vector<T*>&);

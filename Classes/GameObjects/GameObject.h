@@ -12,6 +12,7 @@ public:
 	
 	void setPos(cocos2d::Vec2);
 	cocos2d::Vec2 getPos();
+	cocos2d::Rect getSpriteBoundingBox();
 
 	cocos2d::Sprite* getSprite();
 	bool isOutOfBounds();

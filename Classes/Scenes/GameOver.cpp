@@ -2,10 +2,11 @@
 
 enum options { RETRY = 0, MAIN_MENU, EXIT };
 
-cocos2d::Scene* GameOver::createScene()
+cocos2d::Scene* GameOver::createScene(std::string str)
 {
 	auto scene = cocos2d::Scene::create();
 	auto layer = GameOver::create();
+	layer->setText(str);
 	scene->addChild(layer);
 	return scene;
 }
@@ -17,7 +18,7 @@ bool GameOver::init()
 		return false;
 	}
 
-	auto gameOverText = MyMenuItem::createMenuItem("GAME OVER", "fonts/arial.ttf", 100.0);
+	gameOverText = MyMenuItem::createMenuItem("", "fonts/arial.ttf", 100.0);
 	gameOverText->setPos(cocos2d::Vec2(640, 600));
 	gameOverText->select();
 	addChild(gameOverText);
@@ -44,4 +45,9 @@ void GameOver::select()
 		cocos2d::Director::getInstance()->end();
 		break;
 	}
+}
+
+void GameOver::setText(std::string str)
+{
+	gameOverText->setText(str);
 }

@@ -39,6 +39,11 @@ cocos2d::Vec2 GameObject::getPos()
 	return absolutePos;
 }
 
+cocos2d::Rect GameObject::getSpriteBoundingBox()
+{
+	return sprite->getBoundingBox();
+}
+
 bool GameObject::isOutOfBounds()
 {
 	return (absolutePos.x < GameScene::GAME_OUTER_BOUNDS[0].x ||
