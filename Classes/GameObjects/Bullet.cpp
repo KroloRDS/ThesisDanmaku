@@ -42,8 +42,8 @@ cocos2d::PhysicsBody* Bullet::createBody()
 void Bullet::update(float delta)
 {
 	auto newPosition = absolutePos;
-	newPosition.x += delta * speed * (float)sin(rotation / 180.0f * M_PI);
-	newPosition.y += delta * speed * (float)cos(rotation / 180.0f * M_PI);
+	newPosition.x += delta * speed * xRotationCoeff;
+	newPosition.y += delta * speed * yRotationCoeff;
 	setPos(newPosition);
 }
 
@@ -65,5 +65,7 @@ float Bullet::getRot()
 void Bullet::setRot(float newRotation)
 {
 	rotation = newRotation;
-	sprite->setRotation(newRotation);
+	sprite->setRotation(rotation);
+	xRotationCoeff = (float)sin(rotation / 180.0f * M_PI);
+	yRotationCoeff = (float)cos(rotation / 180.0f * M_PI);
 }
