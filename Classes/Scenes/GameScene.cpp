@@ -117,7 +117,7 @@ void GameScene::updateEnemyHpBar()
 	addChild(enemyHpBar);
 	
 	int width = ENEMY_HP_BAR_MAX_WIDTH;
-	width *= static_cast<double>(enemy->getHp()) / static_cast<double>(enemy->getMaxHp());
+	width = (int)(width * static_cast<double>(enemy->getHp()) / static_cast<double>(enemy->getMaxHp()));
 	cocos2d::Vec2 dest(ENEMY_HP_BAR_POS.x + width, ENEMY_HP_BAR_POS.y + ENEMY_HP_BAR_HEIGHT);
 	enemyHpBar->drawSolidRect(ENEMY_HP_BAR_POS, dest, COLOR_WHITE);
 }

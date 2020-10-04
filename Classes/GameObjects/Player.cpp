@@ -74,8 +74,8 @@ void Player::move(float delta)
 	float speed;
 	focused ? speed = FOCUSED_SPEED : speed = UNFOCUSED_SPEED;
 	
-	int newX = horizontalMovement * speed;
-	int newY = verticalMovement * speed;
+	int newX = (int)(horizontalMovement * speed);
+	int newY = (int)(verticalMovement * speed);
 	verticalMovement == 0 ? newX = (int)(newX * delta) : newX = (int)(newX * delta * DIAGONAL_COEFFICIENT);
 	horizontalMovement == 0 ? newY = (int)(newY * delta) : newY = (int)(newY * delta * DIAGONAL_COEFFICIENT);
 	
