@@ -48,41 +48,33 @@ void Player::update(float delta)
 
 void Player::move(float delta)
 {
-	int verticalMovement = 0;
-	int horizontalMovement = 0;
+	int vDirection = 0;
+	int hDirection = 0;
 	if (KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW) &&
 		absolutePos.y + GAME_BOUNDS_OFFSET <= GameScene::GAME_INNER_BOUNDS[2].y)
 	{
-		verticalMovement++;
+		vDirection++;
 	}
 	if (KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW) &&
 		absolutePos.y - GAME_BOUNDS_OFFSET >= GameScene::GAME_INNER_BOUNDS[0].y)
 	{
-		verticalMovement--;
+		vDirection--;
 	}
 	if (KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW) &&
 		absolutePos.x - GAME_BOUNDS_OFFSET >= GameScene::GAME_INNER_BOUNDS[0].x)
 	{
-		horizontalMovement--;
+		hDirection--;
 	}
 	if (KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW) &&
 		absolutePos.x + GAME_BOUNDS_OFFSET <= GameScene::GAME_INNER_BOUNDS[2].x)
 	{
-		horizontalMovement++;
+		hDirection++;
 	}
 
-	float speed;
-	focused ? speed = FOCUSED_SPEED : speed = UNFOCUSED_SPEED;
-	
-	int newX = (int)(horizontalMovement * speed);
-	int newY = (int)(verticalMovement * speed);
-	verticalMovement == 0 ? newX = (int)(newX * delta) : newX = (int)(newX * delta * DIAGONAL_COEFFICIENT);
-	horizontalMovement == 0 ? newY = (int)(newY * delta) : newY = (int)(newY * delta * DIAGONAL_COEFFICIENT);
-	
 	auto newPosition = absolutePos;
-	newPosition.x += newX;
-	newPosition.y += newY;
-
+	float distance = focused ? FOCUSED_SPEED * delta : UNFOCUSED_SPEED * delta;
+	newPosition.x += vDirection == 0 ? (int)(hDirection * distance) : (int)(hDirection * distance * DIAGONAL_COEFFICIENT);
+	newPosition.y += hDirection == 0 ? (int)(vDirection * distance) : (int)(vDirection * distance * DIAGONAL_COEFFICIENT);
 	setPos(newPosition);
 }
 
