@@ -73,8 +73,8 @@ void Player::move(float delta)
 
 	auto newPosition = absolutePos;
 	float distance = focused ? FOCUSED_SPEED * delta : UNFOCUSED_SPEED * delta;
-	newPosition.x += vDirection == 0 ? (int)(hDirection * distance) : (int)(hDirection * distance * DIAGONAL_COEFFICIENT);
-	newPosition.y += hDirection == 0 ? (int)(vDirection * distance) : (int)(vDirection * distance * DIAGONAL_COEFFICIENT);
+	newPosition.x += (int)(hDirection * distance * (vDirection == 0 ? 1 : DIAGONAL_COEFFICIENT));
+	newPosition.y += (int)(vDirection * distance * (hDirection == 0 ? 1 : DIAGONAL_COEFFICIENT));
 	setPos(newPosition);
 }
 

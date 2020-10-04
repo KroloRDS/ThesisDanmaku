@@ -54,16 +54,10 @@ bool GameScene::init()
 void GameScene::addListeners()
 {
 	auto keyboardListener = cocos2d::EventListenerKeyboard::create();
-	keyboardListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
-	{
-		KeyboardManager::pressKey(keyCode);
-	};
-	keyboardListener->onKeyReleased = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
-	{
-		KeyboardManager::releaseKey(keyCode);
-	};
+	keyboardListener->onKeyPressed = CC_CALLBACK_2(GameScene::pressKey, this);
+	keyboardListener->onKeyReleased = CC_CALLBACK_2(GameScene::releaseKey, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
-
+	
 	auto contactListener = cocos2d::EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -89,6 +83,16 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 	}
 
 	return true;
+}
+
+void GameScene::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
+{
+	KeyboardManager::pressKey(keyCode);
+}
+
+void GameScene::releaseKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
+{
+	KeyboardManager::releaseKey(keyCode);
 }
 
 void GameScene::update(float delta)

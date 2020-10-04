@@ -24,11 +24,15 @@ protected:
 	const float DEFAULT_MENU_SCROLL_SPEED = 0.15f;
 	const float FAST_MENU_SCROLL_SPEED = 0.05f;
 	const float MENU_SCROLL_CUTOFF = 0.5f;
+	const std::string FONT_NAME = "fonts/arial.ttf";
 
 	void updateMenu(float);
 	int scrollMenu(float, float, bool);
 	int meunuWarpAround(int, int, int);
 	bool initMenu(cocos2d::Vec2);
-	void addMenuOption(std::string, std::string, float, float);
-	void addMenuOptions(std::vector<std::string> options, std::string font, float fontSize, float margin);
+	void addMenuOption(std::string, float, float);
+	void addMenuOptions(std::vector<std::string> options, float fontSize, float margin);
+private:
+	void pressKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
+	void releaseKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 };

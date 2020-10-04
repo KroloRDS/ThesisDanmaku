@@ -7,53 +7,57 @@ bool MyMenu::initMenu(cocos2d::Vec2 pos)
 		return false;
 	}
 
-	auto eventListener = cocos2d::EventListenerKeyboard::create();
-	eventListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
-	{
-		KeyboardManager::pressKey(keyCode);
-		switch (keyCode)
-		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
-			changeSelection(meunuWarpAround(selectedItem, -1, menuOptions.size() - 1));
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			changeSelection(meunuWarpAround(selectedItem, 1, menuOptions.size() - 1));
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_ENTER:
-		case cocos2d::EventKeyboard::KeyCode::KEY_Z:
-		case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:
-			select();
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE:
-		case cocos2d::EventKeyboard::KeyCode::KEY_X:
-			selectBack();
-			break;
-		}
-	};
-	eventListener->onKeyReleased = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
-	{
-		KeyboardManager::releaseKey(keyCode);
-	};
-	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
+	auto keyboardListener = cocos2d::EventListenerKeyboard::create();
+	keyboardListener->onKeyPressed = CC_CALLBACK_2(MyMenu::pressKey, this);
+	keyboardListener->onKeyReleased = CC_CALLBACK_2(MyMenu::releaseKey, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 
 	origin = pos;
 
 	return true;
 }
 
-void MyMenu::addMenuOption(std::string text, std::string font, float fontSize, float margin)
+void MyMenu::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
 {
-	menuOptions.pushBack(MyMenuItem::createMenuItem(text, font, fontSize));
+	KeyboardManager::pressKey(keyCode);
+	switch (keyCode)
+	{
+	case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
+		changeSelection(meunuWarpAround(selectedItem, -1, menuOptions.size() - 1));
+		break;
+	case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+		changeSelection(meunuWarpAround(selectedItem, 1, menuOptions.size() - 1));
+		break;
+	case cocos2d::EventKeyboard::KeyCode::KEY_ENTER:
+	case cocos2d::EventKeyboard::KeyCode::KEY_Z:
+	case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:
+		select();
+		break;
+	case cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE:
+	case cocos2d::EventKeyboard::KeyCode::KEY_X:
+		selectBack();
+		break;
+	}
+}
+
+void MyMenu::releaseKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
+{
+	KeyboardManager::releaseKey(keyCode);
+}
+
+void MyMenu::addMenuOption(std::string text, float fontSize, float margin)
+{
+	menuOptions.pushBack(MyMenuItem::createMenuItem(text, FONT_NAME, fontSize));
 	addChild(menuOptions.back());
 	float yOffset = origin.y - (menuOptions.size() - 1) * margin;
 	menuOptions.back()->setPos(cocos2d::Vec2(origin.x, yOffset));
 }
 
-void MyMenu::addMenuOptions(std::vector<std::string> options, std::string font, float fontSize, float margin)
+void MyMenu::addMenuOptions(std::vector<std::string> options, float fontSize, float margin)
 {
 	for (std::string str : options)
 	{
-		addMenuOption(str, "fonts/arial.ttf", fontSize, margin);
+		addMenuOption(str, fontSize, margin);
 	}
 }
 

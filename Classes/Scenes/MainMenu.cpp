@@ -18,7 +18,7 @@ bool MainMenu::init()
 	}
 
 	std::vector<std::string> optionsStrings = { "Start", "Spell Practice", "Settings", "Exit" };
-	addMenuOptions(optionsStrings, "fonts/arial.ttf", 100.0, 160.0);
+	addMenuOptions(optionsStrings, 100.0, 160.0);
 	menuOptions.at(selectedItem)->select();
 
 	this->scheduleUpdate();

@@ -17,12 +17,8 @@ bool SettingsMenu::init()
 		return false;
 	}
 
-	float fontSize = 45.0f;
-	float marginSize = 80.0f;
-
-	std::string fontName = "fonts/arial.ttf";
 	std::vector<std::string> optionsStrings = { "Resolution", "Music Volume", "Effect Volume", "Show Hitboxes", "Controls", "Back" };
-	addMenuOptions(optionsStrings, fontName, fontSize, marginSize);
+	addMenuOptions(optionsStrings, FONT_SIZE, MARGIN_SIZE);
 	menuOptions.at(selectedItem)->select();
 
 	optionValues[RESOLUTION] = Settings::getResolution();
@@ -32,32 +28,34 @@ bool SettingsMenu::init()
 	
 	for (int i = 0; i < 4; i++)
 	{
-		float yOffset = origin.y - menuLeftColumn.size() * marginSize;
-		menuLeftColumn.pushBack(MyMenuItem::createMenuItem("", fontName, fontSize));
+		float yOffset = origin.y - menuLeftColumn.size() * MARGIN_SIZE;
+		menuLeftColumn.pushBack(MyMenuItem::createMenuItem("", FONT_NAME, FONT_SIZE));
 		menuLeftColumn.back()->setPos(cocos2d::Vec2(700, yOffset));
 		addChild(menuLeftColumn.back());
 	}
 	updateOptionValueStrings();
 
 	auto eventListener = cocos2d::EventListenerKeyboard::create();
-	eventListener->onKeyPressed = [&](cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
-	{
-		switch (keyCode)
-		{
-		case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-			optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], -1, MAX_OPTION_VALUES[selectedItem]);
-			updateSettings();
-			break;
-		case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-			optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], 1, MAX_OPTION_VALUES[selectedItem]);
-			updateSettings();
-			break;
-		}
-	};
+	eventListener->onKeyPressed = CC_CALLBACK_2(SettingsMenu::pressKey, this);
 	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 
 	this->scheduleUpdate();
 	return true;
+}
+
+void SettingsMenu::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
+{
+	switch (keyCode)
+	{
+	case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], -1, MAX_OPTION_VALUES[selectedItem]);
+		updateSettings();
+		break;
+	case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], 1, MAX_OPTION_VALUES[selectedItem]);
+		updateSettings();
+		break;
+	}
 }
 
 void SettingsMenu::updateOptionValueStrings()
@@ -133,11 +131,8 @@ void SettingsMenu::update(float delta)
 
 void SettingsMenu::scrollMenuHorizontally(float delta)
 {
-	float scrollSpeed = FAST_MENU_SCROLL_SPEED;
-	if (selectedItem == RESOLUTION || selectedItem == SHOW_HITBOXES)
-	{
-		scrollSpeed = SLOW_MENU_SCROLL_SPEED;
-	}
+	float scrollSpeed = selectedItem == RESOLUTION || selectedItem == SHOW_HITBOXES ? 
+		SLOW_MENU_SCROLL_SPEED : FAST_MENU_SCROLL_SPEED;
 
 	int scroll = scrollMenu(delta, scrollSpeed, true);
 	if (scroll != 0)

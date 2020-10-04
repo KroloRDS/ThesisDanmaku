@@ -32,6 +32,8 @@ private:
 	void addOverlay();
 	void updateEnemyHpBar();
 	bool onContactBegin(cocos2d::PhysicsContact&);
+	void pressKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
+	void releaseKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 
 	void hitEnemy(std::vector<PlayerBullet*>&);
 

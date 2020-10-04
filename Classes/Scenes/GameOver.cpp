@@ -18,13 +18,13 @@ bool GameOver::init()
 		return false;
 	}
 
-	gameOverText = MyMenuItem::createMenuItem("", "fonts/arial.ttf", 100.0);
+	gameOverText = MyMenuItem::createMenuItem("", FONT_NAME, 100.0);
 	gameOverText->setPos(cocos2d::Vec2(640, 600));
 	gameOverText->select();
 	addChild(gameOverText);
 
 	std::vector<std::string> optionsStrings = { "Retry", "Main Menu", "Exit" };
-	addMenuOptions(optionsStrings, "fonts/arial.ttf", 60.0, 100.0);
+	addMenuOptions(optionsStrings, 60.0, 100.0);
 	menuOptions.at(selectedItem)->select();
 
 	scheduleUpdate();

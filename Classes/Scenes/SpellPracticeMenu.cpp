@@ -18,7 +18,7 @@ bool SpellPracticeMenu::init()
 	}
 
 	std::vector<std::string> optionsStrings = { "Spell 0", "Spell 1", "Spell 2", "Back" };
-	addMenuOptions(optionsStrings, "fonts/arial.ttf", 100.0, 160.0);
+	addMenuOptions(optionsStrings, 100.0, 160.0);
 	menuOptions.at(selectedItem)->select();
 
 	this->scheduleUpdate();

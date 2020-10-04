@@ -26,10 +26,7 @@ void BulletPattern00::update(float delta)
 	rotation += rotationSpeed;
 	rotation = fmod(rotation, 360.0f);
 
-	if (abs(rotationSpeed) > MAX_ROTATION_SPEED)
-	{
-		acceleration *= -1.0f;
-	}
+	acceleration *= abs(rotationSpeed) > MAX_ROTATION_SPEED ? -1.0f : 1.0f;
 }
 
 void BulletPattern00::spawnNewBullets(float delta)
@@ -37,16 +34,15 @@ void BulletPattern00::spawnNewBullets(float delta)
 	if (nextBulletInterval > 0.0f)
 	{
 		nextBulletInterval -= delta;
+		return;
 	}
-	else
+	
+	for (int i = 0; i < ARMS_COUNT; i++)
 	{
-		for (int i = 0; i < ARMS_COUNT; i++)
-		{
-			bullets.push_back(Bullet::createBullet("bullet.png", origin));
-			bullets.back()->setSpeed(BULLET_SPEED);
-			bullets.back()->setRot(rotation + i * 360.0f / ARMS_COUNT);
-			addChild(bullets.back());
-		}
-		nextBulletInterval += BULLET_INTERVAL;
+		bullets.push_back(Bullet::createBullet("bullet.png", origin));
+		bullets.back()->setSpeed(BULLET_SPEED);
+		bullets.back()->setRot(rotation + i * 360.0f / ARMS_COUNT);
+		addChild(bullets.back());
 	}
+	nextBulletInterval += BULLET_INTERVAL;
 }

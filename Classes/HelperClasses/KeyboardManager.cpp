@@ -15,11 +15,7 @@ const std::vector<cocos2d::EventKeyboard::KeyCode> KeyboardManager::arrowKeys =
 
 bool KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode keyCode)
 {
-	if (keyPressedTime.find(keyCode) != keyPressedTime.end())
-	{
-		return true;
-	}
-	return false;
+	return (keyPressedTime.find(keyCode) != keyPressedTime.end());
 }
 
 void KeyboardManager::pressKey(cocos2d::EventKeyboard::KeyCode keyCode)
@@ -34,12 +30,9 @@ void KeyboardManager::releaseKey(cocos2d::EventKeyboard::KeyCode keyCode)
 
 float KeyboardManager::getPressTime(cocos2d::EventKeyboard::KeyCode keyCode)
 {
-	if (keyPressedTime.find(keyCode) != keyPressedTime.end())
-	{
-		return std::chrono::duration_cast<std::chrono::milliseconds>
-			(std::chrono::high_resolution_clock::now() - keyPressedTime[keyCode]).count() / 1000.0f;
-	}
-	return 0.0f;
+	return keyPressedTime.find(keyCode) == keyPressedTime.end() ? 0.0f : 
+		std::chrono::duration_cast<std::chrono::milliseconds>
+		(std::chrono::high_resolution_clock::now() - keyPressedTime[keyCode]).count() / 1000.0f;
 }
 
 std::vector<cocos2d::EventKeyboard::KeyCode> KeyboardManager::getPressedArrows()
