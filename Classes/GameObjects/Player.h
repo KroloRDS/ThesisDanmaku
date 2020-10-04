@@ -26,4 +26,8 @@ private:
 	static const float UNFOCUSED_SPEED;
 	static const float HITBOX_RADIUS;
 	static const float BULLET_INTERVAL;
+	static const float DIAGONAL_COEFFICIENT;
+	static const float SCREEN_BORDER_OFFSET;
+	static const float BULLET_X_OFFSET;
+	static const float BULLET_Y_OFFSET;
 };
