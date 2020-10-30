@@ -34,7 +34,7 @@ bool GameScene::init()
 	}
 
 	addListeners();
-	addOverlay();
+	addChild(createOverlay());
 
 	player = Player::createPlayer("reimu.png", PLAYER_INIT_POS);
 	addChild(player);
@@ -58,13 +58,13 @@ void GameScene::addListeners()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
-void GameScene::addOverlay()
+cocos2d::Sprite* GameScene::createOverlay()
 {
 	auto overlay = cocos2d::Sprite::create("overlay.png");
 	overlay->setScale(Settings::getScale());
 	overlay->setPosition(cocos2d::Vec2(Settings::getWindowSizeX() * 0.5f, Settings::getWindowSizeY() * 0.5f));
 	overlay->setGlobalZOrder(1.0f);
-	addChild(overlay);
+	return overlay;
 }
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -83,6 +83,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 void GameScene::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
 {
 	KeyboardManager::pressKey(keyCode);
+	if (keyCode == cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE)
+	{
+		auto scene = PauseScene::createScene(takeScreenshot());
+		scene->addChild(createOverlay());
+		cocos2d::Director::getInstance()->pushScene(scene);
+	}
 }
 
 void GameScene::releaseKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
@@ -105,6 +111,20 @@ void GameScene::update(float delta)
 	{
 		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
 	}
+}
+
+cocos2d::RenderTexture* GameScene::takeScreenshot()
+{
+	removeOutOfBoundsBullets(player->getBullets());
+	removeOutOfBoundsBullets(enemy->getBullets());
+
+	cocos2d::RenderTexture* rt = cocos2d::RenderTexture::create(Settings::getWindowSizeX(), Settings::getWindowSizeY());
+	rt->begin();
+	visit();
+	rt->end();
+	rt->getSprite()->setAnchorPoint(cocos2d::Vec2(0, 0));
+
+	return rt;
 }
 
 void GameScene::hitEnemy(std::vector<PlayerBullet*>& vec)

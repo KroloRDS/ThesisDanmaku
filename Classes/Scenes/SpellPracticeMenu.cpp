@@ -37,5 +37,6 @@ void SpellPracticeMenu::select()
 		break;
 	case BACK:
 		cocos2d::Director::getInstance()->replaceScene(MainMenu::createScene());
+		break;
 	}
 }

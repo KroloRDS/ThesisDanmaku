@@ -13,6 +13,5 @@ public:
 	CREATE_FUNC(GameOver);	
 private:
 	MyMenuItem* gameOverText = nullptr;
-	void setText(std::string);
 };
 

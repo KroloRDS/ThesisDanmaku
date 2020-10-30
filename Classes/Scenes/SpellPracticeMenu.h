@@ -10,6 +10,4 @@ public:
 	virtual bool init() override;
 	void select();
 	CREATE_FUNC(SpellPracticeMenu);
-private:
-
 };

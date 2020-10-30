@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "GameOver.h"
+#include "PauseScene.h"
 #include "GameObjects/Player.h"
 #include "GameObjects/Enemy.h"
 
@@ -24,11 +25,13 @@ private:
 	static const cocos2d::Vec2 ENEMY_INIT_POS;
 
 	void addListeners();
-	void addOverlay();
+	cocos2d::Sprite* createOverlay();
+	
 	bool onContactBegin(cocos2d::PhysicsContact&);
 	void pressKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 	void releaseKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 
+	cocos2d::RenderTexture* takeScreenshot();
 	void hitEnemy(std::vector<PlayerBullet*>&);
 
 	template <class T>

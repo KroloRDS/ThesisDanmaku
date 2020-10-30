@@ -6,7 +6,7 @@ cocos2d::Scene* GameOver::createScene(std::string str)
 {
 	auto scene = cocos2d::Scene::create();
 	auto layer = GameOver::create();
-	layer->setText(str);
+	layer->gameOverText->setText(str);
 	scene->addChild(layer);
 	return scene;
 }
@@ -45,9 +45,4 @@ void GameOver::select()
 		cocos2d::Director::getInstance()->end();
 		break;
 	}
-}
-
-void GameOver::setText(std::string str)
-{
-	gameOverText->setText(str);
 }
