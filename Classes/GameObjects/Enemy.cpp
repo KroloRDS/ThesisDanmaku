@@ -15,6 +15,10 @@ Enemy* Enemy::createEnemy(std::string str, cocos2d::Vec2 pos)
 	ret->addChild(ret->bulletPattern);
 	ret->hp = ret->bulletPattern->getHp();
 
+	ret->hpBar = EnemyHpBar::createEnemyHpBar(ret->hp);
+	ret->hpBar->updateHpBar(ret->hp);
+	ret->addChild(ret->hpBar);
+
 	return ret;
 }
 
@@ -41,4 +45,5 @@ int Enemy::getMaxHp()
 void Enemy::damage(int damage)
 {
 	hp -= damage;
+	hpBar->updateHpBar(hp);
 }

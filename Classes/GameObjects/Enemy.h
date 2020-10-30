@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "GameObject.h"
+#include "EnemyHpBar.h"
 #include "BulletPatterns/BulletPattern00.h"
 
 class Enemy : public GameObject
@@ -17,5 +18,6 @@ public:
 	void damage(int damage = 1);
 private:
 	BulletPattern* bulletPattern = nullptr;
+	EnemyHpBar* hpBar = nullptr;
 	int hp = 0;
 };
