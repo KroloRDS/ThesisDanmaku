@@ -20,11 +20,13 @@ public:
 private:
 	Player* player = nullptr;
 	Enemy* enemy = nullptr;
+	
 	MyMenuItem* grazeLabel = nullptr;
 	MyMenuItem* grazeCounter = nullptr;
 	int graze = 0;
 
-	static const cocos2d::Vec2 PLAYER_INIT_POS;
+	MyMenuItem* livesLabel = nullptr;
+
 	static const cocos2d::Vec2 ENEMY_INIT_POS;
 
 	void addListeners();
@@ -35,9 +37,14 @@ private:
 	void pressKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 	void releaseKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 
+	void onContact(cocos2d::PhysicsBody*, cocos2d::PhysicsBody*);
+
 	cocos2d::RenderTexture* takeScreenshot();
 	void hitEnemy(std::vector<PlayerBullet*>&);
 
 	template <class T>
 	void removeOutOfBoundsBullets(std::vector<T*>&);
+
+	template <class T>
+	void removeAllBullets(std::vector<T*>&);
 };

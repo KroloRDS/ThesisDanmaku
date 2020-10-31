@@ -8,13 +8,21 @@
 class Player : public GameObject
 {
 public:
-	static Player* createPlayer(std::string, cocos2d::Vec2);
+	static Player* createPlayer(std::string);
 	CREATE_FUNC(Player);
 	void update(float);
 	void setPos(cocos2d::Vec2);
+	void kill();
+	int getLives();
+	float getIFrames();
 	std::vector<PlayerBullet*>& getBullets();
+
+	static const int DEFAULT_LIVES = 2;
+
 private:
+	int lives = 0;
 	bool focused = false;
+	float iFrames = 0.0f;
 	float nextBulletInterval = 0.0f;
 	std::vector<PlayerBullet*> playerBullets = {};
 
@@ -25,7 +33,9 @@ private:
 	static cocos2d::Node* createGrazeHitbox();
 	void move(float);
 	void fire(float);
+	void updateIFrames(float);
 
+	static const float IFRAMES_AFTER_DEATH;
 	static const float FOCUSED_SPEED;
 	static const float UNFOCUSED_SPEED;
 	static const float HITBOX_RADIUS;
@@ -35,4 +45,5 @@ private:
 	static const float GAME_BOUNDS_OFFSET;
 	static const float BULLET_X_OFFSET;
 	static const float BULLET_Y_OFFSET;
+	static const cocos2d::Vec2 INIT_POS;
 };

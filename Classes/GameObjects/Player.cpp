@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Scenes/GameScene.h"
 
+const float Player::IFRAMES_AFTER_DEATH = 5.0f;
 const float Player::FOCUSED_SPEED = 200.0f;
 const float Player::UNFOCUSED_SPEED = 400.0f;
 const float Player::HITBOX_RADIUS = 6.0f;
@@ -10,8 +11,9 @@ const float Player::DIAGONAL_COEFFICIENT = 1.0f / sqrt(2.0f);
 const float Player::GAME_BOUNDS_OFFSET = HITBOX_RADIUS * Settings::getScale() * 1.5f;
 const float Player::BULLET_X_OFFSET = HITBOX_RADIUS * Settings::getScale() * 2.0f;
 const float Player::BULLET_Y_OFFSET = HITBOX_RADIUS * Settings::getScale() * 7.0f;
+const cocos2d::Vec2 Player::INIT_POS = cocos2d::Vec2(440, 300);
 
-Player* Player::createPlayer(std::string str, cocos2d::Vec2 pos)
+Player* Player::createPlayer(std::string str)
 {
 	Player* ret = Player::create();
 	if (!ret)
@@ -20,11 +22,12 @@ Player* Player::createPlayer(std::string str, cocos2d::Vec2 pos)
 		return NULL;
 	}
 
-	ret->initGameObj(str, pos);
+	ret->initGameObj(str, INIT_POS);
 	ret->hitbox = createHitbox();
 	ret->addChild(ret->hitbox);
 	ret->grazeHitbox = createGrazeHitbox();
 	ret->addChild(ret->grazeHitbox);
+	ret->lives = DEFAULT_LIVES;
 
 	return ret;
 }
@@ -60,6 +63,7 @@ void Player::update(float delta)
 	focused = KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_LEFT_SHIFT);
 	move(delta);
 	fire(delta);
+	updateIFrames(delta);
 	
 	for (Node* child : getChildren())
 	{
@@ -127,6 +131,21 @@ void Player::fire(float delta)
 	nextBulletInterval += BULLET_INTERVAL;
 }
 
+void Player::updateIFrames(float delta)
+{
+	if (iFrames <= 0.0f)
+	{
+		return;
+	}
+
+	iFrames -= delta;
+}
+
+float Player::getIFrames()
+{
+	return iFrames;
+}
+
 std::vector<PlayerBullet*>& Player::getBullets()
 {
 	return playerBullets;
@@ -138,4 +157,16 @@ void Player::setPos(cocos2d::Vec2 newPosition)
 	sprite->setPosition(newPosition * Settings::getScale());
 	hitbox->setPosition(newPosition * Settings::getScale());
 	grazeHitbox->setPosition(newPosition * Settings::getScale());
+}
+
+void Player::kill()
+{
+	lives--;
+	iFrames = IFRAMES_AFTER_DEATH;
+	setPos(INIT_POS);
+}
+
+int Player::getLives()
+{
+	return lives;
 }

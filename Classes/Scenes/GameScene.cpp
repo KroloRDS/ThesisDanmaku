@@ -14,7 +14,6 @@ const cocos2d::Vec2 GameScene::GAME_OUTER_BOUNDS[4] = {
 	cocos2d::Vec2(1020, -168)
 };
 
-const cocos2d::Vec2 GameScene::PLAYER_INIT_POS = cocos2d::Vec2(440, 300);
 const cocos2d::Vec2 GameScene::ENEMY_INIT_POS = cocos2d::Vec2(440, 600);
 
 cocos2d::Scene* GameScene::createScene()
@@ -37,7 +36,7 @@ bool GameScene::init()
 	addUIElements();
 	addChild(createOverlay());
 
-	player = Player::createPlayer("reimu.png", PLAYER_INIT_POS);
+	player = Player::createPlayer("reimu.png");
 	addChild(player);
 
 	enemy = Enemy::createEnemy("yukari.png", ENEMY_INIT_POS);
@@ -72,6 +71,12 @@ void GameScene::addUIElements()
 	grazeCounter->setZOrder(2.0f);
 	grazeCounter->select();
 	addChild(grazeCounter);
+
+	livesLabel = MyMenuItem::createMenuItem("Player: " + std::to_string(Player::DEFAULT_LIVES), "fonts/arial.ttf", 50.0f);
+	livesLabel->setPos(cocos2d::Vec2(955, 700));
+	livesLabel->setZOrder(2.0f);
+	livesLabel->select();
+	addChild(livesLabel);
 }
 
 cocos2d::Sprite* GameScene::createOverlay()
@@ -90,15 +95,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 
 	if (bodyA && bodyB)
 	{
-		if (bodyA->getCategoryBitmask() == 0x4 || bodyB->getCategoryBitmask() == 0x4)
-		{
-			graze++;
-			grazeCounter->setText(std::to_string(graze));
-		}
-		else
-		{
-			//cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("GAME OVER"));
-		}
+		onContact(bodyA, bodyB);
 	}
 
 	return true;
@@ -118,6 +115,32 @@ void GameScene::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event
 void GameScene::releaseKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
 {
 	KeyboardManager::releaseKey(keyCode);
+}
+
+void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bodyB)
+{
+	if (bodyA->getCategoryBitmask() == 0x4 || bodyB->getCategoryBitmask() == 0x4)
+	{
+		graze++;
+		grazeCounter->setText(std::to_string(graze));
+		return;
+	}
+
+	if (player->getIFrames() > 0.0f)
+	{
+		return;
+	}
+
+	if (player->getLives() == 0)
+	{
+		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("GAME OVER"));
+		return;
+	}
+
+	player->kill();
+	livesLabel->setText("Player: " + std::to_string(player->getLives()));
+	removeAllBullets(player->getBullets());
+	removeAllBullets(enemy->getBullets());
 }
 
 void GameScene::update(float delta)
@@ -194,4 +217,15 @@ void GameScene::removeOutOfBoundsBullets(std::vector<T*>& vec)
 	}
 
 	vec.resize(std::distance(vec.begin(), iteratorBegin));
+}
+
+template<class T>
+void GameScene::removeAllBullets(std::vector<T*>& vec)
+{
+	auto it = vec.begin();
+	while (it != vec.end())
+	{
+		(*it)->removeFromParent();
+		it = vec.erase(it);
+	}
 }
