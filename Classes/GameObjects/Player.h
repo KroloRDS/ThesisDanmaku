@@ -18,13 +18,18 @@ private:
 	float nextBulletInterval = 0.0f;
 	std::vector<PlayerBullet*> playerBullets = {};
 
-	static cocos2d::PhysicsBody* createBody();
+	cocos2d::Node* hitbox = nullptr;
+	cocos2d::Node* grazeHitbox = nullptr;
+
+	static cocos2d::Node* createHitbox();
+	static cocos2d::Node* createGrazeHitbox();
 	void move(float);
 	void fire(float);
 
 	static const float FOCUSED_SPEED;
 	static const float UNFOCUSED_SPEED;
 	static const float HITBOX_RADIUS;
+	static const float GRAZE_HITBOX_RADIUS;
 	static const float BULLET_INTERVAL;
 	static const float DIAGONAL_COEFFICIENT;
 	static const float GAME_BOUNDS_OFFSET;

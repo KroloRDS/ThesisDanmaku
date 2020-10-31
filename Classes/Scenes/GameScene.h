@@ -20,11 +20,15 @@ public:
 private:
 	Player* player = nullptr;
 	Enemy* enemy = nullptr;
+	MyMenuItem* grazeLabel = nullptr;
+	MyMenuItem* grazeCounter = nullptr;
+	int graze = 0;
 
 	static const cocos2d::Vec2 PLAYER_INIT_POS;
 	static const cocos2d::Vec2 ENEMY_INIT_POS;
 
 	void addListeners();
+	void addUIElements();
 	cocos2d::Sprite* createOverlay();
 	
 	bool onContactBegin(cocos2d::PhysicsContact&);

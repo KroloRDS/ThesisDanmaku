@@ -35,7 +35,7 @@ cocos2d::PhysicsBody* Bullet::createBody()
 	body->addShape(cocos2d::PhysicsShapePolygon::create(triangleRight, 3));
 	body->setDynamic(false);
 	body->setCategoryBitmask(0x2);
-	body->setContactTestBitmask(0x1);
+	body->setContactTestBitmask(0x5);
 	return body;
 }
 

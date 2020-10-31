@@ -34,6 +34,7 @@ bool GameScene::init()
 	}
 
 	addListeners();
+	addUIElements();
 	addChild(createOverlay());
 
 	player = Player::createPlayer("reimu.png", PLAYER_INIT_POS);
@@ -58,6 +59,21 @@ void GameScene::addListeners()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
+void GameScene::addUIElements()
+{
+	grazeLabel = MyMenuItem::createMenuItem("Graze", "fonts/arial.ttf", 50.0f);
+	grazeLabel->setPos(cocos2d::Vec2(950, 600));
+	grazeLabel->setZOrder(2.0f);
+	grazeLabel->select();
+	addChild(grazeLabel);
+
+	grazeCounter = MyMenuItem::createMenuItem("0", "fonts/arial.ttf", 50.0f);
+	grazeCounter->setPos(cocos2d::Vec2(950, 540));
+	grazeCounter->setZOrder(2.0f);
+	grazeCounter->select();
+	addChild(grazeCounter);
+}
+
 cocos2d::Sprite* GameScene::createOverlay()
 {
 	auto overlay = cocos2d::Sprite::create("overlay.png");
@@ -69,12 +85,20 @@ cocos2d::Sprite* GameScene::createOverlay()
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 {
-	auto nodeA = contact.getShapeA()->getBody()->getNode();
-	auto nodeB = contact.getShapeB()->getBody()->getNode();
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
 
-	if (nodeA && nodeB)
+	if (bodyA && bodyB)
 	{
-		//cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("GAME OVER"));
+		if (bodyA->getCategoryBitmask() == 0x4 || bodyB->getCategoryBitmask() == 0x4)
+		{
+			graze++;
+			grazeCounter->setText(std::to_string(graze));
+		}
+		else
+		{
+			//cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("GAME OVER"));
+		}
 	}
 
 	return true;

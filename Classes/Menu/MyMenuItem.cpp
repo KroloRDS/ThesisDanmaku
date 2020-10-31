@@ -73,6 +73,11 @@ void MyMenuItem::setPos(cocos2d::Vec2 pos)
 	this->setPosition(pos * Settings::getScale());
 }
 
+void MyMenuItem::setZOrder(float order)
+{
+	label->setGlobalZOrder(order);
+}
+
 cocos2d::Vec2 MyMenuItem::getPos()
 {
 	return absolutePos;
