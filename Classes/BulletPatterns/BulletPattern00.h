@@ -6,11 +6,11 @@
 class BulletPattern00 : public BulletPattern
 {
 public:
-	static BulletPattern00* createBulletPattern00(cocos2d::Vec2);
+	static BulletPattern00* createBulletPattern(cocos2d::Vec2);
 	CREATE_FUNC(BulletPattern00);
 	void update(float);
 private:
-	cocos2d::Vec2 origin;
+	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
 
 	void spawnNewBullets(float);
 

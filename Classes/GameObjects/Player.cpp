@@ -64,6 +64,7 @@ void Player::update(float delta)
 	move(delta);
 	fire(delta);
 	updateIFrames(delta);
+	removeOutOfBoundsObjects(playerBullets);
 	
 	for (Node* child : getChildren())
 	{
@@ -146,11 +147,6 @@ float Player::getIFrames()
 	return iFrames;
 }
 
-std::vector<PlayerBullet*>& Player::getBullets()
-{
-	return playerBullets;
-}
-
 void Player::setPos(cocos2d::Vec2 newPosition)
 {
 	absolutePos = newPosition;
@@ -164,9 +160,64 @@ void Player::kill()
 	lives--;
 	iFrames = IFRAMES_AFTER_DEATH;
 	setPos(INIT_POS);
+	removeAllObjects(playerBullets);
+}
+
+void Player::hitEnemy(Enemy* enemy)
+{
+	auto it = playerBullets.begin();
+	while (it != playerBullets.end())
+	{
+		if ((*it)->getSpriteBoundingBox().intersectsRect(enemy->getSpriteBoundingBox()))
+		{
+			enemy->damage();
+			(*it)->removeFromParent();
+			it = playerBullets.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 int Player::getLives()
 {
 	return lives;
+}
+
+void Player::removeAllObjects(std::vector<PlayerBullet*>& vec)
+{
+	auto it = vec.begin();
+	while (it != vec.end())
+	{
+		(*it)->removeFromParent();
+		it = vec.erase(it);
+	}
+}
+
+void Player::removeOutOfBoundsObjects(std::vector<PlayerBullet*>& vec)
+{
+	auto iteratorBegin = vec.begin();
+	auto iteratorEnd = vec.rbegin();
+
+	while (iteratorBegin != iteratorEnd.base())
+	{
+		while (iteratorEnd.base() != vec.begin() && (*iteratorEnd)->isOutOfBounds())
+		{
+			(*iteratorEnd)->removeFromParent();
+			iteratorEnd++;
+		}
+		while (iteratorBegin != vec.rbegin().base() && !(*iteratorBegin)->isOutOfBounds())
+		{
+			iteratorBegin++;
+		}
+
+		if (iteratorBegin != iteratorEnd.base())
+		{
+			std::iter_swap(iteratorBegin, iteratorEnd);
+		}
+	}
+
+	vec.resize(std::distance(vec.begin(), iteratorBegin));
 }

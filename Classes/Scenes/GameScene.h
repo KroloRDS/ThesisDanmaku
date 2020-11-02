@@ -31,7 +31,7 @@ private:
 
 	void addListeners();
 	void addUIElements();
-	cocos2d::Sprite* createOverlay();
+	void addOverlay();
 	
 	bool onContactBegin(cocos2d::PhysicsContact&);
 	void pressKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
@@ -40,11 +40,5 @@ private:
 	void onContact(cocos2d::PhysicsBody*, cocos2d::PhysicsBody*);
 
 	cocos2d::RenderTexture* takeScreenshot();
-	void hitEnemy(std::vector<PlayerBullet*>&);
-
-	template <class T>
-	void removeOutOfBoundsBullets(std::vector<T*>&);
-
-	template <class T>
-	void removeAllBullets(std::vector<T*>&);
+	bool pause = false;
 };

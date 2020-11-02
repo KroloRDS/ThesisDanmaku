@@ -4,7 +4,7 @@ const float BulletPattern00::BULLET_INTERVAL = 0.06f;
 const float BulletPattern00::BULLET_SPEED = 500.0f;
 const float BulletPattern00::MAX_ROTATION_SPEED = 5.0f;
 
-BulletPattern00* BulletPattern00::createBulletPattern00(cocos2d::Vec2 origin)
+BulletPattern00* BulletPattern00::createBulletPattern(cocos2d::Vec2 origin)
 {
 	BulletPattern00* ret = BulletPattern00::create();
 	if (!ret)
@@ -39,7 +39,7 @@ void BulletPattern00::spawnNewBullets(float delta)
 	
 	for (int i = 0; i < ARMS_COUNT; i++)
 	{
-		bullets.push_back(Bullet::createBullet("bullet.png", origin));
+		bullets.push_back(Bullet::createBullet(Bullet::ARROWHEAD, origin));
 		bullets.back()->setSpeed(BULLET_SPEED);
 		bullets.back()->setRot(rotation + i * 360.0f / ARMS_COUNT);
 		addChild(bullets.back());

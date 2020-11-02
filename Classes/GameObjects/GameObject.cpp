@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Scenes/GameScene.h"
+#include "PlayerBullet.h"
 
 GameObject* GameObject::createGameObject(std::string str, cocos2d::Vec2 pos)
 {
@@ -18,7 +19,7 @@ void GameObject::initGameObj(std::string str, cocos2d::Vec2 pos)
 {
 	sprite = cocos2d::Sprite::create(str);
 	sprite->setScale(Settings::getScale());
-	sprite->setGlobalZOrder(0.0f);
+	sprite->setLocalZOrder(0);
 	addChild(sprite);
 	setPos(pos);
 }

@@ -9,7 +9,7 @@ public:
 	static GameObject* createGameObject(std::string, cocos2d::Vec2);
 	void initGameObj(std::string, cocos2d::Vec2);
 	CREATE_FUNC(GameObject);
-	
+
 	void setPos(cocos2d::Vec2);
 	cocos2d::Vec2 getPos();
 	cocos2d::Rect getSpriteBoundingBox();

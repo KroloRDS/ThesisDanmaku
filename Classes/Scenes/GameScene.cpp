@@ -32,9 +32,9 @@ bool GameScene::init()
 		return false;
 	}
 
-	addListeners();
+	addOverlay();
 	addUIElements();
-	addChild(createOverlay());
+	addListeners();
 
 	player = Player::createPlayer("reimu.png");
 	addChild(player);
@@ -62,30 +62,30 @@ void GameScene::addUIElements()
 {
 	grazeLabel = MyMenuItem::createMenuItem("Graze", "fonts/arial.ttf", 50.0f);
 	grazeLabel->setPos(cocos2d::Vec2(950, 600));
-	grazeLabel->setZOrder(2.0f);
+	grazeLabel->setLocalZOrder(2);
 	grazeLabel->select();
 	addChild(grazeLabel);
 
 	grazeCounter = MyMenuItem::createMenuItem("0", "fonts/arial.ttf", 50.0f);
 	grazeCounter->setPos(cocos2d::Vec2(950, 540));
-	grazeCounter->setZOrder(2.0f);
+	grazeCounter->setLocalZOrder(2);
 	grazeCounter->select();
 	addChild(grazeCounter);
 
 	livesLabel = MyMenuItem::createMenuItem("Player: " + std::to_string(Player::DEFAULT_LIVES), "fonts/arial.ttf", 50.0f);
 	livesLabel->setPos(cocos2d::Vec2(955, 700));
-	livesLabel->setZOrder(2.0f);
+	livesLabel->setLocalZOrder(2);
 	livesLabel->select();
 	addChild(livesLabel);
 }
 
-cocos2d::Sprite* GameScene::createOverlay()
+void GameScene::addOverlay()
 {
 	auto overlay = cocos2d::Sprite::create("overlay.png");
 	overlay->setScale(Settings::getScale());
 	overlay->setPosition(cocos2d::Vec2(Settings::getWindowSizeX() * 0.5f, Settings::getWindowSizeY() * 0.5f));
-	overlay->setGlobalZOrder(1.0f);
-	return overlay;
+	overlay->setLocalZOrder(1);
+	addChild(overlay);
 }
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
@@ -104,12 +104,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact& contact)
 void GameScene::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
 {
 	KeyboardManager::pressKey(keyCode);
-	if (keyCode == cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE)
-	{
-		auto scene = PauseScene::createScene(takeScreenshot());
-		scene->addChild(createOverlay());
-		cocos2d::Director::getInstance()->pushScene(scene);
-	}
+	pause = keyCode == cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE;
 }
 
 void GameScene::releaseKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
@@ -126,7 +121,7 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 		return;
 	}
 
-	if (player->getIFrames() > 0.0f)
+	//if (player->getIFrames() > 0.0f)
 	{
 		return;
 	}
@@ -139,15 +134,12 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 
 	player->kill();
 	livesLabel->setText("Player: " + std::to_string(player->getLives()));
-	removeAllBullets(player->getBullets());
-	removeAllBullets(enemy->getBullets());
+	enemy->getBulletPattern()->removeAllBullets();
 }
 
 void GameScene::update(float delta)
 {
-	hitEnemy(player->getBullets());
-	removeOutOfBoundsBullets(player->getBullets());
-	removeOutOfBoundsBullets(enemy->getBullets());
+	player->hitEnemy(enemy);
 	
 	for (Node* child : getChildren())
 	{
@@ -158,74 +150,23 @@ void GameScene::update(float delta)
 	{
 		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
 	}
+
+	if (pause)
+	{
+		pause = false;
+		auto scene = PauseScene::createScene(takeScreenshot());
+		cocos2d::Director::getInstance()->pushScene(scene);
+	}
 }
 
 cocos2d::RenderTexture* GameScene::takeScreenshot()
 {
-	removeOutOfBoundsBullets(player->getBullets());
-	removeOutOfBoundsBullets(enemy->getBullets());
+	cocos2d::RenderTexture* rt = cocos2d::RenderTexture::create((int)Settings::getWindowSizeX(), (int)Settings::getWindowSizeY());
+	rt->getSprite()->setAnchorPoint(cocos2d::Vec2(0, 0));
 
-	cocos2d::RenderTexture* rt = cocos2d::RenderTexture::create(Settings::getWindowSizeX(), Settings::getWindowSizeY());
 	rt->begin();
 	visit();
 	rt->end();
-	rt->getSprite()->setAnchorPoint(cocos2d::Vec2(0, 0));
 
 	return rt;
-}
-
-void GameScene::hitEnemy(std::vector<PlayerBullet*>& vec)
-{
-	auto it = vec.begin();
-	while (it != vec.end())
-	{
-		if ((*it)->getSpriteBoundingBox().intersectsRect(enemy->getSpriteBoundingBox()))
-		{
-			enemy->damage();
-			(*it)->removeFromParent();
-			it = vec.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
-}
-
-template <class T>
-void GameScene::removeOutOfBoundsBullets(std::vector<T*>& vec)
-{
-	auto iteratorBegin = vec.begin();
-	auto iteratorEnd = vec.rbegin();
-
-	while (iteratorBegin != iteratorEnd.base())
-	{
-		while (iteratorEnd.base() != vec.begin() && (*iteratorEnd)->isOutOfBounds())
-		{
-			(*iteratorEnd)->removeFromParent();
-			iteratorEnd++;
-		}
-		while (iteratorBegin != vec.rbegin().base() && !(*iteratorBegin)->isOutOfBounds())
-		{
-			iteratorBegin++;
-		}
-
-		if (iteratorBegin != iteratorEnd.base())
-		{
-			std::iter_swap(iteratorBegin, iteratorEnd);
-		}
-	}
-
-	vec.resize(std::distance(vec.begin(), iteratorBegin));
-}
-
-template<class T>
-void GameScene::removeAllBullets(std::vector<T*>& vec)
-{
-	auto it = vec.begin();
-	while (it != vec.end())
-	{
-		(*it)->removeFromParent();
-		it = vec.erase(it);
-	}
 }

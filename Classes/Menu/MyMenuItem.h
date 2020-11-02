@@ -19,7 +19,6 @@ public:
 	void setAnimationTime(float);
 	void setText(std::string);
 	void setPos(cocos2d::Vec2);
-	void setZOrder(float);
 	cocos2d::Vec2 getPos();
 private:
 	bool selected = false;
