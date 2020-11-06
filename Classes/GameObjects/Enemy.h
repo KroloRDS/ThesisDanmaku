@@ -13,13 +13,20 @@ public:
 	CREATE_FUNC(Enemy);
 	void update(float);
 	
-	int getHp();
-	int getMaxHp();
 	BulletPattern* getBulletPattern();
 
 	void damage(int damage = 1);
+	bool isDefeated();
+
 private:
 	BulletPattern* bulletPattern = nullptr;
 	EnemyHpBar* hpBar = nullptr;
 	int hp = 0;
+	int currentPattern = 0;
+	float iFrames = 0.0f;
+	bool defeated = false;
+
+	void nextPattern();
+
+	const float IFRAMES_AFTER_PATTERN_CHANGE = 3.0f;
 };

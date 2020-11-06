@@ -11,30 +11,28 @@ Enemy* Enemy::createEnemy(std::string str, cocos2d::Vec2 pos)
 
 	ret->initGameObj(str, pos);
 
-	ret->bulletPattern = BulletPattern00::createBulletPattern(pos);
-	ret->addChild(ret->bulletPattern);
-	ret->hp = ret->bulletPattern->getHp();
-
-	ret->hpBar = EnemyHpBar::createEnemyHpBar(ret->hp);
-	ret->hpBar->updateHpBar(ret->hp);
+	ret->hpBar = EnemyHpBar::createEnemyHpBar();
 	ret->addChild(ret->hpBar);
+	ret->nextPattern();
 
 	return ret;
 }
 
 void Enemy::update(float delta)
 {
-	bulletPattern->update(delta);
+	if (iFrames <= 0.0f)
+	{
+		bulletPattern->update(delta);
+	}
+	else
+	{
+		iFrames -= delta;
+	}
 }
 
-int Enemy::getHp()
+bool Enemy::isDefeated()
 {
-	return hp;
-}
-
-int Enemy::getMaxHp()
-{
-	return bulletPattern->getHp();
+	return defeated;
 }
 
 BulletPattern* Enemy::getBulletPattern()
@@ -44,6 +42,49 @@ BulletPattern* Enemy::getBulletPattern()
 
 void Enemy::damage(int damage)
 {
+	if (iFrames > 0.0f)
+	{
+		return;
+	}
+
 	hp -= damage;
+
+	if (hp <= 0)
+	{
+		currentPattern++;
+		nextPattern();
+	}
+
+	hpBar->updateHpBar(hp);
+}
+
+void Enemy::nextPattern()
+{
+	iFrames = IFRAMES_AFTER_PATTERN_CHANGE;
+
+	if (bulletPattern != nullptr)
+	{
+		bulletPattern->removeAllBullets();
+		bulletPattern->removeFromParent();
+	}
+
+	switch (currentPattern)
+	{
+	case 0:
+		bulletPattern = BulletPattern00::createBulletPattern(absolutePos);
+		break;
+	case 1:
+		bulletPattern = BulletPattern01::createBulletPattern(absolutePos);
+		break;
+	default:
+		defeated = true;
+		return;
+		break;
+	}
+
+	addChild(bulletPattern);
+	hp = bulletPattern->getHp();
+	
+	hpBar->setMaxHp(bulletPattern->getHp());
 	hpBar->updateHpBar(hp);
 }

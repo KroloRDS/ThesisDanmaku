@@ -6,9 +6,10 @@
 class EnemyHpBar : public cocos2d::Node
 {
 public:
-	static EnemyHpBar* createEnemyHpBar(int);
+	static EnemyHpBar* createEnemyHpBar();
 	CREATE_FUNC(EnemyHpBar);
 	void updateHpBar(int);
+	void setMaxHp(int);
 
 private:
 	int maxHp = 0;

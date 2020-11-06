@@ -146,7 +146,7 @@ void GameScene::update(float delta)
 		child->update(delta);
 	}
 
-	if (enemy->getHp() <= 0)
+	if (enemy->isDefeated())
 	{
 		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
 	}
