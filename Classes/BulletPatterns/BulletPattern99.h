@@ -3,11 +3,11 @@
 #include "cocos2d.h"
 #include "BulletPattern.h"
 
-class BulletPattern01 : public BulletPattern
+class BulletPattern99 : public BulletPattern
 {
 public:
-	static BulletPattern01* createBulletPattern(cocos2d::Vec2);
-	CREATE_FUNC(BulletPattern01);
+	static BulletPattern99* createBulletPattern(cocos2d::Vec2);
+	CREATE_FUNC(BulletPattern99);
 	void update(float);
 private:
 	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);

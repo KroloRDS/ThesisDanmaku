@@ -1,8 +1,8 @@
-#include "BulletPattern01.h"
+#include "BulletPattern99.h"
 
-BulletPattern01* BulletPattern01::createBulletPattern(cocos2d::Vec2 origin)
+BulletPattern99* BulletPattern99::createBulletPattern(cocos2d::Vec2 origin)
 {
-	BulletPattern01* ret = BulletPattern01::create();
+	BulletPattern99* ret = BulletPattern99::create();
 	if (!ret)
 	{
 		CC_SAFE_DELETE(ret);
@@ -14,7 +14,7 @@ BulletPattern01* BulletPattern01::createBulletPattern(cocos2d::Vec2 origin)
 	return ret;
 }
 
-void BulletPattern01::createLasers()
+void BulletPattern99::createLasers()
 {
 	for (int i = 0; i < ARMS_COUNT; i++)
 	{
@@ -23,7 +23,7 @@ void BulletPattern01::createLasers()
 	}
 }
 
-void BulletPattern01::update(float delta)
+void BulletPattern99::update(float delta)
 {
 	updateBullets(delta);
 	

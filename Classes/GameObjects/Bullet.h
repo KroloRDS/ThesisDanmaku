@@ -2,7 +2,6 @@
 
 #include "cocos2d.h"
 #include "GameObject.h"
-//#include "Scenes/GameScene.h"
 
 class Bullet : public GameObject
 {

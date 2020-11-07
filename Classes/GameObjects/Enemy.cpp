@@ -74,7 +74,7 @@ void Enemy::nextPattern()
 		bulletPattern = BulletPattern00::createBulletPattern(absolutePos);
 		break;
 	case 1:
-		bulletPattern = BulletPattern01::createBulletPattern(absolutePos);
+		bulletPattern = BulletPattern99::createBulletPattern(absolutePos);
 		break;
 	default:
 		defeated = true;
