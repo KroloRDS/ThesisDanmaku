@@ -36,6 +36,9 @@ bool GameScene::init()
 	addUIElements();
 	addListeners();
 
+	int seed = cocos2d::RandomHelper::random_int(0, RAND_MAX);
+	std::srand(seed);
+
 	player = Player::createPlayer("reimu.png");
 	addChild(player);
 

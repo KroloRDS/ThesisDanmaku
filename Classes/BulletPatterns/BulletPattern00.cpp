@@ -14,6 +14,7 @@ BulletPattern00* BulletPattern00::createBulletPattern(cocos2d::Vec2 origin)
 	}
 	ret->origin = origin;
 	ret->hp = ret->PATTERN_HP;
+	ret->rotation = (float)std::rand() / (float)RAND_MAX * (360.0f / (float)ARMS_COUNT);
 	return ret;
 }
 
