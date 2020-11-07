@@ -2,7 +2,6 @@
 
 #include "cocos2d.h"
 #include "GameObject.h"
-#include "Enemy.h"
 #include "PlayerBullet.h"
 #include "HelperClasses/KeyboardManager.h"
 
@@ -14,9 +13,9 @@ public:
 	void update(float);
 	void setPos(cocos2d::Vec2);
 	void kill();
-	void hitEnemy(Enemy* enemy);
 	int getLives();
 	float getIFrames();
+	std::vector<PlayerBullet*>& getBullets();
 
 	static const int DEFAULT_LIVES = 2;
 

@@ -12,16 +12,17 @@ public:
 private:
 	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
 
-	void spawnNewBullets(float);
-
-	static const int ARMS_COUNT = 8;
-	static const float BULLET_INTERVAL;
-	static const float BULLET_SPEED;
-	static const float MAX_ROTATION_SPEED;
-	static const int PATTERN_HP = 1000;
-
 	float nextBulletInterval = 0.0f;
 	float rotation = 0.0f;
 	float rotationSpeed = 0.0f;
 	float acceleration = 0.02f;
+
+	void spawnNewBullets(float);
+
+	const int ARMS_COUNT = 8;
+	const float BULLET_INTERVAL = 0.06f;
+	const float BULLET_SPEED = 500.0f;
+	const float MAX_ROTATION_SPEED = 5.0f;
+
+	const int PATTERN_HP = 1000;
 };

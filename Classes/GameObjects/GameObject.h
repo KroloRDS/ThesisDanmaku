@@ -16,6 +16,7 @@ public:
 
 	cocos2d::Sprite* getSprite();
 	bool isOutOfBounds();
+	bool isOutOfInnerBounds();
 protected:
 	cocos2d::Sprite* sprite = nullptr;
 	cocos2d::Vec2 absolutePos = cocos2d::Vec2(0, 0);

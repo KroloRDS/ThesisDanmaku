@@ -147,6 +147,11 @@ float Player::getIFrames()
 	return iFrames;
 }
 
+std::vector<PlayerBullet*>& Player::getBullets()
+{
+	return playerBullets;
+}
+
 void Player::setPos(cocos2d::Vec2 newPosition)
 {
 	absolutePos = newPosition;
@@ -161,24 +166,6 @@ void Player::kill()
 	iFrames = IFRAMES_AFTER_DEATH;
 	setPos(INIT_POS);
 	removeAllObjects(playerBullets);
-}
-
-void Player::hitEnemy(Enemy* enemy)
-{
-	auto it = playerBullets.begin();
-	while (it != playerBullets.end())
-	{
-		if ((*it)->getSpriteBoundingBox().intersectsRect(enemy->getSpriteBoundingBox()))
-		{
-			enemy->damage();
-			(*it)->removeFromParent();
-			it = playerBullets.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
 }
 
 int Player::getLives()

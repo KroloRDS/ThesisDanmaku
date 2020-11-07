@@ -42,7 +42,7 @@ bool GameScene::init()
 	player = Player::createPlayer("reimu.png");
 	addChild(player);
 
-	enemy = Enemy::createEnemy("yukari.png", ENEMY_INIT_POS);
+	enemy = Enemy::createEnemy("yukari.png", ENEMY_INIT_POS, player);
 	addChild(enemy);
 
 	scheduleUpdate();
@@ -142,8 +142,6 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 
 void GameScene::update(float delta)
 {
-	player->hitEnemy(enemy);
-	
 	for (Node* child : getChildren())
 	{
 		child->update(delta);

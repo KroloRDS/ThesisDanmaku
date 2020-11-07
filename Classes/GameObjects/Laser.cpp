@@ -20,7 +20,7 @@ void Laser::update(float delta)
 
 	if (nextSpawn <= 0.0f)
 	{
-		segments.push_back(Bullet::createBullet(Bullet::LASER_SEGMENT, origin));
+		segments.push_back(Bullet::createBullet(origin, Bullet::LASER_SEGMENT));
 		segments.back()->setRot(rotation);
 		segments.back()->setSpeed(500.0f);
 		addChild(segments.back());
@@ -33,29 +33,6 @@ void Laser::update(float delta)
 		segment->update(delta);
 	}
 }
-
-/*
-void Laser::updateSegments()
-{
-	int segmentCount = 0;
-	auto segmentPosition = origin;
-	float xRotationCoeff = (float)sin(rotation / 180.0f * M_PI);
-	float yRotationCoeff = (float)cos(rotation / 180.0f * M_PI);
-
-	auto it = segments.rbegin();
-	while (it.base() != segments.begin())
-	{
-		segmentPosition.x = origin.x + segmentCount * SEGMENT_OFFSET * xRotationCoeff;
-		segmentPosition.y = origin.y + segmentCount * SEGMENT_OFFSET * yRotationCoeff;
-
-		(*it)->setPos(segmentPosition);
-		(*it)->setRot(rotation);
-
-		segmentCount++;
-		it++;
-	}
-}
-*/
 
 void Laser::move(float x, float y)
 {

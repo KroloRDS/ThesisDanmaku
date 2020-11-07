@@ -1,7 +1,7 @@
 #include <math.h>
 #include "Bullet.h"
 
-Bullet* Bullet::createBullet(int type, cocos2d::Vec2 pos)
+Bullet* Bullet::createBullet(cocos2d::Vec2 pos, int type, int subtype)
 {
 	Bullet* ret = Bullet::create();
 	if (!ret)
@@ -12,6 +12,8 @@ Bullet* Bullet::createBullet(int type, cocos2d::Vec2 pos)
 
 	ret->initGameObj(ret->getSpriteName(type), pos);
 	ret->createHitbox(type);
+	ret->type = type;
+	ret->subtype = subtype;
 
 	return ret;
 }
@@ -20,11 +22,20 @@ std::string Bullet::getSpriteName(int type)
 {
 	switch (type)
 	{
-	case ARROWHEAD:
+	case TEST_BULLET:
 		return "bullet.png";
 		break;
 	case LASER_SEGMENT:
 		return "laser.png";
+		break;
+	case ARROWHEAD:
+		return "arrowhead.png";
+		break;
+	case BUBBLE:
+		return "bubble.png";
+		break;
+	case MENTOS:
+		return "mentos.png";
 		break;
 	default:
 		return "";
@@ -38,11 +49,20 @@ void Bullet::createHitbox(int type)
 
 	switch (type)
 	{
+	case TEST_BULLET:
+		body = createTestHitbox();
+		break;
 	case ARROWHEAD:
 		body = createArrowheadHitbox();
 		break;
 	case LASER_SEGMENT:
 		body = createRectangularHitbox(-8, -8, 16, 16);
+		break;
+	case BUBBLE:
+		body = createCircularHitbox(40.0f);
+		break;
+	case MENTOS:
+		body = createCircularHitbox(15.0f);
 		break;
 	default:
 		body = cocos2d::PhysicsBody::create();
@@ -55,7 +75,7 @@ void Bullet::createHitbox(int type)
 	sprite->setPhysicsBody(body);
 }
 
-cocos2d::PhysicsBody* Bullet::createArrowheadHitbox()
+cocos2d::PhysicsBody* Bullet::createTestHitbox()
 {
 	cocos2d::Vec2 triangleLeft[3] = {
 		cocos2d::Vec2(0, 8),
@@ -72,6 +92,20 @@ cocos2d::PhysicsBody* Bullet::createArrowheadHitbox()
 	auto body = cocos2d::PhysicsBody::create();
 	body->addShape(cocos2d::PhysicsShapePolygon::create(triangleLeft, 3));
 	body->addShape(cocos2d::PhysicsShapePolygon::create(triangleRight, 3));
+	return body;
+}
+
+cocos2d::PhysicsBody* Bullet::createArrowheadHitbox()
+{
+	cocos2d::Vec2 polygon[4] = {
+		cocos2d::Vec2(0, -14),
+		cocos2d::Vec2(-4, -6),
+		cocos2d::Vec2(4, -6),
+		cocos2d::Vec2(0, 1)
+	};
+
+	auto body = cocos2d::PhysicsBody::create();
+	body->addShape(cocos2d::PhysicsShapePolygon::create(polygon, 4));
 	return body;
 }
 
@@ -96,6 +130,8 @@ cocos2d::PhysicsBody* Bullet::createCircularHitbox(float r)
 
 void Bullet::update(float delta)
 {
+	age += delta;
+
 	auto newPosition = absolutePos;
 	newPosition.x += delta * speed * xRotationCoeff;
 	newPosition.y += delta * speed * yRotationCoeff;
@@ -123,4 +159,30 @@ void Bullet::setRot(float newRotation)
 	sprite->setRotation(rotation);
 	xRotationCoeff = (float)sin(rotation / 180.0f * M_PI);
 	yRotationCoeff = (float)cos(rotation / 180.0f * M_PI);
+}
+
+int Bullet::getType()
+{
+	return type;
+}
+
+int Bullet::getSubtype()
+{
+	return subtype;
+}
+
+void Bullet::setSubtype(int newSubtype)
+{
+	subtype = newSubtype;
+}
+
+float Bullet::getAge()
+{
+	return age;
+}
+
+void Bullet::aimAt(cocos2d::Vec2 target, float angle)
+{
+	auto atan = atan2(target.x - absolutePos.x, target.y - absolutePos.y);
+	setRot(atan * (180.0f / M_PI) + angle);
 }

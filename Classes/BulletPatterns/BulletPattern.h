@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "GameObjects/Bullet.h"
 #include "GameObjects/Laser.h"
+#include "GameObjects/Player.h"
 
 class BulletPattern : public cocos2d::Node
 {
@@ -15,6 +16,7 @@ protected:
     void updateBullets(float);
     std::vector<Bullet*> bullets = {};
     std::vector<Laser*> lasers = {};
+    Player* player = nullptr;
     int hp = 0;
 private:
     void removeAllObjects(std::vector<Bullet*>& vec);

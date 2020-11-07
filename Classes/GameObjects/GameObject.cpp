@@ -52,3 +52,11 @@ bool GameObject::isOutOfBounds()
 		absolutePos.x > GameScene::GAME_OUTER_BOUNDS[2].x ||
 		absolutePos.y > GameScene::GAME_OUTER_BOUNDS[2].y);
 }
+
+bool GameObject::isOutOfInnerBounds()
+{
+	return (absolutePos.x < GameScene::GAME_INNER_BOUNDS[0].x ||
+		absolutePos.y < GameScene::GAME_INNER_BOUNDS[0].y ||
+		absolutePos.x > GameScene::GAME_INNER_BOUNDS[2].x ||
+		absolutePos.y > GameScene::GAME_INNER_BOUNDS[2].y);
+}
