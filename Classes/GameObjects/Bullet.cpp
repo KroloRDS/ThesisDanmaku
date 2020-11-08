@@ -224,5 +224,5 @@ float Bullet::getAge()
 void Bullet::aimAt(cocos2d::Vec2 target, float angle)
 {
 	auto atan = atan2(target.x - absolutePos.x, target.y - absolutePos.y);
-	setRot(atan * (180.0f / M_PI) + angle);
+	setRot(atan * (float)(180.0f / M_PI) + angle);
 }

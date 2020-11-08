@@ -34,9 +34,9 @@ void BulletPattern01::createLasers()
 
 void BulletPattern01::calcRandomMentosMinMaxValues()
 {
-	randomMentosMaxX = GameScene::GAME_INNER_BOUNDS[2].x - 20;
-	randomMentosMinX = GameScene::GAME_INNER_BOUNDS[0].x + 20;
-	randomMentosMaxY = GameScene::GAME_INNER_BOUNDS[2].y - 20;
+	randomMentosMaxX = (int)GameScene::GAME_INNER_BOUNDS[2].x - 20;
+	randomMentosMinX = (int)GameScene::GAME_INNER_BOUNDS[0].x + 20;
+	randomMentosMaxY = (int)GameScene::GAME_INNER_BOUNDS[2].y - 20;
 	randomMentosMinY = randomMentosMaxY - 150;
 }
 

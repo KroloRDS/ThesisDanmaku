@@ -60,8 +60,8 @@ void Laser::setRotation(float newRotation)
 	for (Bullet* segment : segments)
 	{
 		auto oldPos = segment->getPos();
-		int diffX = origin.x - oldPos.x;
-		int diffY = origin.y - oldPos.y;
+		float diffX = origin.x - oldPos.x;
+		float diffY = origin.y - oldPos.y;
 		float radius = sqrt(diffX * diffX + diffY * diffY);
 
 		segment->setRot(newRotation);
