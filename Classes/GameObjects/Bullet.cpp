@@ -14,8 +14,48 @@ Bullet* Bullet::createBullet(cocos2d::Vec2 pos, int type, int subtype)
 	ret->createHitbox(type);
 	ret->type = type;
 	ret->subtype = subtype;
+	ret->spawnAnimation();
 
 	return ret;
+}
+
+void Bullet::spawnAnimation()
+{
+	if (type == LASER_SEGMENT)
+	{
+		return;
+	}
+
+	auto spawnSprite = cocos2d::Sprite::create("spawn.png");
+	spawnSprite->setPosition(absolutePos);
+	spawnSprite->setOpacity(150);
+	addChild(spawnSprite);
+	
+	switch (type)
+	{
+	case TEST_BULLET:
+		spawnSprite->setColor(cocos2d::Color3B(51, 153, 255));
+		spawnSprite->setScale(Settings::getScale());
+		break;
+	case ARROWHEAD:
+		spawnSprite->setColor(cocos2d::Color3B(0, 102, 255));
+		spawnSprite->setScale(Settings::getScale());
+		break;
+	case BUBBLE:
+		spawnSprite->setColor(cocos2d::Color3B(255, 0, 0));
+		spawnSprite->setScale(Settings::getScale() * 2.0f);
+		break;
+	case MENTOS:
+		spawnSprite->setColor(cocos2d::Color3B(255, 255, 255));
+		spawnSprite->setScale(Settings::getScale() * 1.5f);
+		break;
+	default:
+		break;
+	}
+	
+	auto scaleTo = cocos2d::ScaleTo::create(0.5f, 0.0f);
+	auto fadeTo = cocos2d::FadeTo::create(0.5f, 100);
+	spawnSprite->runAction(cocos2d::Spawn::createWithTwoActions(scaleTo, fadeTo));
 }
 
 std::string Bullet::getSpriteName(int type)

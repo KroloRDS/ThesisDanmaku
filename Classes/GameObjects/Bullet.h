@@ -36,6 +36,8 @@ private:
 	int subtype = 0;
 	float age = 0.0f;
 
+	void spawnAnimation();
+
 	std::string getSpriteName(int);
 	void createHitbox(int);
 	cocos2d::PhysicsBody* createTestHitbox();
