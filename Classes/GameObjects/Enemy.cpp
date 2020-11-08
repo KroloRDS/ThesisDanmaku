@@ -50,6 +50,8 @@ void Enemy::collision(std::vector<PlayerBullet*>& vec)
 		if ((*it)->getSpriteBoundingBox().intersectsRect(getSpriteBoundingBox()))
 		{
 			damage();
+			damageAnimation((*it)->getPos());
+
 			(*it)->removeFromParent();
 			it = vec.erase(it);
 		}
@@ -76,6 +78,17 @@ void Enemy::damage()
 	}
 
 	hpBar->updateHpBar(hp);
+}
+
+void Enemy::damageAnimation(cocos2d::Vec2 pos)
+{
+	auto dmgSprite = cocos2d::Sprite::create("damage.png");
+	dmgSprite->setScale(Settings::getScale() * 1.5f);
+	dmgSprite->setPosition(pos.x, pos.y + 50);
+	dmgSprite->setOpacity(150);
+	addChild(dmgSprite);
+
+	dmgSprite->runAction(cocos2d::FadeTo::create(0.3f, 0));
 }
 
 void Enemy::nextPattern()

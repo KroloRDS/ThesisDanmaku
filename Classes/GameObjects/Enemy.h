@@ -31,6 +31,7 @@ private:
 	void nextPattern();
 	void collision(std::vector<PlayerBullet*>& vec);
 	void damage();
+	void damageAnimation(cocos2d::Vec2);
 
 	const float IFRAMES_AFTER_PATTERN_CHANGE = 3.0f;
 };
