@@ -11,13 +11,16 @@
 class Enemy : public GameObject
 {
 public:
-	static Enemy* createEnemy(std::string, cocos2d::Vec2, Player*);
+	static Enemy* createEnemy(std::string, Player*);
 	CREATE_FUNC(Enemy);
 	void update(float);
 	
 	BulletPattern* getBulletPattern();
-
+	float getIFrames();
 	bool isDefeated();
+
+	void nextPattern();
+	int damage();
 
 private:
 	BulletPattern* bulletPattern = nullptr;
@@ -28,10 +31,6 @@ private:
 	float iFrames = 0.0f;
 	bool defeated = false;
 
-	void nextPattern();
-	void collision(std::vector<PlayerBullet*>& vec);
-	void damage();
-	void damageAnimation(cocos2d::Vec2);
-
 	const float IFRAMES_AFTER_PATTERN_CHANGE = 3.0f;
+	static const cocos2d::Vec2 INIT_POS;
 };

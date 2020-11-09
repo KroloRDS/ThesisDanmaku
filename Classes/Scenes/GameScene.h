@@ -21,13 +21,22 @@ private:
 	Player* player = nullptr;
 	Enemy* enemy = nullptr;
 	
-	MyMenuItem* grazeLabel = nullptr;
-	MyMenuItem* grazeCounter = nullptr;
-	int graze = 0;
+	MyMenuItem* scoreLabel = nullptr;
+	MyMenuItem* scoreCounter = nullptr;
+	unsigned long int displayScore = 0;
+	unsigned long int score = 0;
+
+	MyMenuItem* patternGrazeLabel = nullptr;
+	MyMenuItem* patternGrazeCounter = nullptr;
+	int patternGraze = 0;
+
+	MyMenuItem* totalGrazeLabel = nullptr;
+	MyMenuItem* totalGrazeCounter = nullptr;
+	int totalGraze = 0;
+
+	bool noHitBonus = true;
 
 	MyMenuItem* livesLabel = nullptr;
-
-	static const cocos2d::Vec2 ENEMY_INIT_POS;
 
 	void addListeners();
 	void addUIElements();
@@ -39,6 +48,18 @@ private:
 
 	void onContact(cocos2d::PhysicsBody*, cocos2d::PhysicsBody*);
 
+	void hitEnemy();
+	void damageEnemy(cocos2d::Vec2);
+	void nextPattern();
+	void updateScoreCounter();
+
 	cocos2d::RenderTexture* takeScreenshot();
 	bool pause = false;
+
+	const int INIT_HIT_POINT_VALUE = 1000;
+	const float UI_TEXT_X_POS = 1030.0f;
+	const float UI_TEXT_Y_POS = 850.0f;
+	const float UI_TEXT_Y_MARGIN = 60.0f;
+	const float UI_FONT_SIZE = 50.0f;
+	const std::string UI_FONT_NAME = "fonts/arial.ttf";
 };

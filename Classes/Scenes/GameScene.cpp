@@ -14,8 +14,6 @@ const cocos2d::Vec2 GameScene::GAME_OUTER_BOUNDS[4] = {
 	cocos2d::Vec2(1020, -168)
 };
 
-const cocos2d::Vec2 GameScene::ENEMY_INIT_POS = cocos2d::Vec2(440, 600);
-
 cocos2d::Scene* GameScene::createScene()
 {
 	auto scene = cocos2d::Scene::createWithPhysics();
@@ -42,7 +40,7 @@ bool GameScene::init()
 	player = Player::createPlayer("reimu.png");
 	addChild(player);
 
-	enemy = Enemy::createEnemy("yukari.png", ENEMY_INIT_POS, player);
+	enemy = Enemy::createEnemy("yukari.png", player);
 	addChild(enemy);
 
 	scheduleUpdate();
@@ -63,23 +61,39 @@ void GameScene::addListeners()
 
 void GameScene::addUIElements()
 {
-	grazeLabel = MyMenuItem::createMenuItem("Graze", "fonts/arial.ttf", 50.0f);
-	grazeLabel->setPos(cocos2d::Vec2(950, 600));
-	grazeLabel->setLocalZOrder(2);
-	grazeLabel->select();
-	addChild(grazeLabel);
+	auto pos = cocos2d::Vec2(UI_TEXT_X_POS, UI_TEXT_Y_POS);
+	std::vector<MyMenuItem*> uiElements;
 
-	grazeCounter = MyMenuItem::createMenuItem("0", "fonts/arial.ttf", 50.0f);
-	grazeCounter->setPos(cocos2d::Vec2(950, 540));
-	grazeCounter->setLocalZOrder(2);
-	grazeCounter->select();
-	addChild(grazeCounter);
+	scoreLabel = MyMenuItem::createMenuItem("Score", UI_FONT_NAME, UI_FONT_SIZE);
+	uiElements.push_back(scoreLabel);
 
-	livesLabel = MyMenuItem::createMenuItem("Player: " + std::to_string(Player::DEFAULT_LIVES), "fonts/arial.ttf", 50.0f);
-	livesLabel->setPos(cocos2d::Vec2(955, 700));
-	livesLabel->setLocalZOrder(2);
-	livesLabel->select();
-	addChild(livesLabel);
+	scoreCounter = MyMenuItem::createMenuItem("0", UI_FONT_NAME, UI_FONT_SIZE);
+	uiElements.push_back(scoreCounter);
+
+	livesLabel = MyMenuItem::createMenuItem("Player: " + std::to_string(Player::DEFAULT_LIVES), UI_FONT_NAME, UI_FONT_SIZE);
+	uiElements.push_back(livesLabel);
+
+	patternGrazeLabel = MyMenuItem::createMenuItem("Pattern Graze", UI_FONT_NAME, UI_FONT_SIZE);
+	uiElements.push_back(patternGrazeLabel);
+
+	patternGrazeCounter = MyMenuItem::createMenuItem("0", UI_FONT_NAME, UI_FONT_SIZE);
+	uiElements.push_back(patternGrazeCounter);
+
+	totalGrazeLabel = MyMenuItem::createMenuItem("Total Graze", UI_FONT_NAME, UI_FONT_SIZE);
+	uiElements.push_back(totalGrazeLabel);
+
+	totalGrazeCounter = MyMenuItem::createMenuItem("0", UI_FONT_NAME, UI_FONT_SIZE);
+	uiElements.push_back(totalGrazeCounter);
+
+	for (MyMenuItem* uiElement : uiElements)
+	{
+		uiElement->setLocalZOrder(2);
+		uiElement->setPos(pos);
+		uiElement->select();
+		addChild(uiElement);
+
+		pos.y -= UI_TEXT_Y_MARGIN;
+	}
 }
 
 void GameScene::addOverlay()
@@ -119,8 +133,12 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 {
 	if (bodyA->getCategoryBitmask() == 0x4 || bodyB->getCategoryBitmask() == 0x4)
 	{
-		graze++;
-		grazeCounter->setText(std::to_string(graze));
+		patternGraze++;
+		patternGrazeCounter->setText(std::to_string(patternGraze));
+
+		totalGraze++;
+		totalGrazeCounter->setText(std::to_string(totalGraze));
+
 		return;
 	}
 
@@ -136,20 +154,19 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 	}
 
 	player->kill();
-	livesLabel->setText("Player: " + std::to_string(player->getLives()));
+	noHitBonus = false;
 	enemy->getBulletPattern()->removeAllBullets();
+	livesLabel->setText("Player: " + std::to_string(player->getLives()));
 }
 
 void GameScene::update(float delta)
 {
+	hitEnemy();
+	updateScoreCounter();
+
 	for (Node* child : getChildren())
 	{
 		child->update(delta);
-	}
-
-	if (enemy->isDefeated())
-	{
-		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
 	}
 
 	if (pause)
@@ -157,6 +174,83 @@ void GameScene::update(float delta)
 		pause = false;
 		auto scene = PauseScene::createScene(takeScreenshot());
 		cocos2d::Director::getInstance()->pushScene(scene);
+	}
+}
+
+void GameScene::hitEnemy()
+{
+	std::vector<PlayerBullet*>& vec = player->getBullets();
+	auto it = vec.begin();
+
+	while (it != vec.end())
+	{
+		if ((*it)->getSpriteBoundingBox().intersectsRect(enemy->getSpriteBoundingBox()))
+		{
+			damageEnemy((*it)->getPos());
+			(*it)->removeFromParent();
+			it = vec.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
+void GameScene::damageEnemy(cocos2d::Vec2 pos)
+{
+	auto dmgSprite = cocos2d::Sprite::create("damage.png");
+	dmgSprite->setScale(Settings::getScale() * 1.5f);
+	dmgSprite->setPosition(pos.x, pos.y + 50);
+	dmgSprite->setOpacity(150);
+	addChild(dmgSprite);
+
+	dmgSprite->runAction(cocos2d::FadeTo::create(0.3f, 0));
+
+	if (enemy->getIFrames() > 0.0f)
+	{
+		return;
+	}
+
+	score += totalGraze + INIT_HIT_POINT_VALUE;
+
+	if (enemy->damage() <= 0)
+	{
+		nextPattern();
+	}
+}
+
+void GameScene::nextPattern()
+{
+	enemy->nextPattern();
+	
+	if (noHitBonus)
+	{
+		score += INIT_HIT_POINT_VALUE * patternGraze;
+	}
+
+	if (enemy->isDefeated())
+	{
+		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
+	}
+	
+	noHitBonus = true;
+	patternGraze = 0;
+	patternGrazeCounter->setText("0");
+}
+
+void GameScene::updateScoreCounter()
+{
+	int increaseAmount = INIT_HIT_POINT_VALUE;
+	while (increaseAmount > 1)
+	{
+		if (displayScore + increaseAmount < score)
+		{
+			displayScore += increaseAmount;
+			scoreCounter->setText(std::to_string(displayScore));
+			return;
+		}
+		increaseAmount /= 10;
 	}
 }
 

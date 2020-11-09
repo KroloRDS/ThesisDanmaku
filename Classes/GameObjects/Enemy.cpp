@@ -1,6 +1,8 @@
 #include "Enemy.h"
 
-Enemy* Enemy::createEnemy(std::string str, cocos2d::Vec2 pos, Player* player)
+const cocos2d::Vec2 Enemy::INIT_POS = cocos2d::Vec2(440, 600);
+
+Enemy* Enemy::createEnemy(std::string str, Player* player)
 {
 	Enemy* ret = Enemy::create();
 	if (!ret)
@@ -9,7 +11,7 @@ Enemy* Enemy::createEnemy(std::string str, cocos2d::Vec2 pos, Player* player)
 		return NULL;
 	}
 
-	ret->initGameObj(str, pos);
+	ret->initGameObj(str, INIT_POS);
 
 	ret->hpBar = EnemyHpBar::createEnemyHpBar();
 	ret->addChild(ret->hpBar);
@@ -21,7 +23,6 @@ Enemy* Enemy::createEnemy(std::string str, cocos2d::Vec2 pos, Player* player)
 
 void Enemy::update(float delta)
 {
-	collision(player->getBullets());
 	if (iFrames <= 0.0f)
 	{
 		bulletPattern->update(delta);
@@ -42,57 +43,21 @@ BulletPattern* Enemy::getBulletPattern()
 	return bulletPattern;
 }
 
-void Enemy::collision(std::vector<PlayerBullet*>& vec)
+float Enemy::getIFrames()
 {
-	auto it = vec.begin();
-	while (it != vec.end())
-	{
-		if ((*it)->getSpriteBoundingBox().intersectsRect(getSpriteBoundingBox()))
-		{
-			damage();
-			damageAnimation((*it)->getPos());
-
-			(*it)->removeFromParent();
-			it = vec.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
+	return iFrames;
 }
 
-void Enemy::damage()
+int Enemy::damage()
 {
-	if (iFrames > 0.0f)
-	{
-		return;
-	}
-
 	hp--;
-
-	if (hp <= 0)
-	{
-		currentPattern++;
-		nextPattern();
-	}
-
 	hpBar->updateHpBar(hp);
-}
-
-void Enemy::damageAnimation(cocos2d::Vec2 pos)
-{
-	auto dmgSprite = cocos2d::Sprite::create("damage.png");
-	dmgSprite->setScale(Settings::getScale() * 1.5f);
-	dmgSprite->setPosition(pos.x, pos.y + 50);
-	dmgSprite->setOpacity(150);
-	addChild(dmgSprite);
-
-	dmgSprite->runAction(cocos2d::FadeTo::create(0.3f, 0));
+	return hp;
 }
 
 void Enemy::nextPattern()
 {
+	currentPattern++;
 	iFrames = IFRAMES_AFTER_PATTERN_CHANGE;
 
 	if (bulletPattern != nullptr)
@@ -103,10 +68,10 @@ void Enemy::nextPattern()
 
 	switch (currentPattern)
 	{
-	case 0:
+	case 1:
 		bulletPattern = BulletPattern00::createBulletPattern(absolutePos);
 		break;
-	case 1:
+	case 2:
 		bulletPattern = BulletPattern01::createBulletPattern(absolutePos, player);
 		break;
 	default:
