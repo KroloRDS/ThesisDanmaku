@@ -1,15 +1,26 @@
 #include "Settings.h"
 
 const float Settings::DEFAULT_SCALE = 1.0f;
-const int Settings::DEFAULT_HITBOXES = cocos2d::PhysicsWorld::DEBUGDRAW_NONE;;
+const int Settings::DEFAULT_HITBOXES = cocos2d::PhysicsWorld::DEBUGDRAW_NONE;
 float Settings::scale = DEFAULT_SCALE;
+bool Settings::fullscreen = DEFAULT_FULLSCREEN;
 int Settings::resolution = DEFAULT_RESOLUTION;
-int Settings::musicVolume = DEFAULT_MUSIC_VOLUME;
-int Settings::effectVolume = DEFAULT_EFFECT_VOLUME;
+int Settings::volume = DEFAULT_VOLUME;
 int Settings::showHitboxes = DEFAULT_HITBOXES;
 
-const float Settings::SIZES_X[3] = { 640.0f, 960.0f, 1280.0f };
-const float Settings::SIZES_Y[3] = { 480.0f, 720.0f, 960.0f };
+const float Settings::SIZES_X[4] = { 640.0f, 960.0f, 1280.0f, 1440.0f };
+const float Settings::SIZES_Y[4] = { 480.0f, 720.0f, 960.0f, 1080.0f };
+
+void Settings::updateGLView()
+{
+	cocos2d::GLViewImpl* glview = 
+		(cocos2d::GLViewImpl*)cocos2d::Director::getInstance()->getOpenGLView();
+
+	glview->setFrameSize(SIZES_X[resolution], SIZES_Y[resolution]);
+	glview->setDesignResolutionSize(SIZES_X[resolution], SIZES_Y[resolution], ResolutionPolicy::SHOW_ALL);
+	fullscreen ? glview->setFullscreen() : glview->setWindowed(SIZES_X[resolution], SIZES_Y[resolution]);
+	cocos2d::Director::getInstance()->setOpenGLView(glview);
+}
 
 float Settings::getScale()
 {
@@ -21,11 +32,7 @@ void Settings::setResolution(int newResolution)
 	resolution = newResolution;
 	scale = (float) SIZES_X[resolution] / SIZES_X[2];
 
-	auto director = cocos2d::Director::getInstance();
-	auto glview = director->getOpenGLView();
-	glview->setFrameSize(SIZES_X[resolution], SIZES_Y[resolution]);
-	glview->setDesignResolutionSize(SIZES_X[resolution], SIZES_Y[resolution], ResolutionPolicy::EXACT_FIT);
-	director->setOpenGLView(glview);
+	updateGLView();
 }
 
 int Settings::getResolution()
@@ -33,24 +40,25 @@ int Settings::getResolution()
 	return resolution;
 }
 
-void Settings::setMusicVolume(int newMusicVolume)
+void Settings::setVolume(int newVolume)
 {
-	musicVolume = newMusicVolume;
+	volume = newVolume;
 }
 
-int Settings::getMusicVolume()
+int Settings::getVolume()
 {
-	return musicVolume;
+	return volume;
 }
 
-void Settings::setEffectVolume(int newEffectVolume)
+void Settings::setFullscreen(bool newFullscreen)
 {
-	effectVolume = newEffectVolume;
+	fullscreen = newFullscreen;
+	setResolution(1);
 }
 
-int Settings::getEffectVolume()
+bool Settings::isFullscren()
 {
-	return effectVolume;
+	return fullscreen;
 }
 
 float Settings::getWindowSizeX()

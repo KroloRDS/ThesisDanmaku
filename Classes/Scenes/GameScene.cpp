@@ -199,9 +199,10 @@ void GameScene::hitEnemy()
 
 void GameScene::damageEnemy(cocos2d::Vec2 pos)
 {
+	pos.y += 50;
 	auto dmgSprite = cocos2d::Sprite::create("damage.png");
 	dmgSprite->setScale(Settings::getScale() * 1.5f);
-	dmgSprite->setPosition(pos.x, pos.y + 50);
+	dmgSprite->setPosition(pos * Settings::getScale());
 	dmgSprite->setOpacity(150);
 	addChild(dmgSprite);
 

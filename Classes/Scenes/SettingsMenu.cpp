@@ -1,6 +1,6 @@
 #include "SettingsMenu.h"
 
-enum options { RESOLUTION = 0, MUSIC_VOLUME, EFFECT_VOLUME, SHOW_HITBOXES, CONTROLS, BACK };
+enum options { RESOLUTION = 0, VOLUME, FULLSCREEN, SHOW_HITBOXES, BACK };
 
 cocos2d::Scene* SettingsMenu::createScene()
 {
@@ -17,13 +17,13 @@ bool SettingsMenu::init()
 		return false;
 	}
 
-	std::vector<std::string> optionsStrings = { "Resolution", "Music Volume", "Effect Volume", "Show Hitboxes", "Controls", "Back" };
+	std::vector<std::string> optionsStrings = { "Resolution", "Volume", "Fullscreen", "Show Hitboxes", "Back" };
 	addMenuOptions(optionsStrings, FONT_SIZE, MARGIN_SIZE);
 	menuOptions.at(selectedItem)->select();
 
 	optionValues[RESOLUTION] = Settings::getResolution();
-	optionValues[MUSIC_VOLUME] = Settings::getMusicVolume();
-	optionValues[EFFECT_VOLUME] = Settings::getEffectVolume();
+	optionValues[VOLUME] = Settings::getVolume();
+	optionValues[FULLSCREEN] = 1 * Settings::isFullscren();
 	optionValues[SHOW_HITBOXES] = (int)(Settings::getHitboxOption() == cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
 	
 	for (int i = 0; i < 4; i++)
@@ -61,8 +61,8 @@ void SettingsMenu::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Ev
 void SettingsMenu::updateOptionValueStrings()
 {
 	menuLeftColumn.at(RESOLUTION)->setText(resolutionOptionStrings.at(optionValues[RESOLUTION]));
-	menuLeftColumn.at(MUSIC_VOLUME)->setText(std::to_string(optionValues[MUSIC_VOLUME]));
-	menuLeftColumn.at(EFFECT_VOLUME)->setText(std::to_string(optionValues[EFFECT_VOLUME]));
+	menuLeftColumn.at(VOLUME)->setText(std::to_string(optionValues[VOLUME]));
+	menuLeftColumn.at(FULLSCREEN)->setText(fullscreenOptionStrings.at(optionValues[FULLSCREEN]));
 	menuLeftColumn.at(SHOW_HITBOXES)->setText(hitboxOptionStrings.at(optionValues[SHOW_HITBOXES]));
 }
 
@@ -73,11 +73,13 @@ void SettingsMenu::updateSettings()
 	case RESOLUTION:
 		setResolution();
 		break;
-	case MUSIC_VOLUME:
-		Settings::setMusicVolume(optionValues[MUSIC_VOLUME]);
+	case VOLUME:
+		Settings::setVolume(optionValues[VOLUME]);
 		break;
-	case EFFECT_VOLUME:
-		Settings::setEffectVolume(optionValues[EFFECT_VOLUME]);
+	case FULLSCREEN:
+		Settings::setFullscreen(optionValues[FULLSCREEN] == 1);
+		optionValues[RESOLUTION] = 1;
+		setResolution();
 		break;
 	case SHOW_HITBOXES:
 		Settings::setHitboxOption(optionValues[SHOW_HITBOXES] != 0);
@@ -104,11 +106,8 @@ void SettingsMenu::setResolution()
 
 void SettingsMenu::select()
 {
-	switch (selectedItem)
+	if (selectedItem == BACK)
 	{
-	case CONTROLS:
-		break;
-	case BACK:
 		cocos2d::Director::getInstance()->replaceScene(MainMenu::createScene());
 	}
 }
@@ -131,8 +130,8 @@ void SettingsMenu::update(float delta)
 
 void SettingsMenu::scrollMenuHorizontally(float delta)
 {
-	float scrollSpeed = selectedItem == RESOLUTION || selectedItem == SHOW_HITBOXES ? 
-		SLOW_MENU_SCROLL_SPEED : FAST_MENU_SCROLL_SPEED;
+	float scrollSpeed = 
+		selectedItem == VOLUME ? FAST_MENU_SCROLL_SPEED : SLOW_MENU_SCROLL_SPEED;
 
 	int scroll = scrollMenu(delta, scrollSpeed, true);
 	if (scroll != 0)

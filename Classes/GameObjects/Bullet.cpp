@@ -27,7 +27,7 @@ void Bullet::spawnAnimation()
 	}
 
 	auto spawnSprite = cocos2d::Sprite::create("spawn.png");
-	spawnSprite->setPosition(absolutePos);
+	spawnSprite->setPosition(absolutePos * Settings::getScale());
 	spawnSprite->setOpacity(150);
 	addChild(spawnSprite);
 	
