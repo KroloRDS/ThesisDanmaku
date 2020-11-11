@@ -9,8 +9,8 @@ int Settings::volume = DEFAULT_VOLUME;
 int Settings::showHitboxes = DEFAULT_HITBOXES;
 int Settings::practicePattern = 0;
 
-const float Settings::SIZES_X[4] = { 640.0f, 960.0f, 1280.0f, 1440.0f };
-const float Settings::SIZES_Y[4] = { 480.0f, 720.0f, 960.0f, 1080.0f };
+const float Settings::SIZES_X[5] = { 640.0f, 960.0f, 1280.0f, 1280.0f, 1920.0f };
+const float Settings::SIZES_Y[5] = { 480.0f, 720.0f, 720.0f, 960.0f, 1080.0f };
 
 void Settings::updateGLView()
 {
@@ -19,7 +19,7 @@ void Settings::updateGLView()
 
 	glview->setFrameSize(SIZES_X[resolution], SIZES_Y[resolution]);
 	glview->setDesignResolutionSize(SIZES_X[resolution], SIZES_Y[resolution], ResolutionPolicy::SHOW_ALL);
-	fullscreen ? glview->setFullscreen() : glview->setWindowed(SIZES_X[resolution], SIZES_Y[resolution]);
+	fullscreen ? glview->setFullscreen() : glview->setWindowed((int)SIZES_X[resolution], (int)SIZES_Y[resolution]);
 	cocos2d::Director::getInstance()->setOpenGLView(glview);
 }
 
@@ -31,7 +31,7 @@ float Settings::getScale()
 void Settings::setResolution(int newResolution)
 {
 	resolution = newResolution;
-	scale = (float) SIZES_Y[resolution] / SIZES_Y[2];
+	scale = (float)SIZES_Y[resolution] / (float)SIZES_Y[DEFAULT_RESOLUTION];
 
 	updateGLView();
 }
@@ -80,6 +80,12 @@ float Settings::getWindowSizeX()
 float Settings::getWindowSizeY()
 {
 	return SIZES_Y[resolution];
+}
+
+float Settings::getHorizontalOffset()
+{
+	float sizeX = SIZES_Y[resolution] * 1.33333f;
+	return (SIZES_X[resolution] - sizeX) / 2.0f;
 }
 
 int Settings::getHitboxOption()

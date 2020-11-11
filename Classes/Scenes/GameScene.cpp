@@ -99,8 +99,10 @@ void GameScene::addUIElements()
 void GameScene::addOverlay()
 {
 	auto overlay = cocos2d::Sprite::create("overlay.png");
+	auto sizeX = Settings::getWindowSizeX() / 2.0f;
+	auto sizeY = Settings::getWindowSizeY() / 2.0f;
+	overlay->setPosition(cocos2d::Vec2(sizeX, sizeY));
 	overlay->setScale(Settings::getScale());
-	overlay->setPosition(cocos2d::Vec2(Settings::getWindowSizeX() * 0.5f, Settings::getWindowSizeY() * 0.5f));
 	overlay->setLocalZOrder(1);
 	addChild(overlay);
 }
@@ -200,11 +202,12 @@ void GameScene::hitEnemy()
 void GameScene::damageEnemy(cocos2d::Vec2 pos)
 {
 	pos.y += 50;
-	auto dmgSprite = cocos2d::Sprite::create("damage.png");
+	auto gameObj = GameObject::createGameObject("damage.png", pos);
+	auto dmgSprite = gameObj->getSprite();
+	
 	dmgSprite->setScale(Settings::getScale() * 1.5f);
-	dmgSprite->setPosition(pos * Settings::getScale());
 	dmgSprite->setOpacity(150);
-	addChild(dmgSprite);
+	addChild(gameObj);
 
 	dmgSprite->runAction(cocos2d::FadeTo::create(0.3f, 0));
 

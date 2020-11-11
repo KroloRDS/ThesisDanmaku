@@ -5,7 +5,7 @@
 class Settings
 {
 public:
-	enum RESOLUTIONS { R640x480 = 0, R960x720, R1280x960, R1440x1080 };
+	enum RESOLUTIONS { R640x480 = 0, R960x720, R1280x720, R1280x960, R1920x1080 };
 	
 	static float getScale();
 	static void setResolution(int);
@@ -16,6 +16,7 @@ public:
 	static bool isFullscren();
 	static float getWindowSizeX();
 	static float getWindowSizeY();
+	static float getHorizontalOffset();
 	static int getHitboxOption();
 	static void setHitboxOption(bool);
 	static int getPracticePattern();
@@ -32,8 +33,8 @@ private:
 	static const float DEFAULT_SCALE;
 	static const int DEFAULT_RESOLUTION = RESOLUTIONS::R1280x960;
 	static const int DEFAULT_VOLUME = 100;
-	static const float SIZES_X[4];
-	static const float SIZES_Y[4];
+	static const float SIZES_X[5];
+	static const float SIZES_Y[5];
 	static const int DEFAULT_HITBOXES;
 	static const bool DEFAULT_FULLSCREEN = false;
 };

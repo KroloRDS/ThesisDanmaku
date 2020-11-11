@@ -22,10 +22,10 @@ private:
 	float bounceMentosRotationSpeed = 150.0f;
 	float nextBounceMentosInterval = 0.0f;
 
-	int randomMentosMaxX;
-	int randomMentosMinX;
-	int randomMentosMaxY;
-	int randomMentosMinY;
+	int randomMentosMaxX = 0;
+	int randomMentosMinX = 0;
+	int randomMentosMaxY = 0;
+	int randomMentosMinY = 0;
 	float nextRandomMentosInterval = 0.0f;
 
 	float laserRotation = 0.0f;

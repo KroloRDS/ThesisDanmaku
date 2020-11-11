@@ -32,7 +32,8 @@ cocos2d::Sprite* GameObject::getSprite()
 void GameObject::setPos(cocos2d::Vec2 newPosition)
 {
 	absolutePos = newPosition;
-	sprite->setPosition(newPosition * Settings::getScale());
+	newPosition *= Settings::getScale();
+	sprite->setPosition(newPosition.x + Settings::getHorizontalOffset(), newPosition.y);
 }
 
 cocos2d::Vec2 GameObject::getPos()

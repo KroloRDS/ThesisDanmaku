@@ -26,10 +26,10 @@ void Bullet::spawnAnimation()
 		return;
 	}
 
-	auto spawnSprite = cocos2d::Sprite::create("spawn.png");
-	spawnSprite->setPosition(absolutePos * Settings::getScale());
+	auto gameObj = GameObject::createGameObject("spawn.png", absolutePos);
+	auto spawnSprite = gameObj->getSprite();
 	spawnSprite->setOpacity(150);
-	addChild(spawnSprite);
+	addChild(gameObj);
 	
 	switch (type)
 	{

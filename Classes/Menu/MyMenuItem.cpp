@@ -67,10 +67,11 @@ void MyMenuItem::setText(std::string string)
 	label->setString(string);
 }
 
-void MyMenuItem::setPos(cocos2d::Vec2 pos)
+void MyMenuItem::setPos(cocos2d::Vec2 newPosition)
 {
-	absolutePos = pos;
-	this->setPosition(pos * Settings::getScale());
+	absolutePos = newPosition;
+	newPosition *= Settings::getScale();
+	setPosition(newPosition.x + Settings::getHorizontalOffset(), newPosition.y);
 }
 
 cocos2d::Vec2 MyMenuItem::getPos()

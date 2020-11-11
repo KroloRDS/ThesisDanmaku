@@ -155,9 +155,12 @@ std::vector<PlayerBullet*>& Player::getBullets()
 void Player::setPos(cocos2d::Vec2 newPosition)
 {
 	absolutePos = newPosition;
-	sprite->setPosition(newPosition * Settings::getScale());
-	hitbox->setPosition(newPosition * Settings::getScale());
-	grazeHitbox->setPosition(newPosition * Settings::getScale());
+	newPosition *= Settings::getScale();
+	newPosition.x += Settings::getHorizontalOffset();
+
+	sprite->setPosition(newPosition);
+	hitbox->setPosition(newPosition);
+	grazeHitbox->setPosition(newPosition);
 }
 
 void Player::kill()

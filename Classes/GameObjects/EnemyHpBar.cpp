@@ -13,17 +13,23 @@ EnemyHpBar* EnemyHpBar::createEnemyHpBar()
 	}
 
 	ret->drawNode = cocos2d::DrawNode::create();
-	ret->drawNode->setScale(Settings::getScale());
 	ret->addChild(ret->drawNode);
 	return ret;
 }
 
 void EnemyHpBar::updateHpBar(int hp)
 {
+	auto origin = ENEMY_HP_BAR_POS;
+	float width = (float)ENEMY_HP_BAR_MAX_WIDTH * (float)hp / (float)maxHp;
+	cocos2d::Vec2 dest(origin.x + width, origin.y + (float)ENEMY_HP_BAR_HEIGHT);
+
+	origin *= Settings::getScale();
+	origin.x += Settings::getHorizontalOffset();
+	dest *= Settings::getScale();
+	dest.x += Settings::getHorizontalOffset();
+	
 	drawNode->clear();
-	int width = ENEMY_HP_BAR_MAX_WIDTH * hp / maxHp;
-	cocos2d::Vec2 dest(ENEMY_HP_BAR_POS.x + width, ENEMY_HP_BAR_POS.y + ENEMY_HP_BAR_HEIGHT);
-	drawNode->drawSolidRect(ENEMY_HP_BAR_POS, dest, COLOR_WHITE);
+	drawNode->drawSolidRect(origin, dest, COLOR_WHITE);
 }
 
 void EnemyHpBar::setMaxHp(int newMax)
