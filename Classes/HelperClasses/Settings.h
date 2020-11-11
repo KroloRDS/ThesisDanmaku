@@ -18,13 +18,16 @@ public:
 	static float getWindowSizeY();
 	static int getHitboxOption();
 	static void setHitboxOption(bool);
+	static int getPracticePattern();
+	static void setPracticePattern(int);
 	static void updateGLView();
 private:
 	static float scale;
+	static bool fullscreen;
 	static int resolution;
 	static int volume;
-	static bool fullscreen;
 	static int showHitboxes;
+	static int practicePattern;
 
 	static const float DEFAULT_SCALE;
 	static const int DEFAULT_RESOLUTION = RESOLUTIONS::R1280x960;

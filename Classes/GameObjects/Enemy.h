@@ -12,7 +12,7 @@
 class Enemy : public GameObject
 {
 public:
-	static Enemy* createEnemy(std::string, Player*);
+	static Enemy* createEnemy(Player*);
 	CREATE_FUNC(Enemy);
 	void update(float);
 	

@@ -37,10 +37,10 @@ bool GameScene::init()
 	int seed = cocos2d::RandomHelper::random_int(0, RAND_MAX);
 	std::srand(seed);
 
-	player = Player::createPlayer("reimu.png");
+	player = Player::createPlayer();
 	addChild(player);
 
-	enemy = Enemy::createEnemy("yukari.png", player);
+	enemy = Enemy::createEnemy(player);
 	addChild(enemy);
 
 	scheduleUpdate();
@@ -161,9 +161,6 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 
 void GameScene::update(float delta)
 {
-	hitEnemy();
-	updateScoreCounter();
-
 	for (Node* child : getChildren())
 	{
 		child->update(delta);
@@ -175,6 +172,9 @@ void GameScene::update(float delta)
 		auto scene = PauseScene::createScene(takeScreenshot());
 		cocos2d::Director::getInstance()->pushScene(scene);
 	}
+
+	hitEnemy();
+	updateScoreCounter();
 }
 
 void GameScene::hitEnemy()

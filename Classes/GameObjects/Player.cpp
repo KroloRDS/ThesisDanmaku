@@ -13,7 +13,7 @@ const float Player::BULLET_X_OFFSET = HITBOX_RADIUS * Settings::getScale() * 2.0
 const float Player::BULLET_Y_OFFSET = HITBOX_RADIUS * Settings::getScale() * 7.0f;
 const cocos2d::Vec2 Player::INIT_POS = cocos2d::Vec2(440, 300);
 
-Player* Player::createPlayer(std::string str)
+Player* Player::createPlayer()
 {
 	Player* ret = Player::create();
 	if (!ret)
@@ -22,7 +22,7 @@ Player* Player::createPlayer(std::string str)
 		return NULL;
 	}
 
-	ret->initGameObj(str, INIT_POS);
+	ret->initGameObj("reimu.png", INIT_POS);
 	ret->hitbox = createHitbox();
 	ret->addChild(ret->hitbox);
 	ret->grazeHitbox = createGrazeHitbox();

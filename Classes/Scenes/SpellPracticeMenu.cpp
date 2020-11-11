@@ -17,7 +17,7 @@ bool SpellPracticeMenu::init()
 		return false;
 	}
 
-	std::vector<std::string> optionsStrings = { "Spell 0", "Spell 1", "Spell 2", "Back" };
+	std::vector<std::string> optionsStrings = { "Spell 1", "Spell 2", "Spell 3", "Back" };
 	addMenuOptions(optionsStrings, 100.0, 160.0);
 	menuOptions.at(selectedItem)->select();
 
@@ -27,16 +27,8 @@ bool SpellPracticeMenu::init()
 
 void SpellPracticeMenu::select()
 {
-	switch (selectedItem)
-	{
-	case SPELL_0:
-		break;
-	case SPELL_1:
-		break;
-	case SPELL_2:
-		break;
-	case BACK:
-		cocos2d::Director::getInstance()->replaceScene(MainMenu::createScene());
-		break;
-	}
+	Settings::setPracticePattern(selectedItem + 1);
+	selectedItem == BACK ?
+		cocos2d::Director::getInstance()->replaceScene(MainMenu::createScene()) :
+		cocos2d::Director::getInstance()->replaceScene(GameScene::createScene());
 }

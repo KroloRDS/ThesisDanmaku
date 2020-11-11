@@ -30,6 +30,7 @@ void MainMenu::select()
 	switch (selectedItem)
 	{
 	case START:
+		Settings::setPracticePattern(0);
 		cocos2d::Director::getInstance()->replaceScene(GameScene::createScene());
 		break;
 	case SPELL_PRACTICE:

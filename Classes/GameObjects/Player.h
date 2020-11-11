@@ -8,7 +8,7 @@
 class Player : public GameObject
 {
 public:
-	static Player* createPlayer(std::string);
+	static Player* createPlayer();
 	CREATE_FUNC(Player);
 	void update(float);
 	void setPos(cocos2d::Vec2);

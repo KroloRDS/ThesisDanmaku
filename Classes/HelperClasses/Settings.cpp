@@ -7,6 +7,7 @@ bool Settings::fullscreen = DEFAULT_FULLSCREEN;
 int Settings::resolution = DEFAULT_RESOLUTION;
 int Settings::volume = DEFAULT_VOLUME;
 int Settings::showHitboxes = DEFAULT_HITBOXES;
+int Settings::practicePattern = 0;
 
 const float Settings::SIZES_X[4] = { 640.0f, 960.0f, 1280.0f, 1440.0f };
 const float Settings::SIZES_Y[4] = { 480.0f, 720.0f, 960.0f, 1080.0f };
@@ -30,7 +31,7 @@ float Settings::getScale()
 void Settings::setResolution(int newResolution)
 {
 	resolution = newResolution;
-	scale = (float) SIZES_X[resolution] / SIZES_X[2];
+	scale = (float) SIZES_Y[resolution] / SIZES_Y[2];
 
 	updateGLView();
 }
@@ -48,6 +49,16 @@ void Settings::setVolume(int newVolume)
 int Settings::getVolume()
 {
 	return volume;
+}
+
+void Settings::setPracticePattern(int newPracticePattern)
+{
+	practicePattern = newPracticePattern;
+}
+
+int Settings::getPracticePattern()
+{
+	return practicePattern;
 }
 
 void Settings::setFullscreen(bool newFullscreen)

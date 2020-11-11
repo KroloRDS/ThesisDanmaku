@@ -2,7 +2,7 @@
 
 const cocos2d::Vec2 Enemy::INIT_POS = cocos2d::Vec2(440, 600);
 
-Enemy* Enemy::createEnemy(std::string str, Player* player)
+Enemy* Enemy::createEnemy(Player* player)
 {
 	Enemy* ret = Enemy::create();
 	if (!ret)
@@ -11,7 +11,7 @@ Enemy* Enemy::createEnemy(std::string str, Player* player)
 		return NULL;
 	}
 
-	ret->initGameObj(str, INIT_POS);
+	ret->initGameObj("yukari.png", INIT_POS);
 
 	ret->hpBar = EnemyHpBar::createEnemyHpBar();
 	ret->addChild(ret->hpBar);
@@ -57,8 +57,18 @@ int Enemy::damage()
 
 void Enemy::nextPattern()
 {
-	currentPattern++;
 	//iFrames = IFRAMES_AFTER_PATTERN_CHANGE;
+
+	int practicePattern = Settings::getPracticePattern();
+	if (practicePattern != 0)
+	{
+		currentPattern = practicePattern;
+		defeated = true;
+	}
+	else
+	{
+		currentPattern++;
+	}
 
 	if (bulletPattern != nullptr)
 	{
