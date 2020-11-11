@@ -33,21 +33,29 @@ void Bullet::spawnAnimation()
 	
 	switch (type)
 	{
-	case TEST_BULLET:
+	case TEST:
 		spawnSprite->setColor(cocos2d::Color3B(51, 153, 255));
+		spawnSprite->setScale(Settings::getScale());
+		break;
+	case NORMAL:
+		spawnSprite->setColor(cocos2d::Color3B(219, 0, 255));
 		spawnSprite->setScale(Settings::getScale());
 		break;
 	case ARROWHEAD:
 		spawnSprite->setColor(cocos2d::Color3B(0, 102, 255));
 		spawnSprite->setScale(Settings::getScale());
 		break;
-	case BUBBLE:
-		spawnSprite->setColor(cocos2d::Color3B(255, 0, 0));
-		spawnSprite->setScale(Settings::getScale() * 2.0f);
+	case BUTTERFLY:
+		spawnSprite->setColor(cocos2d::Color3B(219, 0, 255));
+		spawnSprite->setScale(Settings::getScale() * 1.5f);
 		break;
 	case MENTOS:
 		spawnSprite->setColor(cocos2d::Color3B(255, 255, 255));
 		spawnSprite->setScale(Settings::getScale() * 1.5f);
+		break;
+	case BUBBLE:
+		spawnSprite->setColor(cocos2d::Color3B(255, 0, 0));
+		spawnSprite->setScale(Settings::getScale() * 2.0f);
 		break;
 	default:
 		break;
@@ -62,20 +70,26 @@ std::string Bullet::getSpriteName(int type)
 {
 	switch (type)
 	{
-	case TEST_BULLET:
-		return "bullet.png";
+	case TEST:
+		return "test_bullet.png";
 		break;
-	case LASER_SEGMENT:
-		return "laser.png";
+	case NORMAL:
+		return "normal_bullet.png";
 		break;
 	case ARROWHEAD:
 		return "arrowhead.png";
 		break;
-	case BUBBLE:
-		return "bubble.png";
+	case BUTTERFLY:
+		return "butterfly.png";
 		break;
 	case MENTOS:
 		return "mentos.png";
+		break;
+	case BUBBLE:
+		return "bubble.png";
+		break;
+	case LASER_SEGMENT:
+		return "laser.png";
 		break;
 	default:
 		return "";
@@ -89,20 +103,26 @@ void Bullet::createHitbox(int type)
 
 	switch (type)
 	{
-	case TEST_BULLET:
+	case TEST:
 		body = createTestHitbox();
+		break;
+	case NORMAL:
+		body = createNormalBulletHitbox();
 		break;
 	case ARROWHEAD:
 		body = createArrowheadHitbox();
 		break;
-	case LASER_SEGMENT:
-		body = createRectangularHitbox(-8, -8, 16, 16);
-		break;
-	case BUBBLE:
-		body = createCircularHitbox(40.0f);
+	case BUTTERFLY:
+		body = createCircularHitbox(7.0f);
 		break;
 	case MENTOS:
 		body = createCircularHitbox(15.0f);
+		break;
+	case BUBBLE:
+		body = createCircularHitbox(30.0f);
+		break;
+	case LASER_SEGMENT:
+		body = createRectangularHitbox(-8, -8, 16, 16);
 		break;
 	default:
 		body = cocos2d::PhysicsBody::create();
@@ -142,6 +162,20 @@ cocos2d::PhysicsBody* Bullet::createArrowheadHitbox()
 		cocos2d::Vec2(-4, -6),
 		cocos2d::Vec2(4, -6),
 		cocos2d::Vec2(0, 1)
+	};
+
+	auto body = cocos2d::PhysicsBody::create();
+	body->addShape(cocos2d::PhysicsShapePolygon::create(polygon, 4));
+	return body;
+}
+
+cocos2d::PhysicsBody* Bullet::createNormalBulletHitbox()
+{
+	cocos2d::Vec2 polygon[4] = {
+		cocos2d::Vec2(0, -11),
+		cocos2d::Vec2(-4, -2),
+		cocos2d::Vec2(4, -2),
+		cocos2d::Vec2(0, 10)
 	};
 
 	auto body = cocos2d::PhysicsBody::create();

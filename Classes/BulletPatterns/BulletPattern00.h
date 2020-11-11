@@ -20,7 +20,7 @@ private:
 	void spawnNewBullets(float);
 
 	const int ARMS_COUNT = 8;
-	const float BULLET_INTERVAL = 0.06f;
+	const float BULLET_INTERVAL = 0.03f;
 	const float BULLET_SPEED = 500.0f;
 	const float MAX_ROTATION_SPEED = 5.0f;
 

@@ -58,7 +58,7 @@ int Enemy::damage()
 void Enemy::nextPattern()
 {
 	currentPattern++;
-	iFrames = IFRAMES_AFTER_PATTERN_CHANGE;
+	//iFrames = IFRAMES_AFTER_PATTERN_CHANGE;
 
 	if (bulletPattern != nullptr)
 	{
@@ -73,6 +73,9 @@ void Enemy::nextPattern()
 		break;
 	case 2:
 		bulletPattern = BulletPattern01::createBulletPattern(absolutePos, player);
+		break;
+	case 3:
+		bulletPattern = BulletPattern02::createBulletPattern(absolutePos, player);
 		break;
 	default:
 		defeated = true;

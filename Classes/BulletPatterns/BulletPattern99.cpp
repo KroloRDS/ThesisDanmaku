@@ -21,6 +21,12 @@ void BulletPattern99::createLasers()
 		lasers.push_back(Laser::createLaser(origin, rotation + i * (360.0f / ARMS_COUNT)));
 		addChild(lasers.back());
 	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		bullets.push_back(Bullet::createBullet(cocos2d::Vec2((i + 1) * 100, 100), i));
+		addChild(bullets.back());
+	}
 }
 
 void BulletPattern99::update(float delta)

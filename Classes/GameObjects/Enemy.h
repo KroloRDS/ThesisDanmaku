@@ -6,6 +6,7 @@
 #include "EnemyHpBar.h"
 #include "BulletPatterns/BulletPattern00.h"
 #include "BulletPatterns/BulletPattern01.h"
+#include "BulletPatterns/BulletPattern02.h"
 #include "BulletPatterns/BulletPattern99.h"
 
 class Enemy : public GameObject

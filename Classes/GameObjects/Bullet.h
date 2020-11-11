@@ -24,7 +24,7 @@ public:
 
 	void aimAt(cocos2d::Vec2 target, float angle = 0.0f);
 
-	enum type { TEST_BULLET = 0, LASER_SEGMENT, ARROWHEAD, BUBBLE, MENTOS };
+	enum type { TEST = 0, NORMAL, ARROWHEAD, BUTTERFLY, MENTOS, BUBBLE, LASER_SEGMENT };
 
 private:
 	float speed = 0.0f;
@@ -42,6 +42,7 @@ private:
 	void createHitbox(int);
 	cocos2d::PhysicsBody* createTestHitbox();
 	cocos2d::PhysicsBody* createArrowheadHitbox();
+	cocos2d::PhysicsBody* createNormalBulletHitbox();
 	cocos2d::PhysicsBody* createRectangularHitbox(float, float, float, float);
 	cocos2d::PhysicsBody* createCircularHitbox(float);
 };
