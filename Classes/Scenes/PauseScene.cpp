@@ -8,6 +8,7 @@ cocos2d::Scene* PauseScene::createScene(cocos2d::RenderTexture* background)
 	auto layer = PauseScene::create();
 	
 	scene->addChild(background);
+	scene->addChild(dimEffect());
 	scene->addChild(layer);
 	
 	return scene;
@@ -26,6 +27,18 @@ bool PauseScene::init()
 
 	this->scheduleUpdate();
 	return true;
+}
+
+cocos2d::DrawNode* PauseScene::dimEffect()
+{
+	auto origin = Settings::getTranslatedCoords(GameScene::GAME_INNER_BOUNDS[0]);
+	auto dest = Settings::getTranslatedCoords(GameScene::GAME_INNER_BOUNDS[2]);
+	auto color = cocos2d::Color4F(0.0f, 0.0f, 0.0f, 0.6f);
+
+	auto drawNode = cocos2d::DrawNode::create();
+	drawNode->drawSolidRect(origin, dest, color);
+
+	return drawNode;
 }
 
 void PauseScene::select()

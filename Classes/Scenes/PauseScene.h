@@ -9,5 +9,7 @@ public:
 	virtual bool init() override;
 	void select();
 	CREATE_FUNC(PauseScene);
+private:
+	static cocos2d::DrawNode* dimEffect();
 };
 
