@@ -25,6 +25,6 @@ private:
 	std::vector<Bullet*> segments = {};
 
 	const int SEGMENT_OFFSET = 15;
-	const float SEGMENT_SPAWN_RATE = 0.03f;
+	const float SEGMENT_SPAWN_RATE = 0.02f;
 };
 

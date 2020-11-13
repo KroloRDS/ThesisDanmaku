@@ -1,7 +1,6 @@
 #include "Settings.h"
 
 const float Settings::DEFAULT_SCALE = 1.0f;
-const int Settings::DEFAULT_HITBOXES = cocos2d::PhysicsWorld::DEBUGDRAW_NONE;
 float Settings::scale = DEFAULT_SCALE;
 bool Settings::fullscreen = DEFAULT_FULLSCREEN;
 int Settings::resolution = DEFAULT_RESOLUTION;
@@ -94,14 +93,7 @@ int Settings::getHitboxOption()
 	return showHitboxes;
 }
 
-void Settings::setHitboxOption(bool newOption)
+void Settings::setHitboxOption(int newOption)
 {
-	if (newOption)
-	{
-		showHitboxes = cocos2d::PhysicsWorld::DEBUGDRAW_ALL;
-	}
-	else
-	{
-		showHitboxes = cocos2d::PhysicsWorld::DEBUGDRAW_NONE;
-	}
+	showHitboxes = newOption;
 }

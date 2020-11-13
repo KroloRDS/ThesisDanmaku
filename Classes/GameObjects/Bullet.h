@@ -40,6 +40,7 @@ private:
 
 	std::string getSpriteName(int);
 	void createHitbox(int);
+
 	cocos2d::PhysicsBody* createTestHitbox();
 	cocos2d::PhysicsBody* createArrowheadHitbox();
 	cocos2d::PhysicsBody* createNormalBulletHitbox();

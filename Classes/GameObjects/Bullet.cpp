@@ -144,7 +144,7 @@ cocos2d::PhysicsBody* Bullet::createTestHitbox()
 	};
 
 	cocos2d::Vec2 triangleRight[3] = {
-		cocos2d::Vec2(-1, 8),
+		cocos2d::Vec2(0, 8),
 		cocos2d::Vec2(-1, -8),
 		cocos2d::Vec2(6, -11)
 	};

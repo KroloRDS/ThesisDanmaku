@@ -17,7 +17,9 @@ const cocos2d::Vec2 GameScene::GAME_OUTER_BOUNDS[4] = {
 cocos2d::Scene* GameScene::createScene()
 {
 	auto scene = cocos2d::Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(Settings::getHitboxOption());
+	Settings::getHitboxOption() == Settings::HITBOXES::PLAYER_AND_BULLETS ?
+		scene->getPhysicsWorld()->setDebugDrawMask(cocos2d::PhysicsWorld::DEBUGDRAW_ALL) :
+		scene->getPhysicsWorld()->setDebugDrawMask(cocos2d::PhysicsWorld::DEBUGDRAW_NONE);
 	auto layer = GameScene::create();
 	scene->addChild(layer);
 	return scene;

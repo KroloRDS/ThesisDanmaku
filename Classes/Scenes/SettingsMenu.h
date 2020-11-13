@@ -18,9 +18,9 @@ private:
 	
 	const float FONT_SIZE = 45.0f;
 	const float MARGIN_SIZE = 80.0f;
-	const int MAX_OPTION_VALUES[4] = { 4, 100, 1, 1 };
+	const int MAX_OPTION_VALUES[4] = { 4, 100, 1, 3 };
 	const std::vector<std::string> resolutionOptionStrings = { "640x480", "960x720", "1280x720", "1280x960", "1920x1080" };
-	const std::vector<std::string> hitboxOptionStrings = { "None", "All" };
+	const std::vector<std::string> hitboxOptionStrings = { "None", "Player (focused)", "Player", "Player and Bullets" };
 	const std::vector<std::string> fullscreenOptionStrings = { "No", "Yes" };
 
 	void pressKey(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);

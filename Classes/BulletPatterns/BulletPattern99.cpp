@@ -22,7 +22,7 @@ void BulletPattern99::createLasers()
 		addChild(lasers.back());
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		bullets.push_back(Bullet::createBullet(cocos2d::Vec2((i + 1) * 100.0f, 100.0f), i));
 		addChild(bullets.back());

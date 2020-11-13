@@ -28,9 +28,10 @@ private:
 
 	cocos2d::Node* hitbox = nullptr;
 	cocos2d::Node* grazeHitbox = nullptr;
+	GameObject* hitboxSprite = nullptr;
 
-	static cocos2d::Node* createHitbox();
-	static cocos2d::Node* createGrazeHitbox();
+	cocos2d::Node* createHitbox();
+	cocos2d::Node* createGrazeHitbox();
 	void move(float);
 	void fire(float);
 	void updateIFrames(float);
@@ -38,15 +39,15 @@ private:
 	void removeAllObjects(std::vector<PlayerBullet*>& vec);
 	static void removeOutOfBoundsObjects(std::vector<PlayerBullet*>& vec);
 
-	static const float IFRAMES_AFTER_DEATH;
-	static const float FOCUSED_SPEED;
-	static const float UNFOCUSED_SPEED;
-	static const float HITBOX_RADIUS;
-	static const float GRAZE_HITBOX_RADIUS;
-	static const float BULLET_INTERVAL;
-	static const float DIAGONAL_COEFFICIENT;
-	static const float GAME_BOUNDS_OFFSET;
-	static const float BULLET_X_OFFSET;
-	static const float BULLET_Y_OFFSET;
-	static const cocos2d::Vec2 INIT_POS;
+	const float IFRAMES_AFTER_DEATH = 5.0f;
+	const float FOCUSED_SPEED = 200.0f;
+	const float UNFOCUSED_SPEED = 400.0f;
+	const float HITBOX_RADIUS = 6.0f;
+	const float GRAZE_HITBOX_RADIUS = 24.0f;
+	const float BULLET_INTERVAL = 0.06f;
+	const float DIAGONAL_COEFFICIENT = 1.0f / sqrt(2.0f);
+	const float GAME_BOUNDS_OFFSET = HITBOX_RADIUS * Settings::getScale() * 1.5f;
+	const cocos2d::Vec2 INIT_POS = cocos2d::Vec2(440, 300);
+	const cocos2d::Vec2 LEFT_BULLET_OFFSET = cocos2d::Vec2(12.0f, 40.0f);
+	const cocos2d::Vec2 RIGHT_BULLET_OFFSET = cocos2d::Vec2(-12.0f, 40.0f);
 };

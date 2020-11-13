@@ -11,8 +11,8 @@ AppDelegate::~AppDelegate()
 bool AppDelegate::applicationDidFinishLaunching()
 {
 	auto director = cocos2d::Director::getInstance();
-	director->setAnimationInterval(1.0f / 90.0f);
 	director->setOpenGLView(cocos2d::GLViewImpl::create("ThesisDanmaku"));
+	director->setDisplayStats(true);
 	Settings::updateGLView();
 
 	auto scene = MainMenu::createScene();

@@ -24,7 +24,7 @@ bool SettingsMenu::init()
 	optionValues[RESOLUTION] = Settings::getResolution();
 	optionValues[VOLUME] = Settings::getVolume();
 	optionValues[FULLSCREEN] = 1 * Settings::isFullscren();
-	optionValues[SHOW_HITBOXES] = (int)(Settings::getHitboxOption() == cocos2d::PhysicsWorld::DEBUGDRAW_ALL);
+	optionValues[SHOW_HITBOXES] = Settings::getHitboxOption();
 	
 	for (int i = 0; i < 4; i++)
 	{
@@ -82,7 +82,7 @@ void SettingsMenu::updateSettings()
 		setResolution();
 		break;
 	case SHOW_HITBOXES:
-		Settings::setHitboxOption(optionValues[SHOW_HITBOXES] != 0);
+		Settings::setHitboxOption(optionValues[SHOW_HITBOXES]);
 		break;
 	}
 

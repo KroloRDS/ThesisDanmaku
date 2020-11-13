@@ -1,18 +1,6 @@
 #include "Player.h"
 #include "Scenes/GameScene.h"
 
-const float Player::IFRAMES_AFTER_DEATH = 5.0f;
-const float Player::FOCUSED_SPEED = 200.0f;
-const float Player::UNFOCUSED_SPEED = 400.0f;
-const float Player::HITBOX_RADIUS = 6.0f;
-const float Player::GRAZE_HITBOX_RADIUS = 24.0f;
-const float Player::BULLET_INTERVAL = 0.06f;
-const float Player::DIAGONAL_COEFFICIENT = 1.0f / sqrt(2.0f);
-const float Player::GAME_BOUNDS_OFFSET = HITBOX_RADIUS * Settings::getScale() * 1.5f;
-const float Player::BULLET_X_OFFSET = HITBOX_RADIUS * Settings::getScale() * 2.0f;
-const float Player::BULLET_Y_OFFSET = HITBOX_RADIUS * Settings::getScale() * 7.0f;
-const cocos2d::Vec2 Player::INIT_POS = cocos2d::Vec2(440, 300);
-
 Player* Player::createPlayer()
 {
 	Player* ret = Player::create();
@@ -22,10 +10,10 @@ Player* Player::createPlayer()
 		return NULL;
 	}
 
-	ret->initGameObj("reimu.png", INIT_POS);
-	ret->hitbox = createHitbox();
+	ret->initGameObj("reimu.png", ret->INIT_POS);
+	ret->hitbox = ret->createHitbox();
 	ret->addChild(ret->hitbox);
-	ret->grazeHitbox = createGrazeHitbox();
+	ret->grazeHitbox = ret->createGrazeHitbox();
 	ret->addChild(ret->grazeHitbox);
 	ret->lives = DEFAULT_LIVES;
 
@@ -41,6 +29,14 @@ cocos2d::Node* Player::createHitbox()
 
 	auto node = cocos2d::Node::create();
 	node->setPhysicsBody(body);
+
+	hitboxSprite = GameObject::createGameObject("hitbox.png", absolutePos);
+	if (Settings::getHitboxOption() == Settings::HITBOXES::NONE ||
+		Settings::getHitboxOption() == Settings::HITBOXES::PLAYER_FOCUSED)
+	{
+		hitboxSprite->getSprite()->setScale(0.0f);
+	}
+	addChild(hitboxSprite);
 
 	return node;
 }
@@ -60,7 +56,14 @@ cocos2d::Node* Player::createGrazeHitbox()
 
 void Player::update(float delta)
 {
+	bool oldFocused = focused;
 	focused = KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_LEFT_SHIFT);
+	if (Settings::getHitboxOption() == Settings::HITBOXES::PLAYER_FOCUSED && focused != oldFocused)
+	{
+		float scale = focused ? Settings::getScale() : 0.0f;
+		hitboxSprite->getSprite()->runAction(cocos2d::ScaleTo::create(0.1f, scale));
+	}
+	
 	move(delta);
 	fire(delta);
 	updateIFrames(delta);
@@ -119,10 +122,8 @@ void Player::fire(float delta)
 	
 	auto leftPos = absolutePos;
 	auto rightPos = absolutePos;
-	leftPos.x -= BULLET_X_OFFSET;
-	rightPos.x += BULLET_X_OFFSET;
-	leftPos.y += BULLET_Y_OFFSET;
-	rightPos.y += BULLET_Y_OFFSET;
+	leftPos.add(LEFT_BULLET_OFFSET);
+	rightPos.add(RIGHT_BULLET_OFFSET);
 	auto leftBullet = PlayerBullet::createPlayerBullet("player_bullet.png", leftPos);
 	auto rightBullet = PlayerBullet::createPlayerBullet("player_bullet.png", rightPos);
 	playerBullets.push_back(leftBullet);
@@ -160,6 +161,7 @@ void Player::setPos(cocos2d::Vec2 newPosition)
 	sprite->setPosition(newPosition);
 	hitbox->setPosition(newPosition);
 	grazeHitbox->setPosition(newPosition);
+	hitboxSprite->setPos(absolutePos);
 }
 
 void Player::kill()

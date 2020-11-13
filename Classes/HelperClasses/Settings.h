@@ -6,6 +6,7 @@ class Settings
 {
 public:
 	enum RESOLUTIONS { R640x480 = 0, R960x720, R1280x720, R1280x960, R1920x1080 };
+	enum HITBOXES { NONE = 0, PLAYER_FOCUSED, PLAYER, PLAYER_AND_BULLETS };
 	
 	static float getScale();
 	static void setResolution(int);
@@ -17,7 +18,7 @@ public:
 	static float getWindowSizeX();
 	static float getWindowSizeY();
 	static int getHitboxOption();
-	static void setHitboxOption(bool);
+	static void setHitboxOption(int);
 	static int getPracticePattern();
 	static void setPracticePattern(int);
 	static void updateGLView();
@@ -35,6 +36,6 @@ private:
 	static const int DEFAULT_VOLUME = 100;
 	static const float SIZES_X[5];
 	static const float SIZES_Y[5];
-	static const int DEFAULT_HITBOXES;
+	static const int DEFAULT_HITBOXES = HITBOXES::PLAYER_FOCUSED;
 	static const bool DEFAULT_FULLSCREEN = false;
 };
