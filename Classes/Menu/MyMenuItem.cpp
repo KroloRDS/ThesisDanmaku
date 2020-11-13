@@ -70,8 +70,7 @@ void MyMenuItem::setText(std::string string)
 void MyMenuItem::setPos(cocos2d::Vec2 newPosition)
 {
 	absolutePos = newPosition;
-	newPosition *= Settings::getScale();
-	setPosition(newPosition.x + Settings::getHorizontalOffset(), newPosition.y);
+	setPosition(Settings::getTranslatedCoords(newPosition));
 }
 
 cocos2d::Vec2 MyMenuItem::getPos()

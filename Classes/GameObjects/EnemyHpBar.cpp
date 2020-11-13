@@ -1,8 +1,5 @@
 #include "EnemyHpBar.h"
 
-const cocos2d::Color4F EnemyHpBar::COLOR_WHITE = cocos2d::Color4F(1, 1, 1, 1);
-const cocos2d::Vec2 EnemyHpBar::ENEMY_HP_BAR_POS = cocos2d::Vec2(110, 878);
-
 EnemyHpBar* EnemyHpBar::createEnemyHpBar()
 {
 	EnemyHpBar* ret = EnemyHpBar::create();
@@ -19,17 +16,15 @@ EnemyHpBar* EnemyHpBar::createEnemyHpBar()
 
 void EnemyHpBar::updateHpBar(int hp)
 {
-	auto origin = ENEMY_HP_BAR_POS;
-	float width = (float)ENEMY_HP_BAR_MAX_WIDTH * (float)hp / (float)maxHp;
-	cocos2d::Vec2 dest(origin.x + width, origin.y + (float)ENEMY_HP_BAR_HEIGHT);
-
-	origin *= Settings::getScale();
-	origin.x += Settings::getHorizontalOffset();
-	dest *= Settings::getScale();
-	dest.x += Settings::getHorizontalOffset();
+	auto dest = ENEMY_HP_BAR_POS;
+	dest.y += (float)ENEMY_HP_BAR_HEIGHT;
+	dest.x += (float)ENEMY_HP_BAR_MAX_WIDTH * (float)hp / (float)maxHp;
+	
+	auto origin = Settings::getTranslatedCoords(ENEMY_HP_BAR_POS);
+	dest = Settings::getTranslatedCoords(dest);
 	
 	drawNode->clear();
-	drawNode->drawSolidRect(origin, dest, COLOR_WHITE);
+	drawNode->drawSolidRect(origin, dest, cocos2d::Color4F(1, 1, 1, 1));
 }
 
 void EnemyHpBar::setMaxHp(int newMax)

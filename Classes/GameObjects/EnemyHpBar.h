@@ -15,9 +15,8 @@ private:
 	int maxHp = 0;
 	cocos2d::DrawNode* drawNode = nullptr;
 
-	static const cocos2d::Color4F COLOR_WHITE;
-	static const cocos2d::Vec2 ENEMY_HP_BAR_POS;
-	static const int ENEMY_HP_BAR_MAX_WIDTH = 660;
-	static const int ENEMY_HP_BAR_HEIGHT = 6;
+	const cocos2d::Vec2 ENEMY_HP_BAR_POS = cocos2d::Vec2(110, 878);
+	const int ENEMY_HP_BAR_MAX_WIDTH = 660;
+	const int ENEMY_HP_BAR_HEIGHT = 6;
 };
 

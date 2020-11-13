@@ -82,10 +82,11 @@ float Settings::getWindowSizeY()
 	return SIZES_Y[resolution];
 }
 
-float Settings::getHorizontalOffset()
+cocos2d::Vec2 Settings::getTranslatedCoords(cocos2d::Vec2 pos)
 {
-	float sizeX = SIZES_Y[resolution] * 1.33333f;
-	return (SIZES_X[resolution] - sizeX) / 2.0f;
+	pos *= scale;
+	pos.x += (SIZES_X[resolution] - (SIZES_Y[resolution] * 1.33333f)) / 2.0f;
+	return pos;
 }
 
 int Settings::getHitboxOption()

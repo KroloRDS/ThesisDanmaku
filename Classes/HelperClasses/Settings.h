@@ -16,12 +16,12 @@ public:
 	static bool isFullscren();
 	static float getWindowSizeX();
 	static float getWindowSizeY();
-	static float getHorizontalOffset();
 	static int getHitboxOption();
 	static void setHitboxOption(bool);
 	static int getPracticePattern();
 	static void setPracticePattern(int);
 	static void updateGLView();
+	static cocos2d::Vec2 getTranslatedCoords(cocos2d::Vec2);
 private:
 	static float scale;
 	static bool fullscreen;

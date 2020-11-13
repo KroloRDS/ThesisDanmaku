@@ -155,8 +155,7 @@ std::vector<PlayerBullet*>& Player::getBullets()
 void Player::setPos(cocos2d::Vec2 newPosition)
 {
 	absolutePos = newPosition;
-	newPosition *= Settings::getScale();
-	newPosition.x += Settings::getHorizontalOffset();
+	newPosition = Settings::getTranslatedCoords(newPosition);
 
 	sprite->setPosition(newPosition);
 	hitbox->setPosition(newPosition);
