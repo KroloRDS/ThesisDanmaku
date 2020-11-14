@@ -87,6 +87,9 @@ void GameScene::addUIElements()
 	totalGrazeCounter = MyMenuItem::createMenuItem("0", UI_FONT_NAME, UI_FONT_SIZE);
 	uiElements.push_back(totalGrazeCounter);
 
+	fpsCounter = MyMenuItem::createMenuItem("", UI_FONT_NAME, FPS_COUNTER_FONT_SIZE);
+	uiElements.push_back(fpsCounter);
+
 	for (MyMenuItem* uiElement : uiElements)
 	{
 		uiElement->setLocalZOrder(2);
@@ -96,6 +99,9 @@ void GameScene::addUIElements()
 
 		pos.y -= UI_TEXT_Y_MARGIN;
 	}
+
+	fpsCounter->setSelectOutlineColor(cocos2d::Color3B::BLACK);
+	fpsCounter->setPos(FPS_COUNTER_POS);
 }
 
 void GameScene::addOverlay()
@@ -165,13 +171,6 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 
 void GameScene::update(float delta)
 {
-	if (pause)
-	{
-		pause = false;
-		auto scene = PauseScene::createScene(takeScreenshot());
-		cocos2d::Director::getInstance()->pushScene(scene);
-	}
-
 	for (Node* child : getChildren())
 	{
 		child->update(delta);
@@ -186,6 +185,14 @@ void GameScene::update(float delta)
 		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
 	}
 
+	if (pause)
+	{
+		pause = false;
+		auto scene = PauseScene::createScene(takeScreenshot());
+		cocos2d::Director::getInstance()->pushScene(scene);
+	}
+
+	updateFpsCounter(delta);
 	updateScoreCounter();
 }
 
@@ -246,6 +253,18 @@ void GameScene::nextPattern()
 	noHitBonus = true;
 	patternGraze = 0;
 	patternGrazeCounter->setText("0");
+}
+
+void GameScene::updateFpsCounter(float delta)
+{
+	if (fpsUpdate > 0.0f)
+	{
+		fpsUpdate -= delta;
+		return;
+	}
+
+	fpsUpdate = FPS_COUNTER_UPDATE;
+	fpsCounter->setText(std::to_string(1.0f / delta).substr(0, 5) + " fps");
 }
 
 void GameScene::updateScoreCounter()

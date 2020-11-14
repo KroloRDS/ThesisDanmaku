@@ -34,9 +34,11 @@ private:
 	MyMenuItem* totalGrazeCounter = nullptr;
 	int totalGraze = 0;
 
-	bool noHitBonus = true;
-
 	MyMenuItem* livesLabel = nullptr;
+	MyMenuItem* fpsCounter = nullptr;
+	float fpsUpdate = 0.0f;
+
+	bool noHitBonus = true;
 
 	void addListeners();
 	void addUIElements();
@@ -51,6 +53,7 @@ private:
 	void hitEnemy();
 	void damageEnemy(cocos2d::Vec2);
 	void nextPattern();
+	void updateFpsCounter(float);
 	void updateScoreCounter();
 
 	cocos2d::RenderTexture* takeScreenshot();
@@ -62,4 +65,8 @@ private:
 	const float UI_TEXT_Y_MARGIN = 60.0f;
 	const float UI_FONT_SIZE = 50.0f;
 	const std::string UI_FONT_NAME = "fonts/arial.ttf";
+
+	const float FPS_COUNTER_UPDATE = 0.4f;
+	const float FPS_COUNTER_FONT_SIZE = 15.0f;
+	const cocos2d::Vec2 FPS_COUNTER_POS = cocos2d::Vec2(780.0f, 50.0f);
 };

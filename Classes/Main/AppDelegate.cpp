@@ -12,12 +12,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 {
 	auto director = cocos2d::Director::getInstance();
 	director->setOpenGLView(cocos2d::GLViewImpl::create("ThesisDanmaku"));
-	director->setDisplayStats(true);
+	director->runWithScene(MainMenu::createScene());
 	Settings::updateGLView();
-
-	auto scene = MainMenu::createScene();
-	director->runWithScene(scene);
-
 	return true;
 }
 
