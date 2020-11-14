@@ -21,12 +21,19 @@ void Laser::createSprite()
 	sprite = cocos2d::Sprite::create("laser.png");
 	sprite->setPosition(Settings::getTranslatedCoords(origin));
 	sprite->setAnchorPoint(cocos2d::Vec2(0.5f, 0.0f));
-	sprite->runAction(cocos2d::ScaleTo::create(2.0f, 1.0f, 50.0f));
+	sprite->setVisible(false);
 	addChild(sprite);
 }
 
 void Laser::update(float delta)
 {
+	if (!initialised)
+	{
+		sprite->runAction(cocos2d::ScaleTo::create(1.8f, 1.0f, 50.0f));
+		sprite->setVisible(true);
+		initialised = true;
+	}
+
 	nextSpawn -= delta;
 
 	if (nextSpawn <= 0.0f)

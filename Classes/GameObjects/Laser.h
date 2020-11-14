@@ -22,10 +22,12 @@ private:
 	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
 	std::vector<Bullet*> segments = {};
 
-	cocos2d::Sprite* sprite;
+	cocos2d::Sprite* sprite = nullptr;
 
 	float rotation = 0.0f;
 	float nextSpawn = 0.0f;
+
+	bool initialised = false;
 
 	void createSprite();
 
