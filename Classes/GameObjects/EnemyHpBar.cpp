@@ -24,7 +24,7 @@ void EnemyHpBar::updateHpBar(int hp)
 	dest = Settings::getTranslatedCoords(dest);
 	
 	drawNode->clear();
-	drawNode->drawSolidRect(origin, dest, cocos2d::Color4F(1, 1, 1, 1));
+	drawNode->drawSolidRect(origin, dest, cocos2d::Color4F::WHITE);
 }
 
 void EnemyHpBar::setMaxHp(int newMax)

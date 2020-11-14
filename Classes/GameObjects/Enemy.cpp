@@ -23,13 +23,13 @@ Enemy* Enemy::createEnemy(Player* player)
 
 void Enemy::update(float delta)
 {
-	if (iFrames <= 0.0f)
-	{
-		bulletPattern->update(delta);
-	}
-	else
+	if (iFrames > 0.0f)
 	{
 		iFrames -= delta;
+	}
+	else if (!defeated)
+	{
+		bulletPattern->update(delta);
 	}
 }
 
@@ -55,20 +55,41 @@ int Enemy::damage()
 	return hp;
 }
 
+void Enemy::defeat()
+{
+	defeated = true;
+	hpBar->updateHpBar(0);
+
+	auto emitter = cocos2d::ParticleExplosion::create();
+	emitter->setPosition(Settings::getTranslatedCoords(absolutePos));
+	emitter->setEndColor(cocos2d::Color4F::WHITE);
+	emitter->setDuration(3.0f);
+	addChild(emitter);
+
+	sprite->runAction(cocos2d::FadeOut::create(1.0f));
+}
+
 void Enemy::nextPattern()
 {
-	//iFrames = IFRAMES_AFTER_PATTERN_CHANGE;
-
 	int practicePattern = Settings::getPracticePattern();
-	if (practicePattern != 0)
+	if (practicePattern != -1)
 	{
-		currentPattern = practicePattern;
-		defeated = true;
+		if (currentPattern > practicePattern)
+		{
+			currentPattern = -1;
+		}
+		else
+		{
+			currentPattern = practicePattern;
+		}
 	}
-	else
-	{
-		currentPattern++;
-	}
+
+	createPattern(currentPattern);
+}
+
+void Enemy::createPattern(int pattern)
+{
+	iFrames = IFRAMES_AFTER_PATTERN_CHANGE;
 
 	if (bulletPattern != nullptr)
 	{
@@ -76,26 +97,27 @@ void Enemy::nextPattern()
 		bulletPattern->removeFromParent();
 	}
 
-	switch (currentPattern)
+	switch (pattern)
 	{
-	case 1:
+	case 0:
 		bulletPattern = BulletPattern00::createBulletPattern(absolutePos);
 		break;
-	case 2:
+	case 1:
 		bulletPattern = BulletPattern01::createBulletPattern(absolutePos, player);
 		break;
-	case 3:
+	case 2:
 		bulletPattern = BulletPattern02::createBulletPattern(absolutePos, player);
 		break;
 	default:
-		defeated = true;
+		defeat();
 		return;
 		break;
 	}
 
 	addChild(bulletPattern);
-	hp = bulletPattern->getHp();
 	
+	hp = bulletPattern->getHp();
 	hpBar->setMaxHp(bulletPattern->getHp());
 	hpBar->updateHpBar(hp);
+	currentPattern++;
 }

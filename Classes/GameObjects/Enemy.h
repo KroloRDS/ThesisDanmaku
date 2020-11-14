@@ -21,7 +21,9 @@ public:
 	bool isDefeated();
 
 	void nextPattern();
+	void createPattern(int);
 	int damage();
+	void defeat();
 
 private:
 	BulletPattern* bulletPattern = nullptr;
@@ -32,6 +34,7 @@ private:
 	float iFrames = 0.0f;
 	bool defeated = false;
 
-	const float IFRAMES_AFTER_PATTERN_CHANGE = 3.0f;
+
+	const float IFRAMES_AFTER_PATTERN_CHANGE = 4.0f;
 	static const cocos2d::Vec2 INIT_POS;
 };

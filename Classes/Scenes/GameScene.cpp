@@ -165,11 +165,6 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 
 void GameScene::update(float delta)
 {
-	for (Node* child : getChildren())
-	{
-		child->update(delta);
-	}
-
 	if (pause)
 	{
 		pause = false;
@@ -177,7 +172,20 @@ void GameScene::update(float delta)
 		cocos2d::Director::getInstance()->pushScene(scene);
 	}
 
-	hitEnemy();
+	for (Node* child : getChildren())
+	{
+		child->update(delta);
+	}
+
+	if (!enemy->isDefeated())
+	{
+		hitEnemy();
+	}
+	else if (enemy->getIFrames() <= 0.0f)
+	{
+		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
+	}
+
 	updateScoreCounter();
 }
 
@@ -233,11 +241,6 @@ void GameScene::nextPattern()
 	if (noHitBonus)
 	{
 		score += INIT_HIT_POINT_VALUE * patternGraze;
-	}
-
-	if (enemy->isDefeated())
-	{
-		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
 	}
 	
 	noHitBonus = true;

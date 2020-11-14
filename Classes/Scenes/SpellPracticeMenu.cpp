@@ -27,7 +27,7 @@ bool SpellPracticeMenu::init()
 
 void SpellPracticeMenu::select()
 {
-	Settings::setPracticePattern(selectedItem + 1);
+	Settings::setPracticePattern(selectedItem);
 	selectedItem == BACK ?
 		cocos2d::Director::getInstance()->replaceScene(MainMenu::createScene()) :
 		cocos2d::Director::getInstance()->replaceScene(GameScene::createScene());
