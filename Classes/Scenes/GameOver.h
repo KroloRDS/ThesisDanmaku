@@ -1,8 +1,9 @@
 #pragma once
+
 #include "MainMenu.h"
 #include "GameScene.h"
-#include "Menu/MyMenu.h"
-#include "Menu/MyMenuItem.h"
+#include "HelperClasses/MyMenu.h"
+#include "HelperClasses/MyMenuItem.h"
 
 class GameOver : public MyMenu
 {

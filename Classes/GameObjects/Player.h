@@ -15,6 +15,7 @@ public:
 	void kill();
 	int getLives();
 	float getIFrames();
+	GameObject* getHitboxSprite();
 	std::vector<PlayerBullet*>& getBullets();
 
 	static const int DEFAULT_LIVES = 2;

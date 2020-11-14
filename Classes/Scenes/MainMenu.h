@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Menu/MyMenu.h"
 #include "GameScene.h"
-#include "SpellPracticeMenu.h"
 #include "SettingsMenu.h"
+#include "SpellPracticeMenu.h"
+#include "HelperClasses/MyMenu.h"
 
 class MainMenu : public MyMenu
 {

@@ -15,6 +15,7 @@ BulletPattern01* BulletPattern01::createBulletPattern(cocos2d::Vec2 origin, Play
 	ret->nextWave = ret->TIME_BETWEEN_WAVES;
 
 	ret->calcBulletMinMaxValues();
+	ret->name = PatternName::createPatternName("???");
 
 	return ret;
 }

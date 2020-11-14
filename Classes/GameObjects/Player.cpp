@@ -35,7 +35,7 @@ void Player::createHitbox()
 	{
 		hitboxSprite->getSprite()->setScale(0.0f);
 	}
-	addChild(hitboxSprite);
+	hitboxSprite->setLocalZOrder(2);
 }
 
 void Player::createGrazeHitbox()
@@ -142,6 +142,11 @@ void Player::updateIFrames(float delta)
 float Player::getIFrames()
 {
 	return iFrames;
+}
+
+GameObject* Player::getHitboxSprite()
+{
+	return hitboxSprite;
 }
 
 std::vector<PlayerBullet*>& Player::getBullets()

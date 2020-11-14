@@ -30,6 +30,7 @@ void Enemy::update(float delta)
 	else if (!defeated)
 	{
 		bulletPattern->update(delta);
+		bulletPattern->getName()->update(delta);
 	}
 }
 

@@ -15,6 +15,11 @@ int BulletPattern::getHp()
 	return hp;
 }
 
+PatternName* BulletPattern::getName()
+{
+	return name;
+}
+
 void BulletPattern::updateBullets(float delta)
 {
 	for (Laser* laser : lasers)

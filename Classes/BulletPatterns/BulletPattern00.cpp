@@ -11,6 +11,9 @@ BulletPattern00* BulletPattern00::createBulletPattern(cocos2d::Vec2 origin)
 	ret->origin = origin;
 	ret->hp = ret->PATTERN_HP;
 	ret->rotation = (float)std::rand() / (float)RAND_MAX * (360.0f / (float)ret->ARMS_COUNT);
+	
+	ret->name = PatternName::createPatternName("Border Between Wave and Particle");
+	
 	return ret;
 }
 

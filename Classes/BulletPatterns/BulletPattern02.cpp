@@ -15,6 +15,7 @@ BulletPattern02* BulletPattern02::createBulletPattern(cocos2d::Vec2 origin, Play
 	
 	ret->createLasers();
 	ret->calcRandomMentosMinMaxValues();
+	ret->name = PatternName::createPatternName("Devil's Recitation");
 
 	ret->laserRotation = 180.0f;
 	ret->arrowheadRotation = ret->ARROWHEAD_ANGLE_MIN;

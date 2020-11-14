@@ -41,9 +41,11 @@ bool GameScene::init()
 
 	player = Player::createPlayer();
 	addChild(player);
+	addChild(player->getHitboxSprite());
 
 	enemy = Enemy::createEnemy(player);
 	addChild(enemy);
+	addChild(enemy->getBulletPattern()->getName());
 
 	scheduleUpdate();
 	return true;
@@ -243,7 +245,12 @@ void GameScene::damageEnemy(cocos2d::Vec2 pos)
 
 void GameScene::nextPattern()
 {
+	enemy->getBulletPattern()->getName()->removeFromParent();
 	enemy->nextPattern();
+	if (!enemy->isDefeated())
+	{
+		addChild(enemy->getBulletPattern()->getName());
+	}
 	
 	if (noHitBonus)
 	{

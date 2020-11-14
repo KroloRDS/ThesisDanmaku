@@ -21,7 +21,6 @@ void GameObject::initGameObj(std::string str, cocos2d::Vec2 pos)
 	{
 		sprite = cocos2d::Sprite::create(str);
 		sprite->setScale(Settings::getScale());
-		sprite->setLocalZOrder(0);
 		addChild(sprite);
 	}
 	setPos(pos);

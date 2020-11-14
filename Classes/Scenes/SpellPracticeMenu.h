@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MainMenu.h"
-#include "Menu/MyMenu.h"
+#include "HelperClasses/MyMenu.h"
 
 class SpellPracticeMenu : public MyMenu
 {

@@ -1,6 +1,7 @@
 #pragma once
-#include "Menu/MyMenu.h"
+
 #include "SpellPracticeMenu.h"
+#include "HelperClasses/MyMenu.h"
 
 class PauseScene : public MyMenu
 {
