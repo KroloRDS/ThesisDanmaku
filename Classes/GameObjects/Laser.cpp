@@ -10,8 +10,19 @@ Laser* Laser::createLaser(cocos2d::Vec2 origin, float rotation)
 	}
 
 	ret->origin = origin;
+	ret->createSprite();
 	ret->setRotation(rotation);
+
 	return ret;
+}
+
+void Laser::createSprite()
+{
+	sprite = cocos2d::Sprite::create("laser.png");
+	sprite->setPosition(Settings::getTranslatedCoords(origin));
+	sprite->setAnchorPoint(cocos2d::Vec2(0.5f, 0.0f));
+	sprite->runAction(cocos2d::ScaleTo::create(2.0f, 1.0f, 50.0f));
+	addChild(sprite);
 }
 
 void Laser::update(float delta)
@@ -38,6 +49,8 @@ void Laser::move(float x, float y)
 {
 	origin.x += x;
 	origin.y += y;
+
+	sprite->setPosition(Settings::getTranslatedCoords(origin));
 
 	for (Bullet* segment : segments)
 	{
@@ -69,6 +82,7 @@ void Laser::setRotation(float newRotation)
 	}
 
 	rotation = newRotation;
+	sprite->setRotation(rotation);
 }
 
 float Laser::getRotation()

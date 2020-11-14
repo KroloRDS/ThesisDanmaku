@@ -111,7 +111,6 @@ void Enemy::createPattern(int pattern)
 	default:
 		defeat();
 		return;
-		break;
 	}
 
 	addChild(bulletPattern);

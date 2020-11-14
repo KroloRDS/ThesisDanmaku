@@ -17,10 +17,13 @@ GameObject* GameObject::createGameObject(std::string str, cocos2d::Vec2 pos)
 
 void GameObject::initGameObj(std::string str, cocos2d::Vec2 pos)
 {
-	sprite = cocos2d::Sprite::create(str);
-	sprite->setScale(Settings::getScale());
-	sprite->setLocalZOrder(0);
-	addChild(sprite);
+	if (!str.empty())
+	{
+		sprite = cocos2d::Sprite::create(str);
+		sprite->setScale(Settings::getScale());
+		sprite->setLocalZOrder(0);
+		addChild(sprite);
+	}
 	setPos(pos);
 }
 
@@ -32,7 +35,10 @@ cocos2d::Sprite* GameObject::getSprite()
 void GameObject::setPos(cocos2d::Vec2 newPosition)
 {
 	absolutePos = newPosition;
-	sprite->setPosition(Settings::getTranslatedCoords(newPosition));
+	if (sprite != nullptr)
+	{
+		sprite->setPosition(Settings::getTranslatedCoords(newPosition));
+	}
 }
 
 cocos2d::Vec2 GameObject::getPos()

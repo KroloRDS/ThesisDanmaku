@@ -21,45 +21,45 @@ Bullet* Bullet::createBullet(cocos2d::Vec2 pos, int type, int subtype)
 
 void Bullet::spawnAnimation()
 {
-	if (type == LASER_SEGMENT)
+	cocos2d::Color3B color;
+	float scale = 0.0f;
+
+	switch (type)
 	{
+	case TEST:
+		color = cocos2d::Color3B(51, 153, 255);
+		scale = Settings::getScale();
+		break;
+	case NORMAL:
+		color = cocos2d::Color3B(219, 0, 255);
+		scale = Settings::getScale();
+		break;
+	case ARROWHEAD:
+		color = cocos2d::Color3B(0, 102, 255);
+		scale = Settings::getScale();
+		break;
+	case BUTTERFLY:
+		color = cocos2d::Color3B(219, 0, 255);
+		scale = Settings::getScale() * 1.5f;
+		break;
+	case MENTOS:
+		color = cocos2d::Color3B(255, 255, 255);
+		scale = Settings::getScale() * 1.5f;
+		break;
+	case BUBBLE:
+		color = cocos2d::Color3B(255, 0, 0);
+		scale = Settings::getScale() * 2.0f;
+		break;
+	default:
 		return;
 	}
 
 	auto gameObj = GameObject::createGameObject("spawn.png", absolutePos);
 	auto spawnSprite = gameObj->getSprite();
 	spawnSprite->setOpacity(150);
+	spawnSprite->setColor(color);
+	spawnSprite->setScale(scale);
 	addChild(gameObj);
-	
-	switch (type)
-	{
-	case TEST:
-		spawnSprite->setColor(cocos2d::Color3B(51, 153, 255));
-		spawnSprite->setScale(Settings::getScale());
-		break;
-	case NORMAL:
-		spawnSprite->setColor(cocos2d::Color3B(219, 0, 255));
-		spawnSprite->setScale(Settings::getScale());
-		break;
-	case ARROWHEAD:
-		spawnSprite->setColor(cocos2d::Color3B(0, 102, 255));
-		spawnSprite->setScale(Settings::getScale());
-		break;
-	case BUTTERFLY:
-		spawnSprite->setColor(cocos2d::Color3B(219, 0, 255));
-		spawnSprite->setScale(Settings::getScale() * 1.5f);
-		break;
-	case MENTOS:
-		spawnSprite->setColor(cocos2d::Color3B(255, 255, 255));
-		spawnSprite->setScale(Settings::getScale() * 1.5f);
-		break;
-	case BUBBLE:
-		spawnSprite->setColor(cocos2d::Color3B(255, 0, 0));
-		spawnSprite->setScale(Settings::getScale() * 2.0f);
-		break;
-	default:
-		break;
-	}
 	
 	auto scaleTo = cocos2d::ScaleTo::create(0.5f, 0.0f);
 	auto fadeTo = cocos2d::FadeTo::create(0.5f, 100);
@@ -87,9 +87,6 @@ std::string Bullet::getSpriteName(int type)
 		break;
 	case BUBBLE:
 		return "bubble.png";
-		break;
-	case LASER_SEGMENT:
-		return "laser.png";
 		break;
 	default:
 		return "";
@@ -132,7 +129,10 @@ void Bullet::createHitbox(int type)
 	body->setDynamic(false);
 	body->setCategoryBitmask(0x2);
 	body->setContactTestBitmask(0x5);
-	sprite->setPhysicsBody(body);
+
+	hitbox = cocos2d::Node::create();
+	hitbox->setPhysicsBody(body);
+	addChild(hitbox);
 }
 
 cocos2d::PhysicsBody* Bullet::createTestHitbox()
@@ -209,7 +209,9 @@ void Bullet::update(float delta)
 	auto newPosition = absolutePos;
 	newPosition.x += delta * speed * xRotationCoeff;
 	newPosition.y += delta * speed * yRotationCoeff;
+	
 	setPos(newPosition);
+	hitbox->setPosition(Settings::getTranslatedCoords(newPosition));
 }
 
 float Bullet::getSpeed()
@@ -230,7 +232,12 @@ float Bullet::getRot()
 void Bullet::setRot(float newRotation)
 {
 	rotation = newRotation;
-	sprite->setRotation(rotation);
+	hitbox->setRotation(rotation);
+	if (sprite != nullptr)
+	{
+		sprite->setRotation(rotation);
+	}
+
 	xRotationCoeff = (float)sin(rotation / 180.0f * M_PI);
 	yRotationCoeff = (float)cos(rotation / 180.0f * M_PI);
 }

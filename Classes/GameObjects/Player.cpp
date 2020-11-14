@@ -11,24 +11,23 @@ Player* Player::createPlayer()
 	}
 
 	ret->initGameObj("reimu.png", ret->INIT_POS);
-	ret->hitbox = ret->createHitbox();
-	ret->addChild(ret->hitbox);
-	ret->grazeHitbox = ret->createGrazeHitbox();
-	ret->addChild(ret->grazeHitbox);
+	ret->createHitbox();
+	ret->createGrazeHitbox();
 	ret->lives = DEFAULT_LIVES;
 
 	return ret;
 }
 
-cocos2d::Node* Player::createHitbox()
+void Player::createHitbox()
 {
 	auto body = cocos2d::PhysicsBody::createCircle(HITBOX_RADIUS * Settings::getScale());
 	body->setDynamic(false);
 	body->setCategoryBitmask(0x1);
 	body->setContactTestBitmask(0x2);
 
-	auto node = cocos2d::Node::create();
-	node->setPhysicsBody(body);
+	hitbox = cocos2d::Node::create();
+	hitbox->setPhysicsBody(body);
+	addChild(hitbox);
 
 	hitboxSprite = GameObject::createGameObject("hitbox.png", absolutePos);
 	if (Settings::getHitboxOption() == Settings::HITBOXES::NONE ||
@@ -37,21 +36,18 @@ cocos2d::Node* Player::createHitbox()
 		hitboxSprite->getSprite()->setScale(0.0f);
 	}
 	addChild(hitboxSprite);
-
-	return node;
 }
 
-cocos2d::Node* Player::createGrazeHitbox()
+void Player::createGrazeHitbox()
 {
 	auto body = cocos2d::PhysicsBody::createCircle(GRAZE_HITBOX_RADIUS * Settings::getScale());
 	body->setDynamic(false);
 	body->setCategoryBitmask(0x4);
 	body->setContactTestBitmask(0x2);
 
-	auto node = cocos2d::Node::create();
-	node->setPhysicsBody(body);
-
-	return node;
+	grazeHitbox = cocos2d::Node::create();
+	grazeHitbox->setPhysicsBody(body);
+	addChild(grazeHitbox);
 }
 
 void Player::update(float delta)

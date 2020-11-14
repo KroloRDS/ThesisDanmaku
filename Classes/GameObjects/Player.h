@@ -30,8 +30,8 @@ private:
 	cocos2d::Node* grazeHitbox = nullptr;
 	GameObject* hitboxSprite = nullptr;
 
-	cocos2d::Node* createHitbox();
-	cocos2d::Node* createGrazeHitbox();
+	void createHitbox();
+	void createGrazeHitbox();
 	void move(float);
 	void fire(float);
 	void updateIFrames(float);

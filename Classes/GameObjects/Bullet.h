@@ -36,6 +36,8 @@ private:
 	int subtype = 0;
 	float age = 0.0f;
 
+	cocos2d::Node* hitbox = nullptr;
+
 	void spawnAnimation();
 
 	std::string getSpriteName(int);

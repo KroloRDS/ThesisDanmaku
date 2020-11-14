@@ -20,11 +20,16 @@ public:
 
 private:
 	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
-	float rotation = 0.0f;
-	float nextSpawn = 0.0f;
 	std::vector<Bullet*> segments = {};
 
+	cocos2d::Sprite* sprite;
+
+	float rotation = 0.0f;
+	float nextSpawn = 0.0f;
+
+	void createSprite();
+
 	const int SEGMENT_OFFSET = 15;
-	const float SEGMENT_SPAWN_RATE = 0.02f;
+	const float SEGMENT_SPAWN_RATE = 0.05f;
 };
 
