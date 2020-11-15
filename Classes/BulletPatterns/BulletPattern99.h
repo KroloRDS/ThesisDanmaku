@@ -10,7 +10,6 @@ public:
 	CREATE_FUNC(BulletPattern99);
 	void update(float);
 private:
-	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
 	float rotation = 0.0f;
 
 	void createLasers();

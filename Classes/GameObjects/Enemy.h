@@ -29,7 +29,7 @@ private:
 	BulletPattern* bulletPattern = nullptr;
 	EnemyHpBar* hpBar = nullptr;
 	Player* player = nullptr;
-	int hp = 0;
+
 	int currentPattern = 0;
 	float iFrames = 0.0f;
 	bool defeated = false;

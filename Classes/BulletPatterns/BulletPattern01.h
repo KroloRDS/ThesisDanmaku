@@ -8,7 +8,6 @@ public:
 	CREATE_FUNC(BulletPattern01);
 	void update(float);
 private:
-	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
 	cocos2d::Vec2 aim = cocos2d::Vec2(0, 0);
 
 	int bulletsSpawned = 0;

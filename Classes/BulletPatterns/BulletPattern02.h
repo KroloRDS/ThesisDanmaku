@@ -10,8 +10,6 @@ public:
 	CREATE_FUNC(BulletPattern02);
 	void update(float);
 private:
-	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
-	
 	float nextBubbleInterval = 0.0f;
 
 	float mentosRotation = 0.0f;

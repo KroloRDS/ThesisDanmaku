@@ -8,9 +8,9 @@ BulletPattern99* BulletPattern99::createBulletPattern(cocos2d::Vec2 origin)
 		CC_SAFE_DELETE(ret);
 		return NULL;
 	}
-	ret->origin = origin;
+
+	ret->initPattern(origin, "Test Pattern", 1000);
 	ret->createLasers();
-	ret->hp = 1000;
 	return ret;
 }
 

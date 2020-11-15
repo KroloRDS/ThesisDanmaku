@@ -30,4 +30,5 @@ void EnemyHpBar::updateHpBar(int hp)
 void EnemyHpBar::setMaxHp(int newMax)
 {
 	maxHp = newMax;
+	updateHpBar(maxHp);
 }

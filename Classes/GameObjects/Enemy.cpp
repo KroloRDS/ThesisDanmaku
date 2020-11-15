@@ -51,7 +51,7 @@ float Enemy::getIFrames()
 
 int Enemy::damage()
 {
-	hp--;
+	int hp = bulletPattern->damage();
 	hpBar->updateHpBar(hp);
 	return hp;
 }
@@ -116,8 +116,6 @@ void Enemy::createPattern(int pattern)
 
 	addChild(bulletPattern);
 	
-	hp = bulletPattern->getHp();
-	hpBar->setMaxHp(bulletPattern->getHp());
-	hpBar->updateHpBar(hp);
+	hpBar->setMaxHp(bulletPattern->getMaxHp());
 	currentPattern++;
 }

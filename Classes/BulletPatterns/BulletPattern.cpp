@@ -1,5 +1,13 @@
 #include "BulletPattern.h"
 
+void BulletPattern::initPattern(cocos2d::Vec2 origin, std::string name, int hp)
+{
+	this->name = PatternName::createPatternName(name);
+	this->origin = origin;
+	this->maxHp = hp;
+	this->hp = hp;
+}
+
 std::vector<Bullet*>& BulletPattern::getBullets()
 {
 	return bullets;
@@ -10,14 +18,25 @@ std::vector<Laser*>& BulletPattern::getLasers()
 	return lasers;
 }
 
+PatternName* BulletPattern::getName()
+{
+	return name;
+}
+
+int BulletPattern::getMaxHp()
+{
+	return maxHp;
+}
+
 int BulletPattern::getHp()
 {
 	return hp;
 }
 
-PatternName* BulletPattern::getName()
+int BulletPattern::damage()
 {
-	return name;
+	hp--;
+	return hp;
 }
 
 void BulletPattern::updateBullets(float delta)

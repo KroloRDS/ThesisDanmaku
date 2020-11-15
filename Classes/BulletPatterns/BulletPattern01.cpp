@@ -9,13 +9,12 @@ BulletPattern01* BulletPattern01::createBulletPattern(cocos2d::Vec2 origin, Play
 		CC_SAFE_DELETE(ret);
 		return NULL;
 	}
-	ret->origin = origin;
-	ret->player = player;
-	ret->hp = ret->PATTERN_HP;
+
+	ret->initPattern(origin, "???", ret->PATTERN_HP);
 	ret->nextWave = ret->TIME_BETWEEN_WAVES;
+	ret->player = player;
 
 	ret->calcBulletMinMaxValues();
-	ret->name = PatternName::createPatternName("???");
 
 	return ret;
 }

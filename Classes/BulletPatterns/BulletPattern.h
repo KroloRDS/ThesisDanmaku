@@ -11,19 +11,28 @@ class BulletPattern : public cocos2d::Node
 public:
 	std::vector<Bullet*>& getBullets();
 	std::vector<Laser*>& getLasers();
-	void removeAllBullets();
-	int getHp();
-	PatternName* getName();
-protected:
-	void updateBullets(float);
 	
+	PatternName* getName();
+	int getMaxHp();
+	int getHp();
+	
+	void removeAllBullets();
+	int damage();
+
+protected:
 	std::vector<Bullet*> bullets = {};
 	std::vector<Laser*> lasers = {};
 
-	Player* player = nullptr;
 	PatternName* name = nullptr;
+	Player* player = nullptr;
 
+	cocos2d::Vec2 origin = cocos2d::Vec2(0, 0);
+	int maxHp = 0;
 	int hp = 0;
+
+	void initPattern(cocos2d::Vec2, std::string, int);
+	void updateBullets(float);
+
 private:
 	void removeAllObjects(std::vector<Bullet*>& vec);
 	static void removeOutOfBoundsObjects(std::vector<Bullet*>& vec);

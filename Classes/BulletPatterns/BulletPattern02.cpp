@@ -9,13 +9,12 @@ BulletPattern02* BulletPattern02::createBulletPattern(cocos2d::Vec2 origin, Play
 		CC_SAFE_DELETE(ret);
 		return NULL;
 	}
-	ret->origin = origin;
+
+	ret->initPattern(origin, "Devil's Recitation", ret->PATTERN_HP);
 	ret->player = player;
-	ret->hp = ret->PATTERN_HP;
 	
 	ret->createLasers();
 	ret->calcRandomMentosMinMaxValues();
-	ret->name = PatternName::createPatternName("Devil's Recitation");
 
 	ret->laserRotation = 180.0f;
 	ret->arrowheadRotation = ret->ARROWHEAD_ANGLE_MIN;
