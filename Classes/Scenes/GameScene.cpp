@@ -151,6 +151,8 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 		totalGraze++;
 		totalGrazeCounter->setText(std::to_string(totalGraze));
 
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("graze.mp3");
+
 		return;
 	}
 

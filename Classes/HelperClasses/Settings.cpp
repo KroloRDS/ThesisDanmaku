@@ -43,6 +43,7 @@ int Settings::getResolution()
 void Settings::setVolume(int newVolume)
 {
 	volume = newVolume;
+	CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume((float)volume / 100.0f);
 }
 
 int Settings::getVolume()

@@ -23,18 +23,22 @@ void MyMenu::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
 	switch (keyCode)
 	{
 	case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SELECT_SFX);
 		changeSelection(meunuWarpAround(selectedItem, -1, menuOptions.size() - 1));
 		break;
 	case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SELECT_SFX);
 		changeSelection(meunuWarpAround(selectedItem, 1, menuOptions.size() - 1));
 		break;
 	case cocos2d::EventKeyboard::KeyCode::KEY_ENTER:
 	case cocos2d::EventKeyboard::KeyCode::KEY_Z:
 	case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(CONFIRM_SFX);
 		select();
 		break;
 	case cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE:
 	case cocos2d::EventKeyboard::KeyCode::KEY_X:
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(BACK_SFX);
 		selectBack();
 		break;
 	}
@@ -150,6 +154,7 @@ int MyMenu::scrollMenu(float delta, float scrollSpeed, bool horizontal)
 	nextMenuScroll -= delta;
 	if (nextMenuScroll < 0.0f)
 	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SELECT_SFX);
 		nextMenuScroll += scrollSpeed;
 		return change;
 	}

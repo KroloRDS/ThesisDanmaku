@@ -5,6 +5,7 @@
 #include "PauseScene.h"
 #include "GameObjects/Player.h"
 #include "GameObjects/Enemy.h"
+#include "cocos\editor-support\cocostudio\SimpleAudioEngine.h"
 
 class GameScene : public cocos2d::Layer
 {

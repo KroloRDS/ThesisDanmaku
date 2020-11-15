@@ -2,8 +2,9 @@
 
 #include "cocos2d.h"
 #include "MyMenuItem.h"
-#include "HelperClasses/KeyboardManager.h"
 #include "HelperClasses/Settings.h"
+#include "HelperClasses/KeyboardManager.h"
+#include "cocos\editor-support\cocostudio\SimpleAudioEngine.h"
 
 class MyMenu : public cocos2d::Layer
 {
@@ -25,6 +26,10 @@ protected:
 	const float FAST_MENU_SCROLL_SPEED = 0.05f;
 	const float MENU_SCROLL_CUTOFF = 0.5f;
 	const std::string FONT_NAME = "fonts/arial.ttf";
+	
+	const char* CONFIRM_SFX = "confirm.mp3";
+	const char* SELECT_SFX = "select.mp3";
+	const char* BACK_SFX = "back.mp3";
 
 	void updateMenu(float);
 	int scrollMenu(float, float, bool);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "cocos\editor-support\cocostudio\SimpleAudioEngine.h"
 
 class Settings
 {

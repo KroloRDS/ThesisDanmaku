@@ -48,10 +48,12 @@ void SettingsMenu::pressKey(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Ev
 	switch (keyCode)
 	{
 	case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SELECT_SFX);
 		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], -1, MAX_OPTION_VALUES[selectedItem]);
 		updateSettings();
 		break;
 	case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(SELECT_SFX);
 		optionValues[selectedItem] = meunuWarpAround(optionValues[selectedItem], 1, MAX_OPTION_VALUES[selectedItem]);
 		updateSettings();
 		break;
