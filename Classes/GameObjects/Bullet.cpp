@@ -54,7 +54,7 @@ void Bullet::spawnAnimation()
 		return;
 	}
 
-	auto gameObj = GameObject::createGameObject("spawn.png", absolutePos);
+	auto gameObj = GameObject::createGameObject("spawn", absolutePos);
 	auto spawnSprite = gameObj->getSprite();
 	spawnSprite->setOpacity(150);
 	spawnSprite->setColor(color);
@@ -71,22 +71,22 @@ std::string Bullet::getSpriteName(int type)
 	switch (type)
 	{
 	case TEST:
-		return "test_bullet.png";
+		return "test_bullet";
 		break;
 	case NORMAL:
-		return "normal_bullet.png";
+		return "normal_bullet";
 		break;
 	case ARROWHEAD:
-		return "arrowhead.png";
+		return "arrowhead";
 		break;
 	case BUTTERFLY:
-		return "butterfly.png";
+		return "butterfly";
 		break;
 	case MENTOS:
-		return "mentos.png";
+		return "mentos";
 		break;
 	case BUBBLE:
-		return "bubble.png";
+		return "bubble";
 		break;
 	default:
 		return "";

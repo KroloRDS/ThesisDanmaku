@@ -19,7 +19,7 @@ void GameObject::initGameObj(std::string str, cocos2d::Vec2 pos)
 {
 	if (!str.empty())
 	{
-		sprite = cocos2d::Sprite::create(str);
+		sprite = cocos2d::Sprite::create("sprites/" + str + ".png");
 		sprite->setScale(Settings::getScale());
 		addChild(sprite);
 	}

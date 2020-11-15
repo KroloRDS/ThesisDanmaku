@@ -108,7 +108,7 @@ void GameScene::addUIElements()
 
 void GameScene::addOverlay()
 {
-	auto overlay = cocos2d::Sprite::create("overlay.png");
+	auto overlay = cocos2d::Sprite::create("sprites/overlay.png");
 	auto sizeX = Settings::getWindowSizeX() / 2.0f;
 	auto sizeY = Settings::getWindowSizeY() / 2.0f;
 	overlay->setPosition(cocos2d::Vec2(sizeX, sizeY));
@@ -151,7 +151,7 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 		totalGraze++;
 		totalGrazeCounter->setText(std::to_string(totalGraze));
 
-		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("graze.mp3");
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/graze.mp3");
 
 		return;
 	}
@@ -223,7 +223,7 @@ void GameScene::hitEnemy()
 void GameScene::damageEnemy(cocos2d::Vec2 pos)
 {
 	pos.y += 50;
-	auto gameObj = GameObject::createGameObject("damage.png", pos);
+	auto gameObj = GameObject::createGameObject("damage", pos);
 	auto dmgSprite = gameObj->getSprite();
 	
 	dmgSprite->setScale(Settings::getScale() * 1.5f);

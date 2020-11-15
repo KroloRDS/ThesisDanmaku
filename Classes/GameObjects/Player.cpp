@@ -10,7 +10,7 @@ Player* Player::createPlayer()
 		return NULL;
 	}
 
-	ret->initGameObj("reimu.png", ret->INIT_POS);
+	ret->initGameObj("reimu", ret->INIT_POS);
 	ret->createHitbox();
 	ret->createGrazeHitbox();
 	ret->lives = DEFAULT_LIVES;
@@ -29,7 +29,7 @@ void Player::createHitbox()
 	hitbox->setPhysicsBody(body);
 	addChild(hitbox);
 
-	hitboxSprite = GameObject::createGameObject("hitbox.png", absolutePos);
+	hitboxSprite = GameObject::createGameObject("hitbox", absolutePos);
 	if (Settings::getHitboxOption() == Settings::HITBOXES::NONE ||
 		Settings::getHitboxOption() == Settings::HITBOXES::PLAYER_FOCUSED)
 	{
@@ -120,8 +120,8 @@ void Player::fire(float delta)
 	auto rightPos = absolutePos;
 	leftPos.add(LEFT_BULLET_OFFSET);
 	rightPos.add(RIGHT_BULLET_OFFSET);
-	auto leftBullet = PlayerBullet::createPlayerBullet("player_bullet.png", leftPos);
-	auto rightBullet = PlayerBullet::createPlayerBullet("player_bullet.png", rightPos);
+	auto leftBullet = PlayerBullet::createPlayerBullet("player_bullet", leftPos);
+	auto rightBullet = PlayerBullet::createPlayerBullet("player_bullet", rightPos);
 	playerBullets.push_back(leftBullet);
 	playerBullets.push_back(rightBullet);
 	addChild(leftBullet);

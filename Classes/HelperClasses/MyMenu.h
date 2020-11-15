@@ -27,9 +27,9 @@ protected:
 	const float MENU_SCROLL_CUTOFF = 0.5f;
 	const std::string FONT_NAME = "fonts/arial.ttf";
 	
-	const char* CONFIRM_SFX = "confirm.mp3";
-	const char* SELECT_SFX = "select.mp3";
-	const char* BACK_SFX = "back.mp3";
+	const char* CONFIRM_SFX = "sounds/confirm.mp3";
+	const char* SELECT_SFX = "sounds/select.mp3";
+	const char* BACK_SFX = "sounds/back.mp3";
 
 	void updateMenu(float);
 	int scrollMenu(float, float, bool);

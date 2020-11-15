@@ -11,7 +11,7 @@ Enemy* Enemy::createEnemy(Player* player)
 		return NULL;
 	}
 
-	ret->initGameObj("yukari.png", INIT_POS);
+	ret->initGameObj("yukari", INIT_POS);
 
 	ret->hpBar = EnemyHpBar::createEnemyHpBar();
 	ret->addChild(ret->hpBar);
