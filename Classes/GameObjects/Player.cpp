@@ -13,7 +13,7 @@ Player* Player::createPlayer()
 	ret->initGameObj("reimu", ret->INIT_POS);
 	ret->createHitbox();
 	ret->createGrazeHitbox();
-	ret->lives = DEFAULT_LIVES;
+	ret->lives = Settings::getPracticePattern() == -1 ? ret->DEFAULT_LIVES : 0;
 
 	return ret;
 }

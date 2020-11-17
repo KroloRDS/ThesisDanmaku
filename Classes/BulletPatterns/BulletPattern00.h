@@ -19,8 +19,8 @@ private:
 
 	const int ARMS_COUNT = 8;
 	const float BULLET_INTERVAL = 0.03f;
-	const float BULLET_SPEED = 500.0f;
+	const float BULLET_SPEED = 450.0f;
 	const float MAX_ROTATION_SPEED = 5.0f;
 
-	const int PATTERN_HP = 1000;
+	const int PATTERN_HP = 700;
 };

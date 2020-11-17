@@ -35,6 +35,6 @@ private:
 	const float RANDOM_BULLET_MAX_SPEED = 400.0f;
 	const float RANDOM_BULLET_SPAWN_INTERVAL = 0.005f;
 
-	const int PATTERN_HP = 1000;
+	const int PATTERN_HP = 600;
 };
 

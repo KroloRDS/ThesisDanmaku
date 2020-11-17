@@ -28,6 +28,7 @@ private:
 
 	float laserRotation = 0.0f;
 	float laserRotationSpeed = 3.0f;
+	bool lasersCreated = false;
 
 	float arrowheadRotation = 0.0f;
 	float arrowheadRotationSpeed = 5.0f;
@@ -76,6 +77,9 @@ private:
 		cocos2d::Vec2(240, 660)
 	};
 
-	const int PATTERN_HP = 1000;
+	const int PATTERN_HP = 800;
+	const int PHASE_2_HP = 500;
+	const int PHASE_3_HP = 300;
+	const int PHASE_4_HP = 100;
 };
 

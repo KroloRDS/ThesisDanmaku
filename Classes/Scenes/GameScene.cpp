@@ -32,10 +32,6 @@ bool GameScene::init()
 		return false;
 	}
 
-	addOverlay();
-	addUIElements();
-	addListeners();
-
 	int seed = cocos2d::RandomHelper::random_int(0, RAND_MAX);
 	std::srand(seed);
 
@@ -46,6 +42,10 @@ bool GameScene::init()
 	enemy = Enemy::createEnemy(player);
 	addChild(enemy);
 	addChild(enemy->getBulletPattern()->getName());
+
+	addOverlay();
+	addUIElements();
+	addListeners();
 
 	scheduleUpdate();
 	return true;
@@ -74,7 +74,7 @@ void GameScene::addUIElements()
 	scoreCounter = MyMenuItem::createMenuItem("0", UI_FONT_NAME, UI_FONT_SIZE);
 	uiElements.push_back(scoreCounter);
 
-	livesLabel = MyMenuItem::createMenuItem("Player: " + std::to_string(Player::DEFAULT_LIVES), UI_FONT_NAME, UI_FONT_SIZE);
+	livesLabel = MyMenuItem::createMenuItem("Player: " + std::to_string(player->getLives()), UI_FONT_NAME, UI_FONT_SIZE);
 	uiElements.push_back(livesLabel);
 
 	patternGrazeLabel = MyMenuItem::createMenuItem("Pattern Graze", UI_FONT_NAME, UI_FONT_SIZE);
@@ -156,7 +156,7 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 		return;
 	}
 
-	//if (player->getIFrames() > 0.0f)
+	if (player->getIFrames() > 0.0f)
 	{
 		return;
 	}

@@ -13,7 +13,6 @@ BulletPattern02* BulletPattern02::createBulletPattern(cocos2d::Vec2 origin, Play
 	ret->initPattern(origin, "Devil's Recitation", ret->PATTERN_HP);
 	ret->player = player;
 	
-	ret->createLasers();
 	ret->calcRandomMentosMinMaxValues();
 
 	ret->laserRotation = 180.0f;
@@ -25,11 +24,18 @@ BulletPattern02* BulletPattern02::createBulletPattern(cocos2d::Vec2 origin, Play
 
 void BulletPattern02::createLasers()
 {
+	if (lasersCreated)
+	{
+		return;
+	}
+
 	for (cocos2d::Vec2 spawnPoint : ARROWHEAD_SPAWN_POINTS)
 	{
 		lasers.push_back(Laser::createLaser(spawnPoint, 0.0f));
 		addChild(lasers.back());
 	}
+
+	lasersCreated = true;
 }
 
 void BulletPattern02::calcRandomMentosMinMaxValues()
@@ -61,10 +67,21 @@ void BulletPattern02::update(float delta)
 	}
 
 	spawnBubbles(delta);
-	spawnMentos(delta);
-	spawnBounceMentos(delta);
-	spawnRandomMentos(delta);
 	spawnArrowheads(delta);
+	spawnRandomMentos(delta);
+
+	if (hp < PHASE_2_HP)
+	{
+		spawnBounceMentos(delta);
+		if (hp < PHASE_3_HP)
+		{
+			createLasers();
+			if (hp < PHASE_4_HP)
+			{
+				spawnMentos(delta);
+			}
+		}
+	}
 
 	updateBullets(delta);
 

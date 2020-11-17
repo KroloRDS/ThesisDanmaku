@@ -18,8 +18,6 @@ public:
 	GameObject* getHitboxSprite();
 	std::vector<PlayerBullet*>& getBullets();
 
-	static const int DEFAULT_LIVES = 2;
-
 private:
 	int lives = 0;
 	bool focused = false;
@@ -40,11 +38,12 @@ private:
 	void removeAllObjects(std::vector<PlayerBullet*>& vec);
 	static void removeOutOfBoundsObjects(std::vector<PlayerBullet*>& vec);
 
+	const int DEFAULT_LIVES = 2;
 	const float IFRAMES_AFTER_DEATH = 5.0f;
 	const float FOCUSED_SPEED = 200.0f;
 	const float UNFOCUSED_SPEED = 400.0f;
 	const float HITBOX_RADIUS = 6.0f;
-	const float GRAZE_HITBOX_RADIUS = 24.0f;
+	const float GRAZE_HITBOX_RADIUS = 30.0f;
 	const float BULLET_INTERVAL = 0.06f;
 	const float DIAGONAL_COEFFICIENT = 1.0f / sqrt(2.0f);
 	const float GAME_BOUNDS_OFFSET = HITBOX_RADIUS * Settings::getScale() * 1.5f;
