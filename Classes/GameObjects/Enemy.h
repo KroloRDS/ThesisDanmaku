@@ -27,6 +27,7 @@ public:
 
 private:
 	BulletPattern* bulletPattern = nullptr;
+	GameObject* positionIndicator = nullptr;
 	EnemyHpBar* hpBar = nullptr;
 	Player* player = nullptr;
 
@@ -34,7 +35,11 @@ private:
 	float iFrames = 0.0f;
 	bool defeated = false;
 
+	void updateIndicator();
 
+	const cocos2d::Vec2 INIT_POS = cocos2d::Vec2(440, 600);
 	const float IFRAMES_AFTER_PATTERN_CHANGE = 4.0f;
-	static const cocos2d::Vec2 INIT_POS;
+	const float INDICATOR_MAX_DISTANCE = 400.0f;
+	const float INDICATOR_MIN_DISTANCE = 40.0f;
+	const float POSITION_INDICATOR_Y = 65.0f;
 };

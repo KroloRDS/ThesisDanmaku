@@ -1,7 +1,5 @@
 #include "Enemy.h"
 
-const cocos2d::Vec2 Enemy::INIT_POS = cocos2d::Vec2(440, 600);
-
 Enemy* Enemy::createEnemy(Player* player)
 {
 	Enemy* ret = Enemy::create();
@@ -11,10 +9,15 @@ Enemy* Enemy::createEnemy(Player* player)
 		return NULL;
 	}
 
-	ret->initGameObj("yukari", INIT_POS);
+	ret->initGameObj("yukari", ret->INIT_POS);
 
 	ret->hpBar = EnemyHpBar::createEnemyHpBar();
 	ret->addChild(ret->hpBar);
+
+	auto indicatorPos = cocos2d::Vec2(ret->INIT_POS.x, ret->POSITION_INDICATOR_Y);
+	ret->positionIndicator = GameObject::createGameObject("enemy_indicator", indicatorPos);
+	ret->addChild(ret->positionIndicator);
+	
 	ret->player = player;
 	ret->nextPattern();
 
@@ -23,6 +26,8 @@ Enemy* Enemy::createEnemy(Player* player)
 
 void Enemy::update(float delta)
 {
+	updateIndicator();
+
 	if (iFrames > 0.0f)
 	{
 		iFrames -= delta;
@@ -32,6 +37,26 @@ void Enemy::update(float delta)
 		bulletPattern->update(delta);
 		bulletPattern->getName()->update(delta);
 	}
+}
+
+void Enemy::updateIndicator()
+{
+	float distance = player->getPos().x - positionIndicator->getPos().x;
+	if (distance < 0.0f)
+	{
+		distance *= -1;
+	}
+
+	if (distance > INDICATOR_MAX_DISTANCE)
+	{
+		distance = INDICATOR_MAX_DISTANCE;
+	}
+	else if (distance < INDICATOR_MIN_DISTANCE)
+	{
+		distance = INDICATOR_MIN_DISTANCE;
+	}
+
+	positionIndicator->getSprite()->setOpacity(uint8_t(distance / INDICATOR_MAX_DISTANCE * 255.0f));
 }
 
 bool Enemy::isDefeated()
