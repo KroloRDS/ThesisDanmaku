@@ -163,7 +163,7 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 
 	if (player->getLives() == 0)
 	{
-		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("GAME OVER"));
+		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("GAME OVER", std::to_string(score)));
 		return;
 	}
 
@@ -186,7 +186,7 @@ void GameScene::update(float delta)
 	}
 	else if (enemy->getIFrames() <= 0.0f)
 	{
-		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON"));
+		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("YOU WON", std::to_string(score)));
 	}
 
 	if (pause)
