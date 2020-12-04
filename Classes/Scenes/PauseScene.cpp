@@ -25,8 +25,20 @@ bool PauseScene::init()
 	addMenuOptions(optionsStrings, 50.0, 100.0);
 	menuOptions.at(selectedItem)->select();
 
+	auto keyboardListener = cocos2d::EventListenerKeyboard::create();
+	keyboardListener->onKeyPressed = CC_CALLBACK_2(PauseScene::restart, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
+
 	this->scheduleUpdate();
 	return true;
+}
+
+void PauseScene::restart(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event*)
+{
+	if (keyCode == cocos2d::EventKeyboard::KeyCode::KEY_R)
+	{
+		cocos2d::Director::getInstance()->replaceScene(GameScene::createScene());
+	}
 }
 
 cocos2d::DrawNode* PauseScene::dimEffect()

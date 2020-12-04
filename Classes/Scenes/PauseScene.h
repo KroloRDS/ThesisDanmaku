@@ -12,5 +12,6 @@ public:
 	CREATE_FUNC(PauseScene);
 private:
 	static cocos2d::DrawNode* dimEffect();
+	void restart(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 };
 
