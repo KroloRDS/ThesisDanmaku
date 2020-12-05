@@ -19,6 +19,6 @@ private:
 	const float FONT_SIZE = 20.0f;
 	const std::string FONT_NAME = "fonts/arial.ttf";
 	const cocos2d::Vec2 INIT_POS = cocos2d::Vec2(600, 100);
-	const cocos2d::Vec2 DEST_POS = cocos2d::Vec2(600, 750);
+	const cocos2d::Vec2 DEST_POS = cocos2d::Vec2(600, 850);
 };
 
