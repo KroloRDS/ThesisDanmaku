@@ -78,6 +78,11 @@ cocos2d::Vec2 MyMenuItem::getPos()
 	return absolutePos;
 }
 
+cocos2d::Label* MyMenuItem::getLabel()
+{
+	return label;
+}
+
 void MyMenuItem::update(float delta)
 {
 	if (doneAnimating)

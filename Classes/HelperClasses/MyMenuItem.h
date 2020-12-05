@@ -20,6 +20,7 @@ public:
 	void setText(std::string);
 	void setPos(cocos2d::Vec2);
 	cocos2d::Vec2 getPos();
+	cocos2d::Label* getLabel();
 private:
 	bool selected = false;
 	bool doneAnimating = true;

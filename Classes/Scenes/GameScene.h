@@ -36,8 +36,12 @@ private:
 	int totalGraze = 0;
 
 	MyMenuItem* livesLabel = nullptr;
+	
 	MyMenuItem* fpsCounter = nullptr;
 	float fpsUpdate = 0.0f;
+
+	MyMenuItem* spellBonusLabel = nullptr;
+	float spellBonusLabelUpdate = 0.0f;
 
 	bool noHitBonus = true;
 
@@ -54,6 +58,7 @@ private:
 	void hitEnemy();
 	void damageEnemy(cocos2d::Vec2);
 	void nextPattern();
+	void updateSpellBonusLabel(float);
 	void updateFpsCounter(float);
 	void updateScoreCounter();
 
@@ -69,5 +74,11 @@ private:
 
 	const float FPS_COUNTER_UPDATE = 0.4f;
 	const float FPS_COUNTER_FONT_SIZE = 15.0f;
+
+	const float SPELL_BONUS_LABEL_VISIBLE_TIME = 2.0f;
+	const float SPELL_BONUS_LABEL_FADE_TIME = 2.0f;
+	const float SPELL_BONUS_LABEL_FONT_SIZE = 90.0f;
+
 	const cocos2d::Vec2 FPS_COUNTER_POS = cocos2d::Vec2(780.0f, 50.0f);
+	const cocos2d::Vec2 SPELL_BONUS_LABEL_POS = cocos2d::Vec2(440.0f, 700.0f);
 };

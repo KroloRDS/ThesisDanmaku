@@ -92,6 +92,9 @@ void GameScene::addUIElements()
 	fpsCounter = MyMenuItem::createMenuItem("", UI_FONT_NAME, FPS_COUNTER_FONT_SIZE);
 	uiElements.push_back(fpsCounter);
 
+	spellBonusLabel = MyMenuItem::createMenuItem("TEST", UI_FONT_NAME, SPELL_BONUS_LABEL_FONT_SIZE);
+	uiElements.push_back(spellBonusLabel);
+
 	for (MyMenuItem* uiElement : uiElements)
 	{
 		uiElement->setLocalZOrder(2);
@@ -104,6 +107,11 @@ void GameScene::addUIElements()
 
 	fpsCounter->setSelectOutlineColor(cocos2d::Color3B::BLACK);
 	fpsCounter->setPos(FPS_COUNTER_POS);
+
+	spellBonusLabel->setSelectOutlineColor(cocos2d::Color3B::RED);
+	spellBonusLabel->setSelectColor(cocos2d::Color3B::YELLOW);
+	spellBonusLabel->setPos(SPELL_BONUS_LABEL_POS);
+	spellBonusLabel->getLabel()->setOpacity(0);
 }
 
 void GameScene::addOverlay()
@@ -196,6 +204,7 @@ void GameScene::update(float delta)
 		cocos2d::Director::getInstance()->pushScene(scene);
 	}
 
+	updateSpellBonusLabel(delta);
 	updateFpsCounter(delta);
 	updateScoreCounter();
 }
@@ -256,12 +265,36 @@ void GameScene::nextPattern()
 	
 	if (noHitBonus)
 	{
-		score += INIT_HIT_POINT_VALUE * patternGraze;
+		int bonus = INIT_HIT_POINT_VALUE * patternGraze;
+		spellBonusLabel->setText("BONUS " + std::to_string(bonus));
+		spellBonusLabel->getLabel()->setOpacity(255);
+		score += bonus;
 	}
 	
 	noHitBonus = true;
 	patternGraze = 0;
 	patternGrazeCounter->setText("0");
+}
+
+void GameScene::updateSpellBonusLabel(float delta)
+{
+	if (spellBonusLabel->getLabel()->getOpacity() <= 0)
+	{
+		spellBonusLabelUpdate = 0.0f;
+		return;
+	}
+
+	spellBonusLabelUpdate += delta;
+	if (spellBonusLabelUpdate < SPELL_BONUS_LABEL_VISIBLE_TIME)
+	{
+		return;
+	}
+
+	float opacity = spellBonusLabelUpdate - SPELL_BONUS_LABEL_VISIBLE_TIME;
+	opacity = (opacity / SPELL_BONUS_LABEL_FADE_TIME);
+	opacity = 1.0f - opacity;
+
+	spellBonusLabel->getLabel()->setOpacity(uint8_t(opacity * 255.0f));
 }
 
 void GameScene::updateFpsCounter(float delta)
