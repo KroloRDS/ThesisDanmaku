@@ -10,18 +10,22 @@ Enemy* Enemy::createEnemy(Player* player)
 	}
 
 	ret->initGameObj("yukari", ret->INIT_POS);
-
 	ret->hpBar = EnemyHpBar::createEnemyHpBar();
-	ret->addChild(ret->hpBar);
 
-	auto indicatorPos = cocos2d::Vec2(ret->INIT_POS.x, ret->POSITION_INDICATOR_Y);
-	ret->positionIndicator = GameObject::createGameObject("enemy_indicator", indicatorPos);
-	ret->addChild(ret->positionIndicator);
+	ret->positionIndicator = GameObject::createGameObject("enemy_indicator", cocos2d::Vec2(0, 0));
+	ret->positionIndicator->setLocalZOrder(3);
 	
 	ret->player = player;
 	ret->nextPattern();
 
 	return ret;
+}
+
+void Enemy::addChildren()
+{
+	getParent()->addChild(bulletPattern->getName());
+	getParent()->addChild(positionIndicator);
+	getParent()->addChild(hpBar);
 }
 
 void Enemy::update(float delta)
@@ -41,6 +45,7 @@ void Enemy::update(float delta)
 
 void Enemy::updateIndicator()
 {
+	positionIndicator->setPos(cocos2d::Vec2(getPos().x, POSITION_INDICATOR_Y));
 	float distance = player->getPos().x - positionIndicator->getPos().x;
 	if (distance < 0.0f)
 	{

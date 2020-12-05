@@ -35,7 +35,7 @@ void Player::createHitbox()
 	{
 		hitboxSprite->getSprite()->setScale(0.0f);
 	}
-	hitboxSprite->setLocalZOrder(2);
+	hitboxSprite->setLocalZOrder(3);
 }
 
 void Player::createGrazeHitbox()

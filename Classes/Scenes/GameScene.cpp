@@ -41,7 +41,7 @@ bool GameScene::init()
 
 	enemy = Enemy::createEnemy(player);
 	addChild(enemy);
-	addChild(enemy->getBulletPattern()->getName());
+	enemy->addChildren();
 
 	addOverlay();
 	addUIElements();

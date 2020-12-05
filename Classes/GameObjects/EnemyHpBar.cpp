@@ -11,6 +11,7 @@ EnemyHpBar* EnemyHpBar::createEnemyHpBar()
 
 	ret->drawNode = cocos2d::DrawNode::create();
 	ret->addChild(ret->drawNode);
+	ret->setLocalZOrder(2);
 	return ret;
 }
 
