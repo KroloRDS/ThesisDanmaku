@@ -42,5 +42,5 @@ private:
 	const float IFRAMES_AFTER_PATTERN_CHANGE = 4.0f;
 	const float INDICATOR_MAX_DISTANCE = 400.0f;
 	const float INDICATOR_MIN_DISTANCE = 40.0f;
-	const float POSITION_INDICATOR_Y = 30.0f;
+	const float POSITION_INDICATOR_Y = 7.0f;
 };
