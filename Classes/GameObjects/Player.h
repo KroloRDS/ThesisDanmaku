@@ -28,6 +28,7 @@ private:
 	cocos2d::Node* hitbox = nullptr;
 	cocos2d::Node* grazeHitbox = nullptr;
 	GameObject* hitboxSprite = nullptr;
+	GameObject* focusSprite = nullptr;
 
 	void createHitbox();
 	void createGrazeHitbox();
@@ -45,6 +46,7 @@ private:
 	const float HITBOX_RADIUS = 6.0f;
 	const float GRAZE_HITBOX_RADIUS = 30.0f;
 	const float BULLET_INTERVAL = 0.06f;
+	const float FOCUS_SPRITE_ROTATION_SPEED = 30.0f;
 	const float DIAGONAL_COEFFICIENT = 1.0f / sqrt(2.0f);
 	const float GAME_BOUNDS_OFFSET = HITBOX_RADIUS * Settings::getScale() * 1.5f;
 	const cocos2d::Vec2 INIT_POS = cocos2d::Vec2(440, 300);

@@ -10,6 +10,10 @@ Player* Player::createPlayer()
 		return NULL;
 	}
 
+	ret->focusSprite = GameObject::createGameObject("focus", ret->INIT_POS);
+	ret->focusSprite->getSprite()->setOpacity(0);
+	ret->addChild(ret->focusSprite);
+
 	ret->initGameObj("reimu", ret->INIT_POS);
 	ret->createHitbox();
 	ret->createGrazeHitbox();
@@ -54,11 +58,19 @@ void Player::update(float delta)
 {
 	bool oldFocused = focused;
 	focused = KeyboardManager::isPressed(cocos2d::EventKeyboard::KeyCode::KEY_LEFT_SHIFT);
-	if (Settings::getHitboxOption() == Settings::HITBOXES::PLAYER_FOCUSED && focused != oldFocused)
+	if (focused != oldFocused)
 	{
-		float scale = focused ? Settings::getScale() : 0.0f;
-		hitboxSprite->getSprite()->runAction(cocos2d::ScaleTo::create(0.1f, scale));
+		int fade = focused ? 255 : 0;
+		focusSprite->getSprite()->runAction(cocos2d::FadeTo::create(0.1f, fade));
+		if (Settings::getHitboxOption() == Settings::HITBOXES::PLAYER_FOCUSED)
+		{
+			float scale = focused ? Settings::getScale() : 0.0f;
+			hitboxSprite->getSprite()->runAction(cocos2d::ScaleTo::create(0.1f, scale));
+		}
 	}
+
+	float rot = focusSprite->getSprite()->getRotation() + delta * FOCUS_SPRITE_ROTATION_SPEED;
+	focusSprite->getSprite()->setRotation(rot);
 	
 	move(delta);
 	fire(delta);
@@ -163,6 +175,7 @@ void Player::setPos(cocos2d::Vec2 newPosition)
 	hitbox->setPosition(newPosition);
 	grazeHitbox->setPosition(newPosition);
 	hitboxSprite->setPos(absolutePos);
+	focusSprite->setPos(absolutePos);
 }
 
 void Player::kill()
