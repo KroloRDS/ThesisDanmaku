@@ -14,7 +14,7 @@ Player* Player::createPlayer()
 	ret->focusSprite->getSprite()->setOpacity(0);
 	ret->addChild(ret->focusSprite);
 
-	ret->initGameObj("reimu", ret->INIT_POS);
+	ret->initGameObj("player", ret->INIT_POS);
 	ret->createHitbox();
 	ret->createGrazeHitbox();
 	ret->lives = Settings::getPracticePattern() == -1 ? ret->DEFAULT_LIVES : 0;

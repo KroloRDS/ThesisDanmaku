@@ -9,7 +9,7 @@ Enemy* Enemy::createEnemy(Player* player)
 		return NULL;
 	}
 
-	ret->initGameObj("yukari", ret->INIT_POS);
+	ret->initGameObj("enemy", ret->INIT_POS);
 	ret->hpBar = EnemyHpBar::createEnemyHpBar();
 
 	ret->positionIndicator = GameObject::createGameObject("enemy_indicator", cocos2d::Vec2(0, 0));
@@ -83,6 +83,16 @@ int Enemy::damage()
 {
 	int hp = bulletPattern->damage();
 	hpBar->updateHpBar(hp);
+
+	if (hp > bulletPattern->getMaxHp() / 4)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/enemy_hit.mp3");
+	}
+	else
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/enemy_hit_low_hp.mp3");
+	}
+
 	return hp;
 }
 
@@ -90,6 +100,8 @@ void Enemy::defeat()
 {
 	defeated = true;
 	hpBar->updateHpBar(0);
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/enemy_defeated.mp3");
 
 	auto emitter = cocos2d::ParticleExplosion::create();
 	emitter->setPosition(Settings::getTranslatedCoords(absolutePos));
@@ -121,6 +133,7 @@ void Enemy::nextPattern()
 void Enemy::createPattern(int pattern)
 {
 	iFrames = IFRAMES_AFTER_PATTERN_CHANGE;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/spell_card.mp3");
 
 	if (bulletPattern != nullptr)
 	{

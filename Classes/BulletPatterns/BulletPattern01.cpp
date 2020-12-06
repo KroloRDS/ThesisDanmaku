@@ -100,4 +100,6 @@ void BulletPattern01::spawnBullet()
 
 	nextBulletSpawn = BULLET_SPAWN_INTERVAL;
 	bulletsSpawned++;
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/bullet_spawn.mp3");
 }

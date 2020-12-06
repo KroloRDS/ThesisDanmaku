@@ -169,6 +169,8 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 		return;
 	}
 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/life_lost.mp3");
+
 	if (player->getLives() == 0)
 	{
 		cocos2d::Director::getInstance()->replaceScene(GameOver::createScene("GAME OVER", std::to_string(score)));
@@ -267,8 +269,8 @@ void GameScene::nextPattern()
 	{
 		int bonus = INIT_HIT_POINT_VALUE * patternGraze;
 		spellBonusLabel->setText("BONUS " + std::to_string(bonus));
-		spellBonusLabel->getLabel()->setOpacity(255);
 		score += bonus;
+		showBonus = true;
 	}
 	
 	noHitBonus = true;
@@ -278,23 +280,41 @@ void GameScene::nextPattern()
 
 void GameScene::updateSpellBonusLabel(float delta)
 {
-	if (spellBonusLabel->getLabel()->getOpacity() <= 0)
+	if (!showBonus)
 	{
-		spellBonusLabelUpdate = 0.0f;
 		return;
 	}
 
 	spellBonusLabelUpdate += delta;
-	if (spellBonusLabelUpdate < SPELL_BONUS_LABEL_VISIBLE_TIME)
+	if (spellBonusLabelUpdate < SPELL_BONUS_LABEL_DELAY_TIME)
 	{
 		return;
 	}
 
-	float opacity = spellBonusLabelUpdate - SPELL_BONUS_LABEL_VISIBLE_TIME;
+	if (!noHitBonusSFXPlayed)
+	{
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/spell_bonus.mp3");
+		noHitBonusSFXPlayed = true;
+	}
+
+	if (spellBonusLabelUpdate < SPELL_BONUS_LABEL_VISIBLE_TIME + SPELL_BONUS_LABEL_DELAY_TIME)
+	{
+		spellBonusLabel->getLabel()->setOpacity(255);
+		return;
+	}
+
+	float opacity = spellBonusLabelUpdate;
+	opacity -= SPELL_BONUS_LABEL_DELAY_TIME + SPELL_BONUS_LABEL_VISIBLE_TIME;
 	opacity = (opacity / SPELL_BONUS_LABEL_FADE_TIME);
 	opacity = 1.0f - opacity;
 
 	spellBonusLabel->getLabel()->setOpacity(uint8_t(opacity * 255.0f));
+	if (spellBonusLabel->getLabel()->getOpacity() <= 0)
+	{
+		showBonus = false;
+		noHitBonusSFXPlayed = false;
+		spellBonusLabelUpdate = 0.0f;
+	}
 }
 
 void GameScene::updateFpsCounter(float delta)

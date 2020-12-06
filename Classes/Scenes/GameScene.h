@@ -44,6 +44,8 @@ private:
 	float spellBonusLabelUpdate = 0.0f;
 
 	bool noHitBonus = true;
+	bool showBonus = false;
+	bool noHitBonusSFXPlayed = false;
 
 	void addListeners();
 	void addUIElements();
@@ -75,6 +77,7 @@ private:
 	const float FPS_COUNTER_UPDATE = 0.4f;
 	const float FPS_COUNTER_FONT_SIZE = 15.0f;
 
+	const float SPELL_BONUS_LABEL_DELAY_TIME = 2.0f;
 	const float SPELL_BONUS_LABEL_VISIBLE_TIME = 2.0f;
 	const float SPELL_BONUS_LABEL_FADE_TIME = 2.0f;
 	const float SPELL_BONUS_LABEL_FONT_SIZE = 90.0f;

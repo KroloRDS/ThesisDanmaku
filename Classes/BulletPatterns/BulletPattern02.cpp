@@ -106,6 +106,7 @@ void BulletPattern02::spawnBubbles(float delta)
 	}
 
 	nextBubbleInterval += BUBBLE_SPAWN_INTERVAL;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/bullet_spawn.mp3");
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -173,6 +174,7 @@ void BulletPattern02::spawnRandomMentos(float delta)
 	}
 
 	nextRandomMentosInterval += RANDOM_MENTOS_SPAWN_INTERVAL;
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sounds/bullet_spawn.mp3");
 
 	for (int i = 0; i < RANDOM_MENTOS_IN_BATCH; i++)
 	{
