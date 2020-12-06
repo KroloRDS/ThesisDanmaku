@@ -18,10 +18,18 @@ private:
 
 	const int ENEMY_HP_BAR_MAX_WIDTH = 660;
 	const int ENEMY_HP_BAR_HEIGHT = 6;
-	const int OUTLINE_THICKNESS = 2;
+	
+	const float OUTLINE_THICKNESS = 2.0f;
+	const float ENEMY_HP_BAR_POS_X = 110.0f;
+	const float ENEMY_HP_BAR_POS_Y = 878.0f;
 
-	const cocos2d::Vec2 ENEMY_HP_BAR_POS = cocos2d::Vec2(110, 878);
-	const cocos2d::Vec2 ENEMY_HP_BAR_OUTLINE_POS =
-		cocos2d::Vec2(110 - OUTLINE_THICKNESS, 878 - OUTLINE_THICKNESS);
+	const cocos2d::Vec2 ENEMY_HP_BAR_POS = cocos2d::Vec2(
+		ENEMY_HP_BAR_POS_X,
+		ENEMY_HP_BAR_POS_Y
+	);
+	const cocos2d::Vec2 ENEMY_HP_BAR_OUTLINE_POS = cocos2d::Vec2(
+		ENEMY_HP_BAR_POS_X - OUTLINE_THICKNESS,
+		ENEMY_HP_BAR_POS_Y - OUTLINE_THICKNESS
+	);
 };
 
