@@ -10,7 +10,7 @@ BulletPattern01* BulletPattern01::createBulletPattern(cocos2d::Vec2 origin, Play
 		return NULL;
 	}
 
-	ret->initPattern(origin, "???", ret->PATTERN_HP);
+	ret->initPattern(origin, "Playing Tag with a Tengu", ret->PATTERN_HP);
 	ret->nextWave = ret->TIME_BETWEEN_WAVES;
 	ret->player = player;
 
