@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0EE6B79C-5BEA-3BD7-82A3-90F9B8588D59}</ProjectGuid>
+    <ProjectName>recast</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\Out\Lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\Out\Lib\Log\recast\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">recast</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>..\cocos2dx\cocos2d\external\recast\..</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DebugUtils\DebugDraw.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DebugUtils\DetourDebugDraw.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\Detour\DetourAlloc.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\Detour\DetourCommon.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\Detour\DetourNavMesh.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\Detour\DetourNavMeshBuilder.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\Detour\DetourNavMeshQuery.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\Detour\DetourNode.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DetourCrowd\DetourCrowd.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DetourCrowd\DetourLocalBoundary.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DetourCrowd\DetourObstacleAvoidance.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DetourCrowd\DetourPathCorridor.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DetourCrowd\DetourPathQueue.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DetourCrowd\DetourProximityGrid.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DetourTileCache\DetourTileCache.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\DetourTileCache\DetourTileCacheBuilder.cpp" />
+    <ClCompile Include="..\cocos2dx\cocos2d\external\recast\fastlz\fastlz.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

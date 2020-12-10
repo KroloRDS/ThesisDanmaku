@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6DBE654B-C7FC-3135-BF57-CFAD19821C25}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ThesisDanmaku</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Out\App\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Out\Debug\Log\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ThesisDanmaku</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;_SCL_SECURE_NO_WARNINGS;CC_STATIC</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;cocos2dx\cocos2d\cocos\audio\include;cocos2dx\cocos2d;cocos2dx\cocos2d\cocos;cocos2dx\cocos2d\extensions;cocos2dx\cocos2d\cocos\platform;cocos2dx\cocos2d\cocos\editor-support;cocos2dx\cocos2d\cocos\base;cocos2dx\cocos2d\cocos\platform\win32;cocos2dx\cocos2d\external\recast\..;cocos2dx\cocos2d\external\tinyxml2\.;cocos2dx\cocos2d\external\xxhash\.;cocos2dx\cocos2d\external\xxtea\.;cocos2dx\cocos2d\external\clipper\.;cocos2dx\cocos2d\external\edtaa3func\.;cocos2dx\cocos2d\external\ConvertUTF\.;cocos2dx\cocos2d\external\poly2tri\..;cocos2dx\cocos2d\external\md5\..;cocos2dx\cocos2d\external\unzip\.;cocos2dx\cocos2d\external\Box2D\include;cocos2dx\cocos2d\external\chipmunk\include;cocos2dx\cocos2d\external\freetype2\include\win32\freetype2;cocos2dx\cocos2d\external\bullet\include;cocos2dx\cocos2d\external\bullet\include\bullet;cocos2dx\cocos2d\external\jpeg\include\win32;cocos2dx\cocos2d\external\openssl\include\win32;cocos2dx\cocos2d\external\uv\include;cocos2dx\cocos2d\external\webp\include\win32;cocos2dx\cocos2d\external\websockets\include\win32;cocos2dx\cocos2d\external\curl\include\win32;cocos2dx\cocos2d\external\png\include\win32;cocos2dx\cocos2d\external\win32-specific\gles\include\OGLES;cocos2dx\cocos2d\external\win32-specific\icon\include;cocos2dx\cocos2d\external\win32-specific\MP3Decoder\include;cocos2dx\cocos2d\external\win32-specific\OggDecoder\include;cocos2dx\cocos2d\external\win32-specific\OpenalSoft\include;cocos2dx\cocos2d\external\glfw3\include\win32;cocos2dx\cocos2d\external\zlib\..\win32-specific\zlib\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory Resources Out/App/Resources
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different cocos2dx/cocos2d/external/win32-specific/gles/prebuilt/glew32.dll Out/App/glew32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different cocos2dx/cocos2d/external/win32-specific/MP3Decoder/prebuilt/libmpg123.dll Out/App/libmpg123.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different cocos2dx/cocos2d/external/win32-specific/OggDecoder/prebuilt/libogg.dll Out/App/libogg.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different cocos2dx/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbis.dll Out/App/libvorbis.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different cocos2dx/cocos2d/external/win32-specific/OggDecoder/prebuilt/libvorbisfile.dll Out/App/libvorbisfile.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different cocos2dx/cocos2d/external/win32-specific/OpenalSoft/prebuilt/OpenAL32.dll Out/App/OpenAL32.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different cocos2dx/cocos2d/external/zlib/../win32-specific/zlib/prebuilt/zlib1.dll Out/App/zlib1.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>Out\Lib\cocos2d.lib;Out\Lib\external.lib;cocos2dx\cocos2d\external\Box2D\prebuilt\win32\debug\libbox2d.lib;cocos2dx\cocos2d\external\chipmunk\prebuilt\win32\debug-lib\libchipmunk.lib;cocos2dx\cocos2d\external\freetype2\prebuilt\win32\freetype.lib;Out\Lib\recast.lib;cocos2dx\cocos2d\external\bullet\prebuilt\win32\debug\libbullet.lib;cocos2dx\cocos2d\external\jpeg\prebuilt\win32\libjpeg.lib;cocos2dx\cocos2d\external\webp\prebuilt\win32\libwebp.lib;cocos2dx\cocos2d\external\websockets\prebuilt\win32\websockets.lib;cocos2dx\cocos2d\external\openssl\prebuilt\win32\libssl.lib;cocos2dx\cocos2d\external\openssl\prebuilt\win32\libcrypto.lib;cocos2dx\cocos2d\external\uv\prebuilt\win32\uv_a.lib;Out\Lib\tinyxml2.lib;Out\Lib\xxhash.lib;Out\Lib\xxtea.lib;Out\Lib\clipper.lib;Out\Lib\edtaa3func.lib;Out\Lib\convertUTF.lib;Out\Lib\poly2tri.lib;Out\Lib\md5.lib;cocos2dx\cocos2d\external\curl\prebuilt\win32\libcurl.lib;cocos2dx\cocos2d\external\png\prebuilt\win32\libpng.lib;cocos2dx\cocos2d\external\win32-specific\gles\prebuilt\glew32.lib;cocos2dx\cocos2d\external\win32-specific\icon\prebuilt\libiconv.lib;cocos2dx\cocos2d\external\win32-specific\MP3Decoder\prebuilt\libmpg123.lib;cocos2dx\cocos2d\external\win32-specific\OggDecoder\prebuilt\libogg.lib;cocos2dx\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbis.lib;cocos2dx\cocos2d\external\win32-specific\OggDecoder\prebuilt\libvorbisfile.lib;cocos2dx\cocos2d\external\win32-specific\OpenalSoft\prebuilt\OpenAL32.lib;cocos2dx\cocos2d\external\glfw3\prebuilt\win32\glfw3.lib;cocos2dx\cocos2d\external\zlib\..\win32-specific\zlib\prebuilt\libzlib.lib;Out\Lib\unzip.lib;ws2_32.lib;userenv.lib;psapi.lib;winmm.lib;Version.lib;Iphlpapi.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <ImportLibrary>Out/Debug/ThesisDanmaku.lib</ImportLibrary>
+      <ProgramDataBaseFile>Out/Debug/ThesisDanmaku.pdb</ProgramDataBaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\BulletPatterns\BulletPattern.cpp" />
+    <ClCompile Include="Source\BulletPatterns\BulletPattern00.cpp" />
+    <ClCompile Include="Source\BulletPatterns\BulletPattern01.cpp" />
+    <ClCompile Include="Source\BulletPatterns\BulletPattern02.cpp" />
+    <ClCompile Include="Source\BulletPatterns\BulletPattern99.cpp" />
+    <ClCompile Include="Source\GameObjects\Bullet.cpp" />
+    <ClCompile Include="Source\GameObjects\Enemy.cpp" />
+    <ClCompile Include="Source\GameObjects\EnemyHpBar.cpp" />
+    <ClCompile Include="Source\GameObjects\GameObject.cpp" />
+    <ClCompile Include="Source\GameObjects\Laser.cpp" />
+    <ClCompile Include="Source\GameObjects\Player.cpp" />
+    <ClCompile Include="Source\GameObjects\PlayerBullet.cpp" />
+    <ClCompile Include="Source\HelperClasses\KeyboardManager.cpp" />
+    <ClCompile Include="Source\HelperClasses\MyMenu.cpp" />
+    <ClCompile Include="Source\HelperClasses\MyMenuItem.cpp" />
+    <ClCompile Include="Source\HelperClasses\PatternName.cpp" />
+    <ClCompile Include="Source\HelperClasses\Settings.cpp" />
+    <ClCompile Include="Source\Main\AppDelegate.cpp" />
+    <ClCompile Include="Source\Main\Main.cpp" />
+    <ClCompile Include="Source\Scenes\GameOver.cpp" />
+    <ClCompile Include="Source\Scenes\GameScene.cpp" />
+    <ClCompile Include="Source\Scenes\MainMenu.cpp" />
+    <ClCompile Include="Source\Scenes\PauseScene.cpp" />
+    <ClCompile Include="Source\Scenes\SettingsMenu.cpp" />
+    <ClCompile Include="Source\Scenes\SpellPracticeMenu.cpp" />
+    <ClInclude Include="Source\BulletPatterns\BulletPattern.h" />
+    <ClInclude Include="Source\BulletPatterns\BulletPattern00.h" />
+    <ClInclude Include="Source\BulletPatterns\BulletPattern01.h" />
+    <ClInclude Include="Source\BulletPatterns\BulletPattern02.h" />
+    <ClInclude Include="Source\BulletPatterns\BulletPattern99.h" />
+    <ClInclude Include="Source\GameObjects\Bullet.h" />
+    <ClInclude Include="Source\GameObjects\Enemy.h" />
+    <ClInclude Include="Source\GameObjects\EnemyHpBar.h" />
+    <ClInclude Include="Source\GameObjects\GameObject.h" />
+    <ClInclude Include="Source\GameObjects\Laser.h" />
+    <ClInclude Include="Source\GameObjects\Player.h" />
+    <ClInclude Include="Source\GameObjects\PlayerBullet.h" />
+    <ClInclude Include="Source\HelperClasses\KeyboardManager.h" />
+    <ClInclude Include="Source\HelperClasses\MyMenu.h" />
+    <ClInclude Include="Source\HelperClasses\MyMenuItem.h" />
+    <ClInclude Include="Source\HelperClasses\PatternName.h" />
+    <ClInclude Include="Source\HelperClasses\Settings.h" />
+    <ClInclude Include="Source\Main\AppDelegate.h" />
+    <ClInclude Include="Source\Main\Main.h" />
+    <ClInclude Include="Source\Scenes\GameOver.h" />
+    <ClInclude Include="Source\Scenes\GameScene.h" />
+    <ClInclude Include="Source\Scenes\MainMenu.h" />
+    <ClInclude Include="Source\Scenes\PauseScene.h" />
+    <ClInclude Include="Source\Scenes\SettingsMenu.h" />
+    <ClInclude Include="Source\Scenes\SpellPracticeMenu.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Lib\cocos2d.vcxproj">
+      <Project>{9265BF14-BDF3-3BD8-8E48-930CA4514D4E}</Project>
+      <Name>cocos2d</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\clipper.vcxproj">
+      <Project>{3E8465D8-B453-3AD8-BB9A-5F77F98FE9B4}</Project>
+      <Name>clipper</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\convertUTF.vcxproj">
+      <Project>{15AB003D-E70E-3091-A6A4-03D9EE8C7FF3}</Project>
+      <Name>convertUTF</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\edtaa3func.vcxproj">
+      <Project>{F4857CAF-2887-390D-B1ED-A0964C33672B}</Project>
+      <Name>edtaa3func</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\md5.vcxproj">
+      <Project>{E92DC054-5CF0-3787-83EE-03EEE27A27DF}</Project>
+      <Name>md5</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\poly2tri.vcxproj">
+      <Project>{F1E4F224-921F-3AD6-B8EE-33E1806C18C0}</Project>
+      <Name>poly2tri</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\recast.vcxproj">
+      <Project>{0EE6B79C-5BEA-3BD7-82A3-90F9B8588D59}</Project>
+      <Name>recast</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\tinyxml2.vcxproj">
+      <Project>{AECB280A-7D29-3BDE-A1BA-3EED3A465BCD}</Project>
+      <Name>tinyxml2</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\unzip.vcxproj">
+      <Project>{AB5963D1-DBEE-3BC9-9C98-E30E3EBA9306}</Project>
+      <Name>unzip</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\xxhash.vcxproj">
+      <Project>{AF1D6F21-EDC8-3F33-9DC9-410B3D9ECF8A}</Project>
+      <Name>xxhash</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\xxtea.vcxproj">
+      <Project>{3C685B16-39CB-3BF2-91F9-7C0BA0C9271C}</Project>
+      <Name>xxtea</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lib\external.vcxproj">
+      <Project>{5228C44F-C2AB-359C-8C2E-41A69B13010A}</Project>
+      <Name>external</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\fonts\arial.ttf" />
+    <Font Include="Resources\fonts\Marker Felt.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\sounds\back.mp3" />
+    <Media Include="Resources\sounds\bullet_spawn.mp3" />
+    <Media Include="Resources\sounds\confirm.mp3" />
+    <Media Include="Resources\sounds\enemy_defeated.mp3" />
+    <Media Include="Resources\sounds\enemy_hit.mp3" />
+    <Media Include="Resources\sounds\enemy_hit_low_hp.mp3" />
+    <Media Include="Resources\sounds\graze.mp3" />
+    <Media Include="Resources\sounds\life_lost.mp3" />
+    <Media Include="Resources\sounds\select.mp3" />
+    <Media Include="Resources\sounds\spell_bonus.mp3" />
+    <Media Include="Resources\sounds\spell_card.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\sprites\arrowhead.png" />
+    <Image Include="Resources\sprites\bubble.png" />
+    <Image Include="Resources\sprites\butterfly.png" />
+    <Image Include="Resources\sprites\damage.png" />
+    <Image Include="Resources\sprites\enemy.PNG" />
+    <Image Include="Resources\sprites\enemy_indicator.png" />
+    <Image Include="Resources\sprites\focus.png" />
+    <Image Include="Resources\sprites\hitbox.png" />
+    <Image Include="Resources\sprites\laser.png" />
+    <Image Include="Resources\sprites\mentos.png" />
+    <Image Include="Resources\sprites\normal_bullet.png" />
+    <Image Include="Resources\sprites\overlay.png" />
+    <Image Include="Resources\sprites\player.png" />
+    <Image Include="Resources\sprites\player_bullet.png" />
+    <Image Include="Resources\sprites\spawn.png" />
+    <Image Include="Resources\sprites\test_bullet.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

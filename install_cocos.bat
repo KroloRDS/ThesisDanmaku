@@ -1,0 +1,1 @@
+cocos new cocos2dx -l cpp

@@ -1,3 +1,4 @@
-/*
-!.gitignore
-!Classes/
+.vs/
+cocos2dx/
+Out/
+Lib/*.user
