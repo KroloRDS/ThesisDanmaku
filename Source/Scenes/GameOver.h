@@ -4,6 +4,7 @@
 #include "GameScene.h"
 #include "HelperClasses/MyMenu.h"
 #include "HelperClasses/MyMenuItem.h"
+#include "HelperClasses/HighscoreLoader.h"
 
 class GameOver : public MyMenu
 {

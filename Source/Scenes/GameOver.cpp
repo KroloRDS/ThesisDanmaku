@@ -8,6 +8,8 @@ cocos2d::Scene* GameOver::createScene(std::string gameOverText, std::string scor
 	auto layer = GameOver::create();
 	scene->addChild(layer);
 
+	HighscoreLoader::save(Settings::getPracticePattern() + 1, std::stoi(score));
+
 	layer->gameOverText->setText(gameOverText);
 	layer->scoreCounter->setText(score);
 	

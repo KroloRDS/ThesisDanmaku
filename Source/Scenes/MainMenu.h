@@ -2,6 +2,7 @@
 
 #include "GameScene.h"
 #include "SettingsMenu.h"
+#include "HighscoreScene.h"
 #include "SpellPracticeMenu.h"
 #include "HelperClasses/MyMenu.h"
 

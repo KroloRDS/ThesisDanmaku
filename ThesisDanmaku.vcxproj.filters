@@ -76,6 +76,15 @@
     <ClCompile Include="Source\Main\Main.cpp">
       <Filter>Source\Main</Filter>
     </ClCompile>
+    <ClCompile Include="Source\HelperClasses\Score.cpp">
+      <Filter>Source\HelperClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scenes\HighscoreScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HelperClasses\HighscoreLoader.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BulletPatterns\BulletPattern.h">
@@ -152,6 +161,15 @@
     </ClInclude>
     <ClInclude Include="Source\Main\Main.h">
       <Filter>Source\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HelperClasses\Score.h">
+      <Filter>Source\HelperClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scenes\HighscoreScene.h">
+      <Filter>Source\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HelperClasses\HighscoreLoader.h">
+      <Filter>Source\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
