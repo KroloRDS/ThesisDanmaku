@@ -10,11 +10,11 @@ Player* Player::createPlayer()
 		return NULL;
 	}
 
-	ret->focusSprite = GameObject::createGameObject("focus", ret->INIT_POS);
+	ret->focusSprite = GameObject::createGameObject(SpriteRepository::FOCUS, ret->INIT_POS);
 	ret->focusSprite->getSprite()->setOpacity(0);
 	ret->addChild(ret->focusSprite);
 
-	ret->initGameObj("player", ret->INIT_POS);
+	ret->initGameObj(SpriteRepository::PLAYER, ret->INIT_POS);
 	ret->createHitbox();
 	ret->createGrazeHitbox();
 	ret->lives = Settings::getPracticePattern() == -1 ? ret->DEFAULT_LIVES : 0;
@@ -33,7 +33,7 @@ void Player::createHitbox()
 	hitbox->setPhysicsBody(body);
 	addChild(hitbox);
 
-	hitboxSprite = GameObject::createGameObject("hitbox", absolutePos);
+	hitboxSprite = GameObject::createGameObject(SpriteRepository::HITBOX, absolutePos);
 	if (Settings::getHitboxOption() == Settings::HITBOXES::NONE ||
 		Settings::getHitboxOption() == Settings::HITBOXES::PLAYER_FOCUSED)
 	{
@@ -132,8 +132,8 @@ void Player::fire(float delta)
 	auto rightPos = absolutePos;
 	leftPos.add(LEFT_BULLET_OFFSET);
 	rightPos.add(RIGHT_BULLET_OFFSET);
-	auto leftBullet = PlayerBullet::createPlayerBullet("player_bullet", leftPos);
-	auto rightBullet = PlayerBullet::createPlayerBullet("player_bullet", rightPos);
+	auto leftBullet = PlayerBullet::createPlayerBullet(leftPos);
+	auto rightBullet = PlayerBullet::createPlayerBullet(rightPos);
 	playerBullets.push_back(leftBullet);
 	playerBullets.push_back(rightBullet);
 	addChild(leftBullet);

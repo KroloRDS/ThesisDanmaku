@@ -2,7 +2,7 @@
 
 const float PlayerBullet::PLAYER_BULLET_SPEED = 1000.0;
 
-PlayerBullet* PlayerBullet::createPlayerBullet(std::string str, cocos2d::Vec2 pos)
+PlayerBullet* PlayerBullet::createPlayerBullet(cocos2d::Vec2 pos)
 {
 	PlayerBullet* ret = PlayerBullet::create();
 	if (!ret)
@@ -11,7 +11,7 @@ PlayerBullet* PlayerBullet::createPlayerBullet(std::string str, cocos2d::Vec2 po
 		return NULL;
 	}
 
-	ret->initGameObj(str, pos);
+	ret->initGameObj(SpriteRepository::PLAYER_BULLET, pos);
 	return ret;
 }
 

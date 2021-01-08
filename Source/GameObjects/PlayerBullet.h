@@ -6,7 +6,7 @@
 class PlayerBullet : public GameObject
 {
 public:
-	static PlayerBullet* createPlayerBullet(std::string, cocos2d::Vec2);
+	static PlayerBullet* createPlayerBullet(cocos2d::Vec2);
 	CREATE_FUNC(PlayerBullet);
 	void update(float);
 private:

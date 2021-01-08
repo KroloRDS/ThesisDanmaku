@@ -40,7 +40,7 @@ private:
 
 	void spawnAnimation();
 
-	std::string getSpriteName(int);
+	SpriteRepository::SPRITE getSpriteType(int);
 	void createHitbox(int);
 
 	cocos2d::PhysicsBody* createTestHitbox();

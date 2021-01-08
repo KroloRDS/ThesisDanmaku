@@ -2,7 +2,7 @@
 #include "Scenes/GameScene.h"
 #include "PlayerBullet.h"
 
-GameObject* GameObject::createGameObject(std::string str, cocos2d::Vec2 pos)
+GameObject* GameObject::createGameObject(SpriteRepository::SPRITE type, cocos2d::Vec2 pos)
 {
 	GameObject* ret = GameObject::create();
 	if (!ret)
@@ -11,15 +11,15 @@ GameObject* GameObject::createGameObject(std::string str, cocos2d::Vec2 pos)
 		return NULL;
 	}
 
-	ret->initGameObj(str, pos);
+	ret->initGameObj(type, pos);
 	return ret;
 }
 
-void GameObject::initGameObj(std::string str, cocos2d::Vec2 pos)
+void GameObject::initGameObj(SpriteRepository::SPRITE type, cocos2d::Vec2 pos)
 {
-	if (!str.empty())
+	if (type != SpriteRepository::BLANK)
 	{
-		sprite = cocos2d::Sprite::create("sprites/" + str + ".png");
+		sprite = SpriteRepository::getSprite(type);
 		sprite->setScale(Settings::getScale());
 		addChild(sprite);
 	}

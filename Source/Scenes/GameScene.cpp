@@ -32,6 +32,7 @@ bool GameScene::init()
 		return false;
 	}
 
+	SpriteRepository::init();
 	int seed = cocos2d::RandomHelper::random_int(0, RAND_MAX);
 	std::srand(seed);
 
@@ -116,7 +117,7 @@ void GameScene::addUIElements()
 
 void GameScene::addOverlay()
 {
-	auto overlay = cocos2d::Sprite::create("sprites/overlay.png");
+	auto overlay = SpriteRepository::getSprite(SpriteRepository::OVERLAY);
 	auto sizeX = Settings::getWindowSizeX() / 2.0f;
 	auto sizeY = Settings::getWindowSizeY() / 2.0f;
 	overlay->setPosition(cocos2d::Vec2(sizeX, sizeY));
@@ -164,7 +165,7 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 		return;
 	}
 
-	if (player->getIFrames() > 0.0f)
+	//if (player->getIFrames() > 0.0f)
 	{
 		return;
 	}
@@ -234,7 +235,7 @@ void GameScene::hitEnemy()
 void GameScene::damageEnemy(cocos2d::Vec2 pos)
 {
 	pos.y += 50;
-	auto gameObj = GameObject::createGameObject("damage", pos);
+	auto gameObj = GameObject::createGameObject(SpriteRepository::DAMAGE, pos);
 	auto dmgSprite = gameObj->getSprite();
 	
 	dmgSprite->setScale(Settings::getScale() * 1.5f);

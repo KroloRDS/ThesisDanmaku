@@ -18,7 +18,7 @@ Laser* Laser::createLaser(cocos2d::Vec2 origin, float rotation)
 
 void Laser::createSprite()
 {
-	sprite = cocos2d::Sprite::create("sprites/laser.png");
+	sprite = SpriteRepository::getSprite(SpriteRepository::LASER);
 	sprite->setPosition(Settings::getTranslatedCoords(origin));
 	sprite->setAnchorPoint(cocos2d::Vec2(0.5f, 0.0f));
 	sprite->setScale(Settings::getScale());

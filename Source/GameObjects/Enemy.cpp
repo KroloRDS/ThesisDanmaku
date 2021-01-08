@@ -9,10 +9,10 @@ Enemy* Enemy::createEnemy(Player* player)
 		return NULL;
 	}
 
-	ret->initGameObj("enemy", ret->INIT_POS);
+	ret->initGameObj(SpriteRepository::ENEMY, ret->INIT_POS);
 	ret->hpBar = EnemyHpBar::createEnemyHpBar();
 
-	ret->positionIndicator = GameObject::createGameObject("enemy_indicator", cocos2d::Vec2(0, 0));
+	ret->positionIndicator = GameObject::createGameObject(SpriteRepository::ENEMY_INDICATOR, cocos2d::Vec2(0, 0));
 	ret->positionIndicator->setLocalZOrder(3);
 	
 	ret->player = player;

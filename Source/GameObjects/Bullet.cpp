@@ -10,7 +10,7 @@ Bullet* Bullet::createBullet(cocos2d::Vec2 pos, int type, int subtype)
 		return NULL;
 	}
 
-	ret->initGameObj(ret->getSpriteName(type), pos);
+	ret->initGameObj(ret->getSpriteType(type), pos);
 	ret->createHitbox(type);
 	ret->type = type;
 	ret->subtype = subtype;
@@ -54,7 +54,7 @@ void Bullet::spawnAnimation()
 		return;
 	}
 
-	auto gameObj = GameObject::createGameObject("spawn", absolutePos);
+	auto gameObj = GameObject::createGameObject(SpriteRepository::SPAWN, absolutePos);
 	auto spawnSprite = gameObj->getSprite();
 	spawnSprite->setOpacity(150);
 	spawnSprite->setColor(color);
@@ -66,31 +66,24 @@ void Bullet::spawnAnimation()
 	spawnSprite->runAction(cocos2d::Spawn::createWithTwoActions(scaleTo, fadeTo));
 }
 
-std::string Bullet::getSpriteName(int type)
+SpriteRepository::SPRITE Bullet::getSpriteType(int type)
 {
 	switch (type)
 	{
 	case TEST:
-		return "test_bullet";
-		break;
+		return SpriteRepository::TEST_BULLET;
 	case NORMAL:
-		return "normal_bullet";
-		break;
+		return SpriteRepository::NORMAL_BULLET;
 	case ARROWHEAD:
-		return "arrowhead";
-		break;
+		return SpriteRepository::ARROWHEAD;
 	case BUTTERFLY:
-		return "butterfly";
-		break;
+		return SpriteRepository::BUTTERFLY;
 	case MENTOS:
-		return "mentos";
-		break;
+		return SpriteRepository::MENTOS;
 	case BUBBLE:
-		return "bubble";
-		break;
+		return SpriteRepository::BUBBLE;
 	default:
-		return "";
-		break;
+		return SpriteRepository::BLANK;
 	}
 }
 
