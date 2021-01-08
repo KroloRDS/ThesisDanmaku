@@ -72,7 +72,7 @@ private:
 	const float UI_TEXT_Y_POS = 850.0f;
 	const float UI_TEXT_Y_MARGIN = 60.0f;
 	const float UI_FONT_SIZE = 50.0f;
-	const std::string UI_FONT_NAME = "fonts/arial.ttf";
+	const std::string UI_FONT_NAME = "arial.ttf";
 
 	const float FPS_COUNTER_UPDATE = 0.4f;
 	const float FPS_COUNTER_FONT_SIZE = 15.0f;

@@ -25,22 +25,24 @@ void SpriteRepository::init()
 		return;
 	}
 
-	arrowhead->initWithFile("sprites/arrowhead.png");
-	bubble->initWithFile("sprites/bubble.png");
-	butterlfy->initWithFile("sprites/butterlfy.png");
-	damage->initWithFile("sprites/damage.png");
-	enemy->initWithFile("sprites/enemy.png");
-	enemyIndicator->initWithFile("sprites/enemy_indicator.png");
-	focus->initWithFile("sprites/focus.png");
-	hitbox->initWithFile("sprites/hitbox.png");
-	laser->initWithFile("sprites/laser.png");
-	mentos->initWithFile("sprites/mentos.png");
-	normalBullet->initWithFile("sprites/normal_bullet.png");
-	overlay->initWithFile("sprites/overlay.png");
-	player->initWithFile("sprites/player.png");
-	playerBullet->initWithFile("sprites/playerBullet.png");
-	spawn->initWithFile("sprites/spawn.png");
-	testBullet->initWithFile("sprites/test_bullet.png");
+	cocos2d::SpriteFrameCache::getInstance()->addSpriteFramesWithFile("sprites.plist");
+	
+	arrowhead->initWithSpriteFrameName("arrowhead");
+	bubble->initWithSpriteFrameName("bubble");
+	butterlfy->initWithSpriteFrameName("butterfly");
+	damage->initWithSpriteFrameName("damage");
+	enemy->initWithSpriteFrameName("enemy");
+	enemyIndicator->initWithSpriteFrameName("enemy_indicator");
+	focus->initWithSpriteFrameName("focus");
+	hitbox->initWithSpriteFrameName("hitbox");
+	laser->initWithSpriteFrameName("laser");
+	mentos->initWithSpriteFrameName("mentos");
+	normalBullet->initWithSpriteFrameName("normal_bullet");
+	overlay->initWithSpriteFrameName("overlay");
+	player->initWithSpriteFrameName("player");
+	playerBullet->initWithSpriteFrameName("player_bullet");
+	spawn->initWithSpriteFrameName("spawn");
+	testBullet->initWithSpriteFrameName("test_bullet");
 
 	initialized = true;
 }
@@ -50,37 +52,37 @@ cocos2d::Sprite* SpriteRepository::getSprite(SPRITE sprite)
 	switch (sprite)
 	{
 	case ARROWHEAD:
-		return cocos2d::Sprite::createWithTexture(arrowhead->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(arrowhead->getSpriteFrame());
 	case BUBBLE:
-		return cocos2d::Sprite::createWithTexture(bubble->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(bubble->getSpriteFrame());
 	case BUTTERFLY:
-		return cocos2d::Sprite::createWithTexture(butterlfy->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(butterlfy->getSpriteFrame());
 	case DAMAGE:
-		return cocos2d::Sprite::createWithTexture(damage->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(damage->getSpriteFrame());
 	case ENEMY:
-		return cocos2d::Sprite::createWithTexture(enemy->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(enemy->getSpriteFrame());
 	case ENEMY_INDICATOR:
-		return cocos2d::Sprite::createWithTexture(enemyIndicator->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(enemyIndicator->getSpriteFrame());
 	case FOCUS:
-		return cocos2d::Sprite::createWithTexture(focus->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(focus->getSpriteFrame());
 	case HITBOX:
-		return cocos2d::Sprite::createWithTexture(hitbox->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(hitbox->getSpriteFrame());
 	case LASER:
-		return cocos2d::Sprite::createWithTexture(laser->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(laser->getSpriteFrame());
 	case MENTOS:
-		return cocos2d::Sprite::createWithTexture(mentos->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(mentos->getSpriteFrame());
 	case NORMAL_BULLET:
-		return cocos2d::Sprite::createWithTexture(normalBullet->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(normalBullet->getSpriteFrame());
 	case OVERLAY:
-		return cocos2d::Sprite::createWithTexture(overlay->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(overlay->getSpriteFrame());
 	case PLAYER:
-		return cocos2d::Sprite::createWithTexture(player->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(player->getSpriteFrame());
 	case PLAYER_BULLET:
-		return cocos2d::Sprite::createWithTexture(playerBullet->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(playerBullet->getSpriteFrame());
 	case SPAWN:
-		return cocos2d::Sprite::createWithTexture(spawn->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(spawn->getSpriteFrame());
 	case TEST_BULLET:
-		return cocos2d::Sprite::createWithTexture(testBullet->getTexture());
+		return cocos2d::Sprite::createWithSpriteFrame(testBullet->getSpriteFrame());
 	default:
 		return nullptr;
 	}

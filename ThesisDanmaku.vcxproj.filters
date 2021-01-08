@@ -182,12 +182,6 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{dd533627-6215-477d-b98b-37299757ca4b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\fonts">
-      <UniqueIdentifier>{41326c17-afb7-4cf3-a60f-4b5ec80a36d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\sprites">
-      <UniqueIdentifier>{08eee430-b5b2-414e-92aa-07352b1cc927}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\sounds">
       <UniqueIdentifier>{ab92b9c1-2b87-4e1c-aee2-1693931f4f79}</UniqueIdentifier>
     </Filter>
@@ -209,14 +203,6 @@
     <Filter Include="Source\Scenes">
       <UniqueIdentifier>{6ef1f30a-4ea3-4256-bea3-58dead8d825e}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="Resources\fonts\arial.ttf">
-      <Filter>Resources\fonts</Filter>
-    </Font>
-    <Font Include="Resources\fonts\Marker Felt.ttf">
-      <Filter>Resources\fonts</Filter>
-    </Font>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Resources\sounds\back.mp3">
@@ -254,53 +240,18 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\sprites\arrowhead.png">
-      <Filter>Resources\sprites</Filter>
+    <Font Include="Resources\arial.ttf">
+      <Filter>Resources</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\sprites.png">
+      <Filter>Resources</Filter>
     </Image>
-    <Image Include="Resources\sprites\bubble.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\butterfly.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\damage.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\enemy.PNG">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\enemy_indicator.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\focus.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\hitbox.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\laser.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\mentos.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\normal_bullet.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\overlay.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\player.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\player_bullet.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\spawn.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
-    <Image Include="Resources\sprites\test_bullet.png">
-      <Filter>Resources\sprites</Filter>
-    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sprites.plist">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>

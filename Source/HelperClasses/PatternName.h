@@ -17,7 +17,7 @@ private:
 
 	const float MOVE_SPEED = 500.0f;
 	const float FONT_SIZE = 20.0f;
-	const std::string FONT_NAME = "fonts/arial.ttf";
+	const std::string FONT_NAME = "arial.ttf";
 	const cocos2d::Vec2 INIT_POS = cocos2d::Vec2(600, 100);
 	const cocos2d::Vec2 DEST_POS = cocos2d::Vec2(600, 850);
 };

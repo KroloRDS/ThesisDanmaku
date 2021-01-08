@@ -165,7 +165,7 @@ void GameScene::onContact(cocos2d::PhysicsBody* bodyA, cocos2d::PhysicsBody* bod
 		return;
 	}
 
-	//if (player->getIFrames() > 0.0f)
+	if (player->getIFrames() > 0.0f)
 	{
 		return;
 	}

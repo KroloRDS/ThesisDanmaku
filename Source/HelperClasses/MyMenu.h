@@ -25,7 +25,7 @@ protected:
 	const float DEFAULT_MENU_SCROLL_SPEED = 0.15f;
 	const float FAST_MENU_SCROLL_SPEED = 0.05f;
 	const float MENU_SCROLL_CUTOFF = 0.5f;
-	const std::string FONT_NAME = "fonts/arial.ttf";
+	const std::string FONT_NAME = "arial.ttf";
 	
 	const char* CONFIRM_SFX = "sounds/confirm.mp3";
 	const char* SELECT_SFX = "sounds/select.mp3";
