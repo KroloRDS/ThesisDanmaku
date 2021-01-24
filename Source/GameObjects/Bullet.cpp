@@ -106,7 +106,7 @@ void Bullet::createHitbox(int type)
 		body = createCircularHitbox(7.0f);
 		break;
 	case MENTOS:
-		body = createCircularHitbox(15.0f);
+		body = createCircularHitbox(13.0f);
 		break;
 	case BUBBLE:
 		body = createCircularHitbox(30.0f);
