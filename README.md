@@ -1,5 +1,5 @@
 # About
-Danmaku (Bullet Hell) video game I made for my engineering degree
+Danmaku (Bullet Hell) 2D video game I made for my engineering degree. The game consits of a brief sequence where you have to kill the enemy three times while dodging bullets. It's more of a tech demo, therefore it's a bit lacking on the graphics side (no backgrounds, basic copyright-free assets, etc.)
 
 Technologies used:
 * C++
